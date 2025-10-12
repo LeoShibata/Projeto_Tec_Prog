@@ -12,6 +12,10 @@ endif()
 
 configure_file(config.h.in config.h)
 
+if(WIN32)
+    set(SFML_DIR "C:/SFML-2.6.2/lib/cmake/SFML")
+endif()
+
 find_package(SFML 2.6 
   COMPONENTS 
     system window graphics network audio REQUIRED)
@@ -19,6 +23,11 @@ find_package(SFML 2.6
 add_executable(SFMLgame main.cpp)
 target_include_directories(SFMLgame 
   PRIVATE "${PROJECT_BINARY_DIR}")
-target_link_libraries(SFMLgame sfml-graphics)
+target_link_libraries(SFMLgame 
+  sfml-graphics 
+  sfml-window 
+  sfml-system 
+  sfml-audio 
+  sfml-network)
 
 install(TARGETS SFMLgame DESTINATION bin)
