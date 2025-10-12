@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\SFMLgame.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\SFMLgame.dir/objects.a @CMakeFiles\SFMLgame.dir\objects1.rsp
-C:\mingw64\bin\c++.exe -g -Wl,--whole-archive CMakeFiles\SFMLgame.dir/objects.a -Wl,--no-whole-archive -o SFMLgame.exe -Wl,--out-implib,libSFMLgame.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SFMLgame.dir\linkLibs.rsp
+/usr/bin/c++ -g CMakeFiles/SFMLgame.dir/main.cpp.o -o SFMLgame  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1 
