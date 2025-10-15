@@ -1,7 +1,0 @@
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/SFMLgame.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/edit_cache.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/rebuild_cache.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/list_install_components.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/install.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/install/local.dir
-C:/Users/Claudio/Documents/UTFPR/Projeto_Tec_Prog/Projeto_Tec_Prog/build/CMakeFiles/install/strip.dir
