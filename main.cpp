@@ -2,8 +2,8 @@
 
 int main(int argc, char const *argv[])
 {
-    sf::RenderWindow window(sf::VideoMode(1200,1600), "Hello From SFML");
-    sf::RectangleShape shape(sf::Vector2f(70.f , 70.f));
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Hello From SFML");
+    sf::RectangleShape shape(sf::Vector2f(70.f, 70.f));
     shape.setFillColor(sf::Color::Magenta);
     float vel_r = 3;
     float vel_l = 3;
