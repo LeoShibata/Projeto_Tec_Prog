@@ -17,9 +17,15 @@ find_package(SFML 2.6
   COMPONENTS
     system window graphics network audio REQUIRED)
 
-add_executable(SFMLgame main.cpp)
+# add_executable(SFMLgame src/main.cpp)
+
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
+add_executable(SFMLgame ${SRC_FILES})
+
 target_include_directories(SFMLgame
-  PRIVATE "${PROJECT_BINARY_DIR}")
+  PRIVATE 
+    include
+    "${PROJECT_BINARY_DIR}")
 
 # Link against SFML components using the imported targets
 target_link_libraries(SFMLgame
