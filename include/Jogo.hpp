@@ -2,14 +2,18 @@
 #define JOGO_HPP
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
-#include "Personagens/Jogador.hpp"
+#include <iostream>
+#include <vector>
+
+#include "Personagens/Jogador/Jogador.hpp"
+#include "Personagens/Personagem.hpp"
 
 class Jogo {
     private:
         sf::RenderWindow window;  
-        Jogador jogador;
+        std::vector<Personagem*> personagens;
+        // Jogador jogador;
 
     public:
         Jogo ();

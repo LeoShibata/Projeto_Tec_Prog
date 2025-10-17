@@ -1,34 +1,24 @@
-#include "Personagens/Jogador.hpp"
+#include "Personagens/Jogador/Jogador.hpp"
 
 Jogador::Jogador (const sf::Vector2f pos, const sf::Vector2f tam) :
-    corpo(sf::RectangleShape(tam))
-{
-    corpo.setPosition(pos);
-    corpo.setFillColor(sf::Color::Magenta);
-    inicializa();
-}
-
-Jogador::Jogador (const sf::RectangleShape corpo) :
-    corpo (corpo)
+    Personagem(pos, tam)
 {
     inicializa();
 }
 
 Jogador::Jogador() : 
-    corpo () 
+     Personagem(sf::Vector2f(50.f, 50.f), sf::Vector2f(50.f, 50.f)) 
 {
     inicializa();
 }
 
-Jogador::~Jogador() {
-
-}
+Jogador::~Jogador() { }
 
 void Jogador::inicializa() {
     vel = sf::Vector2f(0.6f, 0.6f);
 }
 
-const sf::RectangleShape Jogador::getCorpo() {
+const sf::RectangleShape& Jogador::getCorpo() const {
     return corpo;
 }
 
