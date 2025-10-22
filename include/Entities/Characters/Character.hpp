@@ -1,19 +1,25 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
-#include <SFML/Graphics.hpp>
+#include "Entities/Entity.hpp"
 
 namespace Characters {
-    class Character {
+    class Character : public Entity {
         protected:
-            sf::RectangleShape body;
-            sf::Vector2f velocity;
+	    int hp;
+	    const int max_hp;
+	
+	protected:
+	    void setHp(int hp);
+	    int getHp();
+
 
         public:
-            Character(const sf::Vector2f position, const sf::Vector2f size);
+            Character(float speed, const sf::Vector2f position, const sf::Vector2f size);
             virtual ~Character();
-            virtual const sf::RectangleShape& getBody() const;
-            virtual void move() = 0;;
+	    const int get_Maxhp() const;
+            virtual void move() = 0;
+	    virtual void execute() = 0;
     };
 }
 

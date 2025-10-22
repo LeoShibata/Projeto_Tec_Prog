@@ -1,21 +1,28 @@
-#include "Characters/Character.hpp"
+#include "Entities/Characters/Character.hpp"
 
 namespace Characters {
 
-Character::Character(const sf::Vector2f position, const sf::Vector2f size) {
-    body.setSize(size);
-    body.setPosition(position);
-    body.setFillColor(sf::Color::Green);
-    velocity = sf::Vector2f(0.f, 0.f);
-}
+   void Character::setHp(int life){
+      hp = life;
+   }
 
-Character::~Character() { }
+   int Character::getHp(){
+      return hp;
+   }
+   
+   const int Character::get_Maxhp() const{
+      return max_hp;
+   }
 
-const sf::RectangleShape& Character::getBody() const {
-    return body;
-}
+   Character::Character(float speed, const sf::Vector2f position, const sf::Vector2f size): Entity(speed, position, size),
+	max_hp(10), 
+	hp(max_hp){
+	
+   }
+   Character::~Character() { }
 
-}
+
+   }
 
 //------------------------------------------------------------
 
