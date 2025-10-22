@@ -12,10 +12,9 @@ namespace Characters {
 
         public:
             Player(const sf::Vector2f position, const sf::Vector2f size);
-            Player();
+            // Player();
             ~Player();
-            const sf::RectangleShape& getBody() const override;
-            void move() override;
+            void update() override;
     };
 }
 #endif
