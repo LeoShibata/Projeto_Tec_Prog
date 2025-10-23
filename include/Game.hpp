@@ -5,8 +5,10 @@
 #include <vector>
 
 #include <Managers/GraphicManager.hpp>
-#include "Characters/Player.hpp"
-#include "Characters/Character.hpp"
+#include "Being.hpp"
+#include "Entities/Entity.hpp"
+#include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Character.hpp"
 
 class Game {
     private:

@@ -1,15 +1,15 @@
-#include "Characters/Player.hpp"
+#include "Entities/Characters/Player.hpp"
 
 namespace Characters {
 
-Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
-    Character(position, size)
+Player::Player (float speed, const sf::Vector2f position, const sf::Vector2f size) :
+    Character(speed, position, size)
 {
     initialize();
 }
 
 Player::Player() : 
-     Character(sf::Vector2f(50.f, 50.f), sf::Vector2f(50.f, 50.f)) 
+     Character(1.f, sf::Vector2f(50.f, 50.f), sf::Vector2f(50.f, 50.f)) 
 {
     initialize();
 }
@@ -17,7 +17,7 @@ Player::Player() :
 Player::~Player() { }
 
 void Player::initialize() {
-    velocity = sf::Vector2f(0.6f, 0.6f);
+    velocity = sf::Vector2f(0.2f, 0.2f);
 }
 
 const sf::RectangleShape& Player::getBody() const {
@@ -49,5 +49,5 @@ void Player::move() {
         body.move(0.f, velocity.y);
     }
 }
-
+void Player::execute(){}
 }

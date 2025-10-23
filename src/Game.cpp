@@ -9,7 +9,7 @@ Game::Game() :
         exit(1);
     }
 
-    Characters::Player* player = new Characters::Player(sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
+    Characters::Player* player = new Characters::Player(2.f, sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
     Characters::Character* p1 = static_cast<Characters::Character*>(player);
     characters.push_back(p1);
 }   
