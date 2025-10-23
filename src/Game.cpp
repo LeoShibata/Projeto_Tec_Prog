@@ -30,8 +30,8 @@ void Game::run() {
         pEvent->run();
         pGraphic->clearWindow(); 
         for(int i = 0; i < characters.size(); i++) {
-            characters[i]->update();
-            pGraphic->drawElement(characters[i]->getBody());
+            characters[i]->execute();
+            characters[i]->draw();
         }
         pGraphic->showElements(); 
     }

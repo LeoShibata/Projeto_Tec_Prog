@@ -6,8 +6,11 @@
 
 #include "Managers/GraphicManager.hpp"
 #include "Managers/EventManager.hpp"
-#include "Characters/Player.hpp"
-#include "Characters/Character.hpp"
+
+#include "Being.hpp"
+
+#include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Character.hpp"
 
 class Game {
     private:

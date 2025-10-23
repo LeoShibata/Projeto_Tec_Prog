@@ -1,12 +1,11 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
-#include <SFML/Graphics.hpp>
+#include "Entities/Entity.hpp"
 
 namespace Characters {
-    class Character {
+    class Character : public Entity {
         protected:
-            sf::RectangleShape body;
             sf::Vector2f finalVelocity;
             bool canMove;
             bool isMovingLeft;
@@ -14,13 +13,13 @@ namespace Characters {
             float dt;
 
         public:
-            Character(const sf::Vector2f position, const sf::Vector2f size, const float velocity);
+            Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
             ~Character();
-            const sf::RectangleShape& getBody() const;
             void move(const bool isMovingLeft);
             void stop();
-            virtual void update() = 0;
             void updatePosition();
+            virtual void update() = 0;
+            void execute() override;
     };
 }
 

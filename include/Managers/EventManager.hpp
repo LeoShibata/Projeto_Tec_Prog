@@ -2,7 +2,7 @@
 #define GERENCIADOR_EVENTO_HPP
 
 #include "Managers/GraphicManager.hpp"
-#include "Characters/Player.hpp"
+#include "Entities/Characters/Player.hpp"
 
 namespace Managers {
     class EventManager {
