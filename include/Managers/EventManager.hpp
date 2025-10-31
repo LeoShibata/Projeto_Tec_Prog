@@ -1,5 +1,5 @@
-#ifndef GERENCIADOR_EVENTO_HPP
-#define GERENCIADOR_EVENTO_HPP
+#ifndef EVENTMANAGER_HPP
+#define EVENTMANAGER_HPP
 
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
