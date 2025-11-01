@@ -21,6 +21,14 @@ const int Being::getId() const {
     return id;
 }
 
+const sf::Vector2f Being::getPos() const {
+    return body.getPosition(); 
+}
+
+const sf::Vector2f Being::getSize() const {
+    return body.getSize();
+}
+
 void Being::draw() {
     pGraphic->drawElement(getBody()); //  try to use getbody after();
 }

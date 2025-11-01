@@ -1,6 +1,6 @@
 #include "Entities/Characters/Player.hpp"
 
-namespace Characters {
+namespace Entities::Characters {
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 200.f)
@@ -17,6 +17,12 @@ void Player::update() {
         updatePosition();
     }
     clock.restart();
+}
+
+void Player::collision(Entities::Entity* other) {
+    if(other->getId() == Entities::IDs::plataform) {
+        //
+    }
 }
 
 }

@@ -1,5 +1,7 @@
 #include "Entities/Entity.hpp"
 
+namespace Entities {
+
 void Entity::setSpeedmod(float spd) {
     speed_mod = spd;
 }
@@ -21,4 +23,6 @@ Entity::~Entity() { }
 
 sf::Vector2f Entity::getVelocity() {
     return velocity;
+}
+
 }

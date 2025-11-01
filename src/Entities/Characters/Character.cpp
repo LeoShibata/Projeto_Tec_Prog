@@ -1,6 +1,6 @@
 #include "Entities/Characters/Character.hpp"
 
-namespace Characters {
+namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
     Entity(speed, position, size),

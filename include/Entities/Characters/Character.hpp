@@ -3,7 +3,7 @@
 
 #include "Entities/Entity.hpp"
 
-namespace Characters {
+namespace Entities::Characters {
     class Character : public Entity {
         protected:
             sf::Vector2f finalVelocity;

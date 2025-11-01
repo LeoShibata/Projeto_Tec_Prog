@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Managers/GraphicManager.hpp"
 
-class Being{
+class Being {
     protected:  
         static Managers::GraphicManager* pGraphic;
         sf::RectangleShape body;
@@ -16,6 +16,8 @@ class Being{
         virtual ~Being();
         virtual const sf::RectangleShape& getBody() const;
         const int getId() const;
+        const sf::Vector2f getPos() const;
+        const sf::Vector2f getSize() const;
         virtual void execute() = 0; 
         void draw();
 };

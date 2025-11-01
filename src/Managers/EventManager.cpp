@@ -17,7 +17,7 @@ EventManager* EventManager::getEventManager() {
     return pEvent;
 }
 
-void EventManager::setPlayer(Characters::Player* pPlayer) {
+void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
     this->pPlayer = pPlayer;
 }
 
