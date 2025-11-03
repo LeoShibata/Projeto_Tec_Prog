@@ -1,32 +1,39 @@
 #include "Entities/Characters/Character.hpp"
 
-namespace Characters {
+namespace Entities::Characters {
 
-   void Character::setHp(int life){
-      hp = life;
-   }
+Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
+    Entity(speed, position, size),
+    finalVelocity(speed, 0.f),
+    canMove(false),
+    isMovingLeft(false),
+    dt(0.f)
+{
+    setVelocity(sf::Vector2f(0.f, 0.f));
+}
 
-   int Character::getHp(){
-      return hp;
-   }
-   
-   const int Character::get_Maxhp() const{
-      return max_hp;
-   }
+Character::~Character() { }
 
-   Character::Character(float speed, const sf::Vector2f position, const sf::Vector2f size): Entity(speed, position, size),
-	max_hp(10), 
-	hp(max_hp){
-	
-   }
-   Character::~Character() { }
+void Character::move(const bool isMovingLeft) {
+    canMove = true;
+    this->isMovingLeft = isMovingLeft;
+}
 
+void Character::stop() {
+    canMove = false;
+}
 
-   }
+void Character::updatePosition() {
+    dt = clock.getElapsedTime().asSeconds();
+    float ds = finalVelocity.x * dt;
+    if(isMovingLeft) {
+        ds *= -1;
+    }
+    body.move(ds, 0.f);
+}
 
-//------------------------------------------------------------
+void Character::execute() { 
+    this->update(); 
+}
 
-// void andar(const bool toLeft);
-// void stop();
-// virtual void updatePosition();
-// virtual void update() = 0;
+}

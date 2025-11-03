@@ -1,25 +1,28 @@
-// #ifndef GERENCIADOR_EVENTO_HPP
-// #define GERENCIADOR_EVENTO_HPP
+#ifndef EVENTMANAGER_HPP
+#define EVENTMANAGER_HPP
 
-// #include "Managers/GraphicManager.hpp"
-// #include "Characters/Player/Player.hpp"
+#include "Managers/GraphicManager.hpp"
+#include "Entities/Characters/Player.hpp"
 
-// class EventManager {
-//     private:
-//         GraphicManager* pGraphic;
-//         Player* pPlayer;
-//         static EventManager* pEvento;
-//         EventManager();
+namespace Managers {
+    class EventManager {
+        private:
+            Managers::GraphicManager* pGraphic;
+            Entities::Characters::Player* pPlayer;
+            
+            static EventManager* pEvent;
+            EventManager();
 
-//     public:
-//         ~EventManager();
+        public:
+            ~EventManager();
 
-//         static EventManager* getEventManager();
-//         void setPlayer(Jogador* pPlayer);
-        
-//         void isKeyPressed(sf::Keyboard::Key key);
-//         void isKeyReleased(sf::Keyboard::Key key);
-//         void run();
-// };
+            static EventManager* getEventManager();
+            void setPlayer(Entities::Characters::Player* pPlayer);
+            
+            void isKeyPressed(sf::Keyboard::Key key);
+            void isKeyReleased(sf::Keyboard::Key key);
+            void run();
+    };
+}
 
-// #endif
+#endif

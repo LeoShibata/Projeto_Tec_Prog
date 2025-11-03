@@ -1,46 +1,67 @@
 #include "Game.hpp"
+#include "Entities/Characters/Player.hpp"
 
 Game::Game() : 
-    characters(),
-    pGraphic(Managers::GraphicManager::getGraphicManager())
+    pGraphic(Managers::GraphicManager::getGraphicManager()),
+    pEvent(Managers::EventManager::getEventManager()),
+    pCollision(nullptr),
+    characterList(nullptr), 
+    obstacleList(nullptr)
 {   
     if(pGraphic == nullptr) {
         std::cout << "ERROR: Failed to create graphic manager." << std::endl;
         exit(1);
     }
 
-    Characters::Player* player = new Characters::Player(2.f, sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
-    Characters::Character* p1 = static_cast<Characters::Character*>(player);
-    characters.push_back(p1);
+    characterList = new List::EntityList();
+    obstacleList = new List::EntityList();
+
+    pCollision = new Managers::CollisionManager(characterList, obstacleList);
+
+    Entities::Characters::Player* player = new Entities::Characters::Player(sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
+    
+    characterList->addEntity(player);
+
+    pEvent->setPlayer(player);
 }   
 
 Game::~Game() {
-    for (int i = 0; i < characters.size(); i++) {
-        delete characters[i];
+    if(pCollision) {
+        delete pCollision;
+        pCollision = nullptr;
     }
-    characters.clear();
+
+    if(characterList) {
+        int size = characterList->getSize();
+        for(int i = 0; i < size; i++) {
+            Entities::Entity* ent = (*characterList)[i];
+            if(ent)    
+                delete ent;
+        }
+        delete characterList;   
+        characterList = nullptr;
+    }
+
+    if(obstacleList) {
+        int size = obstacleList->getSize();
+        for(int i = 0; i < size; i++) {
+            Entities::Entity* ent = (*obstacleList)[i];
+            if(ent)
+                delete ent;
+        }
+        delete obstacleList;
+        obstacleList = nullptr;
+    }
 }
 
 void Game::run() {
     while (pGraphic->isWindowOpen())
     {
-        sf::Event event;
-        while(pGraphic->getWindow()->pollEvent(event))
-        {
-            if(event.type == sf::Event::Closed)
-                pGraphic->closeWindow(); 
-
-            else if(event.type == sf::Event::KeyPressed 
-                && event.key.code == sf::Keyboard::Escape)
-                pGraphic->closeWindow();
-	    }
-
+        pEvent->run();
+        pCollision->run();
         pGraphic->clearWindow(); 
-        for(int i = 0; i < characters.size(); i++) {
-            characters[i]->move();
-            pGraphic->drawElement(characters[i]->getBody());
-        }
+        characterList->run(pGraphic->getWindow());
+        obstacleList->run(pGraphic->getWindow());
         pGraphic->showElements(); 
     }
-    characters.clear();
 }   

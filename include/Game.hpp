@@ -2,18 +2,22 @@
 #define GAME_HPP
 
 #include <iostream>
-#include <vector>
 
-#include <Managers/GraphicManager.hpp>
+#include "Managers/GraphicManager.hpp"
+#include "Managers/EventManager.hpp"
+#include "Managers/CollisionManager.hpp"
+
 #include "Being.hpp"
-#include "Entities/Entity.hpp"
-#include "Entities/Characters/Player.hpp"
-#include "Entities/Characters/Character.hpp"
+#include "List/EntityList.hpp"
 
 class Game {
     private:
-        Managers::GraphicManager* pGraphic; 
-        std::vector<Characters::Character*> characters;
+        Managers::GraphicManager* pGraphic;
+        Managers::EventManager* pEvent; 
+        Managers::CollisionManager* pCollision;
+
+        List::EntityList* characterList;
+        List::EntityList* obstacleList;
 
     public:
         Game();

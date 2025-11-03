@@ -3,20 +3,17 @@
 
 #include "Entities/Characters/Character.hpp"
 
-#include <iostream>
-
-namespace Characters {
+namespace Entities::Characters {
     class Player : public Character {
         private:
             void initialize();
 
         public:
-            Player(float speed, const sf::Vector2f position, const sf::Vector2f size);
-            Player();
+            Player(const sf::Vector2f position, const sf::Vector2f size);
             ~Player();
-            const sf::RectangleShape& getBody() const override;
-            void move() override;
-	    void execute() override;
+            void update() override;
+            void collision(Entities::Entity* other) override;
     };
 }
+
 #endif

@@ -3,23 +3,23 @@
 
 #include "Entities/Entity.hpp"
 
-namespace Characters {
+namespace Entities::Characters {
     class Character : public Entity {
         protected:
-	    int hp;
-	    const int max_hp;
-	
-	protected:
-	    void setHp(int hp);
-	    int getHp();
-
+            sf::Vector2f finalVelocity;
+            bool canMove;
+            bool isMovingLeft;
+            sf::Clock clock;
+            float dt;
 
         public:
-            Character(float speed, const sf::Vector2f position, const sf::Vector2f size);
-            virtual ~Character();
-	    const int get_Maxhp() const;
-            virtual void move() = 0;
-	    virtual void execute() = 0;
+            Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
+            ~Character();
+            void move(const bool isMovingLeft);
+            void stop();
+            void updatePosition();
+            virtual void update() = 0;
+            void execute() override;
     };
 }
 
