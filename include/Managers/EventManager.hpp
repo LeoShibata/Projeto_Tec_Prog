@@ -19,8 +19,8 @@ namespace Managers {
             static EventManager* getEventManager();
             void setPlayer(Entities::Characters::Player* pPlayer);
             
-            void isKeyPressed(sf::Keyboard::Key key);
-            void isKeyReleased(sf::Keyboard::Key key);
+            void handleKeyPressed(sf::Keyboard::Key key);
+            void handleKeyReleased(sf::Keyboard::Key key);
             void run();
     };
 }
