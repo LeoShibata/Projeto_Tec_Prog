@@ -48,8 +48,6 @@ void EventManager::run() {
         pPlayer->startMovingRight();
     else 
         pPlayer->stopMoving();
-        
-    pPlayer->move();
 }
 
 }

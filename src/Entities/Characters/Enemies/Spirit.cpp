@@ -16,10 +16,6 @@ Spirit::~Spirit() { }
 
 void Spirit::initialize() { }
 
-void Spirit::move() {
-    body.move(velocity);
-}
-
 void Spirit::followPlayer(sf::Vector2f playerPos){
     if(playerPos.x > body.getPosition().x) {
         velocity.x = speed_mod*soul;
@@ -31,6 +27,10 @@ void Spirit::followPlayer(sf::Vector2f playerPos){
     } else {
         velocity.y = -speed_mod*soul;
     }
+}
+
+void Spirit::move() {
+    body.move(velocity);
 }
 
 void Spirit::update() {

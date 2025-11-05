@@ -33,7 +33,22 @@ void Player::move(){
     clock.restart();
 }
 
-void Player::update() { }
+void Player::update() {
+    if(canMove) {
+        if(isMovingLeft) {
+            velocity.x = -speed_mod;
+        } else {
+            velocity.x = speed_mod;
+        }
+    } else {
+        velocity.x = 0.f;
+    }
+}
+
+void Player::execute() {
+    update();
+    move();
+}
 
 void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
     switch(other->getTypeId()) {

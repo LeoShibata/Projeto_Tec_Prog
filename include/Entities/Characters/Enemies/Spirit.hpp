@@ -19,9 +19,9 @@ namespace Entities::Characters {
             void movementPattern();
             void followPlayer(sf::Vector2f playerPos);
             
+            void move() override;
             void update () override;
             void execute() override;
-            void move() override;
             void collision(Entities::Entity* other, sf::Vector2f ds) override;
     };
 }
