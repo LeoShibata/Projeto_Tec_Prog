@@ -14,12 +14,14 @@ class Being {
     public:
         Being(sf::Vector2f size);
         virtual ~Being();
+
         virtual const sf::RectangleShape& getBody() const;
         const int getId() const;
         const sf::Vector2f getPos() const;
         const sf::Vector2f getSize() const;
-        virtual void execute() = 0; 
         void draw();
+
+        virtual void execute() = 0; 
 };
 
 #endif

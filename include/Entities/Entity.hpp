@@ -15,10 +15,8 @@ namespace Entities {
 
     class Entity : public Being {
         protected:
-            //sf::Vector2f position;
             sf::Vector2f velocity;
             float speed_mod;
-            //buffer ostream
 
         protected:
             void setSpeedmod(float spd);
@@ -27,9 +25,11 @@ namespace Entities {
         public:
             Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
+            
             float getSpeedmod();
-            virtual void update() = 0;
             sf::Vector2f getVelocity();
+            
+            virtual void update() = 0;
             virtual void collision(Entity* other) = 0;
     };
 }

@@ -21,6 +21,10 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
 
 Entity::~Entity() { }
 
+float Entity::getSpeedmod() {
+    return speed_mod;
+}
+
 sf::Vector2f Entity::getVelocity() {
     return velocity;
 }

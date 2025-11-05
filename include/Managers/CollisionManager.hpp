@@ -15,6 +15,7 @@ namespace Managers {
         public:
             CollisionManager(List::EntityList* characterList, List::EntityList* obstacleList);
             ~CollisionManager();
+            
             const sf::Vector2f collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2);
             void run();
     };

@@ -12,6 +12,7 @@ namespace List {
         public:
             EntityList();
             ~EntityList();
+            
             void addEntity(Entities::Entity* entity);
             void removeEntity(Entities::Entity* entity);
             void removeEntity(int pos);

@@ -9,6 +9,8 @@ namespace Managers {
         private:
             sf::RenderWindow* window;
             static GraphicManager* pGraphic;
+            
+        private:    
             GraphicManager();
 
         public:

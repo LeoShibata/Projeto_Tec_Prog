@@ -3,8 +3,7 @@
 namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
-    Entity(position, size, speed),
-    velocity(speed, 0.f),
+    Entity(speed, position, size),
     canMove(false),
     isMovingLeft(false),
     dt(0.f)
@@ -13,6 +12,20 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
 }
 
 Character::~Character() { }
+
+void Character::startMovingLeft() {
+    canMove = true;
+    isMovingLeft = true;
+}
+
+void Character::startMovingRight() {
+    canMove = true;
+    isMovingLeft = false;
+}
+
+void Character::stopMoving() {
+    canMove = false;
+}
 
 void Character::execute() { 
     this->update(); 

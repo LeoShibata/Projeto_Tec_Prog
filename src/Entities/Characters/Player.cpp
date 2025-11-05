@@ -4,38 +4,30 @@
 using namespace std;
 namespace Entities::Characters {
 
+void Player::initialize() { }
+
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 200.f)
 {
     initialize();
-    speed_mod = 10.f;
-    cout << "teste" << endl;
+    speed_mod = 300.f;
 }
 
 Player::~Player() { }
 
-void Player::moveLeft(){
-    velocity.x = -speed_mod;
-        cout << "teste1" << endl;
-        move();
-
-}
-
-void Player::moveRight(){
-    velocity.x = speed_mod;
-        cout << "teste2" << endl;
-        move();
-}
-
 void Player::move(){
-    body.move(velocity);
+    dt = clock.getElapsedTime().asSeconds();
+    if(canMove) {
+        float ds = speed_mod * dt;
+        if(isMovingLeft) {
+            ds *= -1;
+        }
+        body.move(ds, 0.f);
+    }
+    clock.restart();
 }
 
-void Player::initialize() { }
-
-void Player::update() {
-
-}
+void Player::update() { }
 
 void Player::collision(Entities::Entity* other) {
     if(other->getId() == Entities::IDs::plataform) {
