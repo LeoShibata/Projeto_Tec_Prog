@@ -18,7 +18,6 @@ namespace Entities::Characters {
 
             void move() override;
             void update() override;
-            void move() override;
             void collision(Entities::Entity* other) override;
             
     };

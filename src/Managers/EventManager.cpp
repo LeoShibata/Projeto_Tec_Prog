@@ -21,6 +21,10 @@ void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
     this->pPlayer = pPlayer;
 }
 
+void EventManager::setSpirit(Entities::Characters::Spirit* pSpirit) {
+    this->pSpirit = pSpirit;
+}
+
 void EventManager::handleKeyPressed(sf::Keyboard::Key key) {
     // 
 }
@@ -38,7 +42,6 @@ void EventManager::run() {
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
 
-        pSpirit->followPlayer(pPlayer->getPos());
 
     }
 
@@ -53,6 +56,7 @@ void EventManager::run() {
         pPlayer->stopMoving();
         
     pPlayer->move();
+    pSpirit->followPlayer(pPlayer->getPos());
 }
 
 }

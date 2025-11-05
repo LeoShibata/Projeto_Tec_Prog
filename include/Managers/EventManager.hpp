@@ -22,6 +22,7 @@ namespace Managers {
 
             static EventManager* getEventManager();
             void setPlayer(Entities::Characters::Player* pPlayer);
+            void setSpirit(Entities::Characters::Spirit* pSpirit);
             
             void handleKeyPressed(sf::Keyboard::Key key);
             void handleKeyReleased(sf::Keyboard::Key key);
