@@ -23,9 +23,9 @@ void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
 
 void EventManager::isKeyPressed(sf::Keyboard::Key key) {
     if(key == sf::Keyboard::A || key == sf::Keyboard::Left)
-        pPlayer->move(true);
+        pPlayer->moveLeft();
     else if(key == sf::Keyboard::D || key == sf::Keyboard::Right)
-        pPlayer->move(false);
+        pPlayer->moveRight();
     else if(key == sf::Keyboard::Escape)
         pGraphic->closeWindow();
 }
@@ -33,7 +33,7 @@ void EventManager::isKeyPressed(sf::Keyboard::Key key) {
 void EventManager::isKeyReleased(sf::Keyboard::Key key) {
     if(key == sf::Keyboard::A || key == sf::Keyboard::D || 
         key == sf::Keyboard::Left || key == sf::Keyboard::Right) 
-        pPlayer->stop();
+        pPlayer->move();
 }
 
 void EventManager::run() {
@@ -46,6 +46,8 @@ void EventManager::run() {
             isKeyReleased(event.key.code);
         else if(event.type == sf::Event::Closed)
             pGraphic->closeWindow();
+        pPlayer->move();
+
     }
 }
 
