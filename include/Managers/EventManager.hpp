@@ -3,7 +3,7 @@
 
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
-#include "Entities/Characters/Spirit.hpp"
+#include "Entities/Characters/Enemies/Spirit.hpp"
 
 namespace Managers {
     class EventManager {

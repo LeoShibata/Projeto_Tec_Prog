@@ -18,7 +18,9 @@ namespace List {
             void removeEntity(int pos);
             int getSize();
             Entities::Entity* operator[](int pos);
-            void run(sf::RenderWindow* window);
+            // void run(sf::RenderWindow* window);
+            void executeAll();
+            void drawAll(sf::RenderWindow* window);
     };
 }
 

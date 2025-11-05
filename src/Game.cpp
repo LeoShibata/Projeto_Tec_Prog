@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "Entities/Characters/Player.hpp"
-#include "Entities/Characters/Spirit.hpp"
+#include "Entities/Characters/Enemies/Spirit.hpp"
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
@@ -60,10 +60,15 @@ void Game::run() {
     while (pGraphic->isWindowOpen())
     {
         pEvent->run();
+
+        characterList->executeAll();
+        obstacleList->executeAll();
+
         pCollision->run();
+        
         pGraphic->clearWindow(); 
-        characterList->run(pGraphic->getWindow());
-        obstacleList->run(pGraphic->getWindow());
+        characterList->drawAll(pGraphic->getWindow());
+        obstacleList->drawAll(pGraphic->getWindow());
         pGraphic->showElements(); 
     }
 }   

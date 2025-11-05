@@ -30,12 +30,30 @@ Entities::Entity* EntityList::operator[](int pos) {
     return objEntityList.operator[](pos);
 }
 
-void EntityList::run(sf::RenderWindow* window) {
+// void EntityList::run(sf::RenderWindow* window) {
+//     int size = objEntityList.getSize();
+//     Entities::Entity* aux = nullptr;
+//     for(int i = 0; i < size; i++) {
+//         aux = objEntityList.operator[](i);
+//         aux->execute();
+//         window->draw(aux->getBody());
+//     }
+// }
+
+void EntityList::executeAll() {
     int size = objEntityList.getSize();
     Entities::Entity* aux = nullptr;
     for(int i = 0; i < size; i++) {
         aux = objEntityList.operator[](i);
         aux->execute();
+    }
+}
+
+void EntityList::drawAll(sf::RenderWindow* window) {
+    int size = objEntityList.getSize();
+    Entities::Entity* aux = nullptr;
+    for(int i = 0; i < size; i++) {
+        aux = objEntityList.operator[](i);
         window->draw(aux->getBody());
     }
 }

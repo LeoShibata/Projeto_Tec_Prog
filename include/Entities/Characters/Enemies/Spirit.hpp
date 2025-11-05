@@ -1,20 +1,28 @@
 #ifndef SPIRIT_HPP
 #define SPIRIT_HPP
 
-#include "Entities/Characters/Enemies/Enemy.hpp"
+#include "Entities/Characters/Enemies/Enemies.hpp"
 
 namespace Entities::Characters {
-    class Spirit : public Enemy {
+    class Spirit : public Enemies {
+        
+        private:
+            float soul;
+
         private:
             void initialize();
 
         public:
-            Spirit(const sf::Vector2f position, const sf::Vector2f size);
-            virtual ~Spirit();
-
+            Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade);
+            ~Spirit();
+            
+            void movementPattern();
+            void followPlayer(sf::Vector2f playerPos);
+            
+            void execute() override;
+            void update () override;
             void move() override;
-            void update() override;
-            void collision(Entities::Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) override;
+            void collision(Entities::Entity* other, sf::Vector2f ds) override;
     };
 }
 

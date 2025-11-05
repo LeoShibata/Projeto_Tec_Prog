@@ -13,11 +13,11 @@ void Entity::setVelocity(sf::Vector2f vel) {
 Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     Being(size), 
     speed_mod(speed)
-    {
-        body.setPosition(position);
-        body.setFillColor(sf::Color::Green);
-        velocity = sf::Vector2f(0.f, 0.f);
-    }
+{
+    body.setPosition(position);
+    body.setFillColor(sf::Color::Green);
+    velocity = sf::Vector2f(0.f, 0.f);
+}
 
 Entity::~Entity() { }
 

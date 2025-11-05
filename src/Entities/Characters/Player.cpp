@@ -1,7 +1,8 @@
 #include "Entities/Characters/Player.hpp"
-#include <stdio.h>
 
+#include <iostream>
 using namespace std;
+
 namespace Entities::Characters {
 
 void Player::initialize() { }
@@ -35,10 +36,9 @@ void Player::update() { }
 
 void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
     switch(other->getId()) {
-        case(Entities::IDs::platform): 
-        {
-            
-        }
+        case(Entities::IDs::enemy) :
+            cout << "Player collided with enemy!" << endl;
+            break;
     }
 }
 
