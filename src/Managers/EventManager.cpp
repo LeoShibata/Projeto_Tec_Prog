@@ -31,10 +31,8 @@ void EventManager::isKeyPressed(sf::Keyboard::Key key) {
 }
 
 void EventManager::isKeyReleased(sf::Keyboard::Key key) {
-    if(key == sf::Keyboard::A || key == sf::Keyboard::D || 
-        key == sf::Keyboard::Left || key == sf::Keyboard::Right) 
-        pPlayer->move();
-}
+    
+    }
 
 void EventManager::run() {
     sf::Event event;
@@ -46,8 +44,6 @@ void EventManager::run() {
             isKeyReleased(event.key.code);
         else if(event.type == sf::Event::Closed)
             pGraphic->closeWindow();
-        pPlayer->move();
-
     }
 }
 
