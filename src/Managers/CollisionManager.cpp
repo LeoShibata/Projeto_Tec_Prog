@@ -31,6 +31,7 @@ const sf::Vector2f CollisionManager::collisionDetection(Entities::Entity* ent1, 
 }
 
 void CollisionManager::run() {
+    // character vs character
     for(int i = 0; i < characterList->getSize() - 1; i++) {
         Entities::Entity* ent1 = characterList->operator[](i);
         for(int j = i + 1; j < characterList->getSize(); j++) {
@@ -38,10 +39,12 @@ void CollisionManager::run() {
             sf::Vector2f ds = collisionDetection(ent1, ent2); 
             if(ds.x < 0.f && ds.y < 0.f) {
                 ent1->collision(ent2, ds);
+                ent2->collision(ent1, ds);
             }
         }
     }
 
+    // character vs obstacle
     for(int i = 0; i < characterList->getSize(); i++) {
         Entities::Entity* ent1 = characterList->operator[](i);
         for(int j = 0; j < obstacleList->getSize(); j++) {

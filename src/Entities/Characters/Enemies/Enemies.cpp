@@ -12,6 +12,7 @@ Enemies::Enemies(const sf::Vector2f position, const sf::Vector2f size, int malda
     nivel_maldade(maldade) 
 {
     initialize();
+    typeId = IDs::enemy;
 }
 
 Enemies::~Enemies() { }

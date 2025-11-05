@@ -11,6 +11,7 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 200.f)
 {
     initialize();
+    typeId = IDs::player;
     speed_mod = 300.f;
 }
 
@@ -35,7 +36,7 @@ void Player::move(){
 void Player::update() { }
 
 void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
-    switch(other->getId()) {
+    switch(other->getTypeId()) {
         case(Entities::IDs::enemy) :
             cout << "Player collided with enemy!" << endl;
             break;

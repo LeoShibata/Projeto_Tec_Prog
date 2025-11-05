@@ -16,6 +16,7 @@ namespace Entities {
 
     class Entity : public Being {
         protected:
+            IDs::IDs typeId;
             sf::Vector2f velocity;
             float speed_mod;
 
@@ -29,6 +30,7 @@ namespace Entities {
             
             float getSpeedmod();
             sf::Vector2f getVelocity();
+            virtual IDs::IDs getTypeId() const;
             
             virtual void update() = 0;
             virtual void collision(Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) = 0;

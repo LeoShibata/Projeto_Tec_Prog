@@ -29,4 +29,8 @@ sf::Vector2f Entity::getVelocity() {
     return velocity;
 }
 
+IDs::IDs Entity::getTypeId() const {
+    return typeId;
+}
+
 }
