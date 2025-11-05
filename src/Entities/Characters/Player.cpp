@@ -1,5 +1,7 @@
 #include "Entities/Characters/Player.hpp"
+#include <stdio.h>
 
+using namespace std;
 namespace Entities::Characters {
 
 void Player::initialize() { }

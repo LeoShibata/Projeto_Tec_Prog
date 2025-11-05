@@ -10,7 +10,7 @@ void Entity::setVelocity(sf::Vector2f vel) {
     velocity = vel;
 }
 
-Entity::Entity(float speed, sf::Vector2f position, sf::Vector2f size) :
+Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     Being(size), 
     speed_mod(speed)
     {
