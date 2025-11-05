@@ -3,13 +3,15 @@
 
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Spirit.hpp"
 
 namespace Managers {
     class EventManager {
         private:
             Managers::GraphicManager* pGraphic;
             Entities::Characters::Player* pPlayer;
-            
+            Entities::Characters::Spirit* pSpirit;
+
             static EventManager* pEvent;
         
         private:

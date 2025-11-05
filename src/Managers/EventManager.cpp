@@ -37,6 +37,9 @@ void EventManager::run() {
             pGraphic->closeWindow();
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
+
+        pSpirit->followPlayer(pPlayer->getPos());
+
     }
 
     if(pPlayer == nullptr)
