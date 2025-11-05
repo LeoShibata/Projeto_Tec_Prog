@@ -18,13 +18,18 @@ Game::Game() :
     obstacleList = new List::EntityList();
 
     pCollision = new Managers::CollisionManager(characterList, obstacleList);
+
     int maldade =10;
+
     Entities::Characters::Player* player = new Entities::Characters::Player(sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
     Entities::Characters::Spirit* spirit = new Entities::Characters::Spirit(sf::Vector2f(0.f, 0.f), sf::Vector2f(30.f, 30.f), maldade);
+    
     characterList->addEntity(player);
     characterList->addEntity(spirit);    
+    
     pEvent->setPlayer(player);
-    pEvent->setSpirit(spirit);
+
+    Entities::Characters::Enemies::setPlayer(player);
 }   
 
 Game::~Game() {

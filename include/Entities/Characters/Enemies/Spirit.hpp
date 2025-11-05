@@ -11,7 +11,7 @@ namespace Entities::Characters {
 
         private:
             void initialize();
-
+            
         public:
             Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Spirit();
@@ -19,8 +19,8 @@ namespace Entities::Characters {
             void movementPattern();
             void followPlayer(sf::Vector2f playerPos);
             
-            void execute() override;
             void update () override;
+            void execute() override;
             void move() override;
             void collision(Entities::Entity* other, sf::Vector2f ds) override;
     };

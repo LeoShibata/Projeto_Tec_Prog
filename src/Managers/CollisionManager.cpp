@@ -37,7 +37,7 @@ void CollisionManager::run() {
             Entities::Entity* ent2 = characterList->operator[](j);
             sf::Vector2f ds = collisionDetection(ent1, ent2); 
             if(ds.x < 0.f && ds.y < 0.f) {
-                ent1->collision(ent2);
+                ent1->collision(ent2, ds);
             }
         }
     }

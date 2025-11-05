@@ -9,17 +9,21 @@ namespace Entities::Characters {
         private:
             int nivel_maldade;
 
+        protected:
+            static Player* pPlayer;
+
         private:
             void initialize();
 
         protected:
-            void playerCollide(Player *pPLayer);
+            void playerCollide(Player* pPlayer);
 
         public:
             Enemies(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Enemies();
 
-            void damaging (Player *pPlayer);
+            static void setPlayer(Player* p);
+            void damaging (Player* pPlayer);
             
             virtual void update() = 0;
             virtual void execute() = 0;
