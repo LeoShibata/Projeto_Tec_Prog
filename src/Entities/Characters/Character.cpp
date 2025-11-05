@@ -3,7 +3,7 @@
 namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
-    Entity(speed, position, size),
+    Entity(position, size, speed),
     velocity(speed, 0.f),
     canMove(false),
     isMovingLeft(false),

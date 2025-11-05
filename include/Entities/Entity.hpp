@@ -25,7 +25,7 @@ namespace Entities {
             void setVelocity(sf::Vector2f vel);
 
         public:
-            Entity(float speed, sf::Vector2f position, sf::Vector2f size);
+            Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
             float getSpeedmod();
             virtual void update() = 0;

@@ -3,13 +3,15 @@
 
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Spirit.hpp"
 
 namespace Managers {
     class EventManager {
         private:
             Managers::GraphicManager* pGraphic;
             Entities::Characters::Player* pPlayer;
-            
+            Entities::Characters::Spirit* pSpirit;
+
             static EventManager* pEvent;
             EventManager();
 
@@ -18,7 +20,8 @@ namespace Managers {
 
             static EventManager* getEventManager();
             void setPlayer(Entities::Characters::Player* pPlayer);
-            
+            void setSpirit(Entities::Characters::Spirit* pSpirit);
+
             void isKeyPressed(sf::Keyboard::Key key);
             void isKeyReleased(sf::Keyboard::Key key);
             void run();

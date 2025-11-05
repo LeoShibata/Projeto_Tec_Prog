@@ -3,7 +3,7 @@
 namespace Entities::Characters{
     
 Enemies::Enemies(const sf::Vector2f position, const sf::Vector2f size, int maldade):    
-Character(position, size, 200.f){
+Character(position, size, 10.f), nivel_maldade(maldade) {
 
     initialize();
 
@@ -11,7 +11,11 @@ Character(position, size, 200.f){
 Enemies::~Enemies(){
 
 }
+void Enemies::initialize(){}
 
-void
+void Enemies::playerCollide(Player *pPlayer){}
+
+void Enemies::damaging(Player *pPlayer){}
+
 
 }
