@@ -11,6 +11,8 @@ namespace Managers {
             Entities::Characters::Player* pPlayer;
             
             static EventManager* pEvent;
+        
+        private:
             EventManager();
 
         public:

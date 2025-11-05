@@ -6,19 +6,22 @@
 namespace Entities::Characters {
     class Character : public Entity {
         protected:
-            sf::Vector2f finalVelocity;
-            bool canMove;
-            bool isMovingLeft;
             sf::Clock clock;
             float dt;
+            bool canMove;
+            bool isMovingLeft;
 
         public:
             Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
-            ~Character();
-            void move(const bool isMovingLeft);
-            void stop();
-            void updatePosition();
+            virtual ~Character();
+
+            void startMovingLeft();
+            void startMovingRight();
+            void stopMoving();
+
+            virtual void move() = 0;
             virtual void update() = 0;
+            
             void execute() override;
     };
 }

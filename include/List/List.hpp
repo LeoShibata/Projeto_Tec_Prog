@@ -14,6 +14,7 @@ namespace List {
         public:
             List();
             ~List();
+            
             void addElement(TL* element);
             void removeElement(TL* element);
             void removeElement(int pos);

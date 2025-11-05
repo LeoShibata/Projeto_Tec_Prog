@@ -21,11 +21,11 @@ void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
     this->pPlayer = pPlayer;
 }
 
-void EventManager::isKeyPressed(sf::Keyboard::Key key) {
+void EventManager::handleKeyPressed(sf::Keyboard::Key key) {
     // 
 }
 
-void EventManager::isKeyReleased(sf::Keyboard::Key key) {
+void EventManager::handleKeyReleased(sf::Keyboard::Key key) {
     // 
 }
 
@@ -39,12 +39,17 @@ void EventManager::run() {
             pGraphic->closeWindow();
     }
 
+    if(pPlayer == nullptr)
+        return;
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        pPlayer->move(true);
+        pPlayer->startMovingLeft();
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        pPlayer->move(false);    
+        pPlayer->startMovingRight();
     else 
-        pPlayer->stop();
+        pPlayer->stopMoving();
+        
+    pPlayer->move();
 }
 
 }
