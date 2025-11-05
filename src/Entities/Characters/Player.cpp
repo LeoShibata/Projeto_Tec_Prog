@@ -13,6 +13,10 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
 
 Player::~Player() { }
 
+void Player::jump() {
+    
+}
+
 void Player::move(){
     dt = clock.getElapsedTime().asSeconds();
     if(canMove) {
@@ -27,9 +31,12 @@ void Player::move(){
 
 void Player::update() { }
 
-void Player::collision(Entities::Entity* other) {
-    if(other->getId() == Entities::IDs::plataform) {
-        //
+void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
+    switch(other->getId()) {
+        case(Entities::IDs::platform): 
+        {
+            
+        }
     }
 }
 

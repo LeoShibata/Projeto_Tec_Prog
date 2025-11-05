@@ -6,10 +6,11 @@
 namespace Entities {
     namespace IDs {
         enum IDs {
+            empty = 0,
             player,
             enemy,
-            obstacles,
-            plataform
+            obstacle,
+            platform
         };
     }
 
@@ -30,7 +31,7 @@ namespace Entities {
             sf::Vector2f getVelocity();
             
             virtual void update() = 0;
-            virtual void collision(Entity* other) = 0;
+            virtual void collision(Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) = 0;
     };
 }
 

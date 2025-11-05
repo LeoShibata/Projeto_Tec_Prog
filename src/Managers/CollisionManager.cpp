@@ -48,11 +48,7 @@ void CollisionManager::run() {
             Entities::Entity* ent2 = obstacleList->operator[](j);
             sf::Vector2f ds = collisionDetection(ent1, ent2); 
             if(ds.x < 0.f && ds.y < 0.f) {
-                if(ent2->getId() == Entities::IDs::IDs::plataform) {
-                    ent1->collision(ent2);
-                } else {
-                    //
-                }
+                ent2->collision(ent1, ds);
             }
         }
     }
