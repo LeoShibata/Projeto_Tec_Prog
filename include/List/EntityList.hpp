@@ -12,12 +12,14 @@ namespace List {
         public:
             EntityList();
             ~EntityList();
+            
             void addEntity(Entities::Entity* entity);
             void removeEntity(Entities::Entity* entity);
             void removeEntity(int pos);
             int getSize();
             Entities::Entity* operator[](int pos);
-            void run(sf::RenderWindow* window);
+            void executeAll();
+            void drawAll(sf::RenderWindow* window);
     };
 }
 

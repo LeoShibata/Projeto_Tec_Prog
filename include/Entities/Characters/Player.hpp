@@ -14,12 +14,14 @@ namespace Entities::Characters {
 
         public:
             Player(const sf::Vector2f position, const sf::Vector2f size);
-            ~Player();
-            void update() override;
+            virtual ~Player();
+
+            void jump();
+
             void move() override;
-            void collision(Entities::Entity* other) override;
-            void moveLeft();
-            void moveRight();
+            void update() override;
+            void execute() override;
+            void collision(Entities::Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) override;
     };
 }
 

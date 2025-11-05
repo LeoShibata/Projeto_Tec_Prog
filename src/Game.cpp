@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Enemies/Spirit.hpp"
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
@@ -18,11 +19,17 @@ Game::Game() :
 
     pCollision = new Managers::CollisionManager(characterList, obstacleList);
 
+    int maldade =10;
+
     Entities::Characters::Player* player = new Entities::Characters::Player(sf::Vector2f(100.f, 200.f), sf::Vector2f(50.f, 50.f));
+    Entities::Characters::Spirit* spirit = new Entities::Characters::Spirit(sf::Vector2f(0.f, 0.f), sf::Vector2f(30.f, 30.f), maldade);
     
     characterList->addEntity(player);
-
+    characterList->addEntity(spirit);    
+    
     pEvent->setPlayer(player);
+
+    Entities::Characters::Enemies::setPlayer(player);
 }   
 
 Game::~Game() {
@@ -58,10 +65,15 @@ void Game::run() {
     while (pGraphic->isWindowOpen())
     {
         pEvent->run();
+
+        characterList->executeAll();
+        obstacleList->executeAll();
+
         pCollision->run();
+        
         pGraphic->clearWindow(); 
-        characterList->run(pGraphic->getWindow());
-        obstacleList->run(pGraphic->getWindow());
+        characterList->drawAll(pGraphic->getWindow());
+        obstacleList->drawAll(pGraphic->getWindow());
         pGraphic->showElements(); 
     }
 }   

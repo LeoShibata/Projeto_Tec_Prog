@@ -11,6 +11,7 @@ namespace List {
         public:
             Element();
             ~Element();
+            
             void setNext(Element<TE>* next);
             void setElement(TE* element);
             Element<TE>* getNext();

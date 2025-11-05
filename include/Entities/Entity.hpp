@@ -6,31 +6,34 @@
 namespace Entities {
     namespace IDs {
         enum IDs {
+            empty = 0,
             player,
             enemy,
-            obstacles,
-            plataform
+            obstacle,
+            platform
         };
     }
 
     class Entity : public Being {
         protected:
-            //sf::Vector2f position;
+            IDs::IDs typeId;
             sf::Vector2f velocity;
             float speed_mod;
-            //buffer ostream
 
         protected:
             void setSpeedmod(float spd);
             void setVelocity(sf::Vector2f vel);
 
         public:
-            Entity(float speed, sf::Vector2f position, sf::Vector2f size);
+            Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
+            
             float getSpeedmod();
-            virtual void update() = 0;
             sf::Vector2f getVelocity();
-            virtual void collision(Entity* other) = 0;
+            virtual IDs::IDs getTypeId() const;
+            
+            virtual void update() = 0;
+            virtual void collision(Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) = 0;
     };
 }
 

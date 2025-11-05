@@ -21,30 +21,33 @@ void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
     this->pPlayer = pPlayer;
 }
 
-void EventManager::isKeyPressed(sf::Keyboard::Key key) {
-    if(key == sf::Keyboard::A || key == sf::Keyboard::Left)
-        pPlayer->moveLeft();
-    else if(key == sf::Keyboard::D || key == sf::Keyboard::Right)
-        pPlayer->moveRight();
-    else if(key == sf::Keyboard::Escape)
-        pGraphic->closeWindow();
+void EventManager::handleKeyPressed(sf::Keyboard::Key key) {
+    // 
 }
 
-void EventManager::isKeyReleased(sf::Keyboard::Key key) {
-    
-    }
+void EventManager::handleKeyReleased(sf::Keyboard::Key key) {
+    // 
+}
 
 void EventManager::run() {
     sf::Event event;
     while(pGraphic->getWindow()->pollEvent(event))
     {
-        if(event.type == sf::Event::KeyPressed)
-            isKeyPressed(event.key.code); 
-        else if(event.type == sf::Event::KeyReleased)
-            isKeyReleased(event.key.code);
-        else if(event.type == sf::Event::Closed)
+        if(event.type == sf::Event::Closed)
+            pGraphic->closeWindow();
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
     }
+
+    if(pPlayer == nullptr)
+        return;
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        pPlayer->startMovingLeft();
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        pPlayer->startMovingRight();
+    else 
+        pPlayer->stopMoving();
 }
 
 }
