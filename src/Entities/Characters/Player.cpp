@@ -23,13 +23,8 @@ void Player::jump() {
 
 void Player::move(){
     dt = clock.getElapsedTime().asSeconds();
-    if(canMove) {
-        float ds = speed_mod * dt;
-        if(isMovingLeft) {
-            ds *= -1;
-        }
-        body.move(ds, 0.f);
-    }
+    float ds = velocity.x * dt;
+    body.move(ds, 0.f);
     clock.restart();
 }
 
