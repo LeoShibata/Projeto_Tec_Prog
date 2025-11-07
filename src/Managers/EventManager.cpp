@@ -22,7 +22,7 @@ void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
 }
 
 void EventManager::handleKeyPressed(sf::Keyboard::Key key) {
-    // 
+    //
 }
 
 void EventManager::handleKeyReleased(sf::Keyboard::Key key) {
@@ -37,6 +37,12 @@ void EventManager::run() {
             pGraphic->closeWindow();
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+            if(pPlayer != nullptr) {
+                pPlayer->jump();
+            }
+        }
+
     }
 
     if(pPlayer == nullptr)
