@@ -9,11 +9,10 @@ namespace Entities::Obstacles {
             int height;
 
         public:
-            Platform();
+            Platform(sf::Vector2f position, sf::Vector2f size);
             ~Platform();
 
-            void execute() override;
-            void obstaculizar(Player* pPlayer) override;
+            void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) override;
     };
 }
 

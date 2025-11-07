@@ -50,6 +50,8 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
         case(Entities::IDs::enemy) :
             cout << "Player collided with enemy!" << endl;
             break;
+        default:
+            break;
     }
 }
 
