@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Managers/GraphicManager.hpp"
+#include <stdio.h>
+using namespace std;
 
 class Being {
     protected:  

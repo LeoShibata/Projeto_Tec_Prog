@@ -17,8 +17,11 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
         // Lógica para descobrir se empurra para esquerd aou direita
         if((pPlayer->getPos().x - getPos().x) > 0) {
             push = -ds.x;
+            cout << "ta na esquerda" << endl;
         } else {
             push = ds.x;
+            cout << "ta na direita" << endl;
+            
         }
         pPlayer->adjustPosition(sf::Vector2f(push, 0.f));
         pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
@@ -26,8 +29,10 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
         // colisão vertical (chão ou teto)
         if((pPlayer->getPos().y - getPos().y) > 0) {
             push = -ds.y;
+            cout << "ta no teto" << endl;
         } else {
             push = ds.y;
+            cout << "ta no chao" << endl;
         }
 
         // pousou no chão

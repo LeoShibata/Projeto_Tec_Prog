@@ -18,7 +18,7 @@ Game::Game() :
     characterList = new List::EntityList();
     obstacleList = new List::EntityList();
 
-    pCollision = new Managers::CollisionManager(characterList, obstacleList);
+    pCollision = new Managers::CollisionManager();
 
     int maldade =10;
 
@@ -27,7 +27,8 @@ Game::Game() :
     
     characterList->addEntity(player);
     characterList->addEntity(spirit);    
-    
+    pCollision->includeEntity(static_cast<Entities::Entity*> (spirit));//explicit what it does, but it does automatic
+    pCollision->setPlayer(player);
     Entities::Obstacles::Platform* floor = new Entities::Obstacles::Platform(sf::Vector2f(0.f, 500.f), sf::Vector2f(800.f, 50.f));
     Entities::Obstacles::Platform* platform1 = new Entities::Obstacles::Platform(sf::Vector2f(400.f, 390.f), sf::Vector2f(500.f, 50.f));
     Entities::Obstacles::Platform* platform2 = new Entities::Obstacles::Platform(sf::Vector2f(0.f, 450.f), sf::Vector2f(500.f, 50.f));
@@ -38,6 +39,13 @@ Game::Game() :
     obstacleList->addEntity(platform1);
     obstacleList->addEntity(platform2);
     obstacleList->addEntity(platform3);
+    //change to just a entity list after, not obstacle and character
+
+    pCollision->includeEntity(static_cast<Entities::Entity*> (floor));//explicit what it does, but it does automatic
+    pCollision->includeEntity(static_cast<Entities::Entity*> (platform1));//explicit what it does, but it does automatic
+    pCollision->includeEntity(static_cast<Entities::Entity*> (platform2));//explicit what it does, but it does automatic
+    pCollision->includeEntity(static_cast<Entities::Entity*> (platform3));//explicit what it does, but it does automatic
+
 
     pEvent->setPlayer(player);
     Entities::Characters::Enemies::setPlayer(player);

@@ -3,14 +3,69 @@
 
 namespace Managers {
 
-CollisionManager::CollisionManager(List::EntityList* characterList, List::EntityList* obstacleList) :
-    characterList(characterList), 
-    obstacleList(obstacleList)
+CollisionManager::CollisionManager() : pPlayer(NULL)
 { 
+    cout << "init colisao" << endl;
 
 }
 
 CollisionManager::~CollisionManager() { }
+
+void CollisionManager::setPlayer(Entities::Characters::Player* pPlayer){
+    this->pPlayer = pPlayer;
+    cout << "player!" << endl;
+
+}
+
+
+void CollisionManager::includeEntity(Entities::Entity* ent1){
+    cout << ent1->getTypeId() << endl;
+
+    switch (ent1->getTypeId())
+    {
+    case 0:
+        //try catch
+        cout << "chamou mas add nada" << endl;
+        break;
+    case (Entities::IDs::player):
+        this->pPlayer = static_cast<Entities::Characters::Player*> (ent1);
+        break;
+    case (Entities::IDs::enemy):
+        lIs.push_back(static_cast<Entities::Characters::Enemies*> (ent1));
+        cout << "botou" << endl;
+        break;
+    case (Entities::IDs::obstacle):
+        lOs.push_back(static_cast<Entities::Obstacles::Obstacle*> (ent1));
+                        cout << "add obstaculo" << endl;
+
+        break;
+    default:
+
+        break;
+    }
+}
+
+void CollisionManager::removeEntity(Entities::Entity* ent1){
+    switch (ent1->getTypeId())
+    {
+    case 0:
+        //try catch
+        break;
+    case (Entities::IDs::player):
+        this->pPlayer = NULL;
+        break;
+    case (Entities::IDs::enemy):
+        lIs.erase(std::remove(lIs.begin(), lIs.end(), static_cast<Entities::Characters::Enemies*> (ent1)), lIs.end());
+        break;
+    case (Entities::IDs::obstacle):
+    
+        break;
+
+    default:
+
+        break;
+    }
+}
 
 const sf::Vector2f CollisionManager::collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2) {
     sf::Vector2f pos1 = ent1->getPos();
@@ -30,9 +85,34 @@ const sf::Vector2f CollisionManager::collisionDetection(Entities::Entity* ent1, 
     );
 }
 
+void CollisionManager::verifyPlayerEnemy(){
+    for (int i = 0; i< lIs.size(); i++){
+        sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
+        if(ds.x < 0.f && ds.y < 0.f){
+            pPlayer->collision(lIs[i], ds);
+        }
+            
+
+    }
+    
+}
+
+void CollisionManager::verifyPlayerObstacle(){
+    for (list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
+        sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer));
+        if(ds.x < 0.f && ds.y < 0.f){
+            (*it)->collision(pPlayer, ds);//search more after
+            pPlayer->collision(*it, ds);
+        }
+    
+    }
+    
+}
+
 void CollisionManager::run() {
     // character vs character
-    for(int i = 0; i < characterList->getSize() - 1; i++) {
+    verifyPlayerEnemy();
+    /*for(int i = 0; i < characterList->getSize() - 1; i++) {
         Entities::Entity* ent1 = characterList->operator[](i);
         for(int j = i + 1; j < characterList->getSize(); j++) {
             Entities::Entity* ent2 = characterList->operator[](j);
@@ -43,7 +123,9 @@ void CollisionManager::run() {
             }
         }
     }
-
+    */
+    verifyPlayerObstacle();
+    /*
     // character vs obstacle
     for(int i = 0; i < characterList->getSize(); i++) {
         Entities::Entity* ent1 = characterList->operator[](i);
@@ -55,6 +137,7 @@ void CollisionManager::run() {
             }
         }
     }
+        */
 }
 
 }

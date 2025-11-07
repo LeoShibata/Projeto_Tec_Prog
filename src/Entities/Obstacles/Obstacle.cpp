@@ -7,6 +7,7 @@ Obstacle::Obstacle(sf::Vector2f position, sf::Vector2f size, float speed) :
     Entity(position, size, speed)
 { 
     setVelocity(sf::Vector2f(0.f, 0.f));
+    typeId = IDs::obstacle;
 }
 
 Obstacle::~Obstacle() { }

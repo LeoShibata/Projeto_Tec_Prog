@@ -13,6 +13,8 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     initialize();
     typeId = IDs::player;
     speed_mod = 300.f;
+    cout << onGround << " O PLAYER ESTA" << endl;
+
 }
 
 Player::~Player() { }
@@ -20,6 +22,7 @@ Player::~Player() { }
 void Player::jump() {
     if(onGround) {
         velocity.y = -jumpSpeed;
+        cout << "TO NO AR " << endl;
         onGround = false;
     }
 }
@@ -29,6 +32,8 @@ void Player::adjustPosition(sf::Vector2f ds) {
 }
 
 void Player::move(){
+    cout << onGround << " O PLAYER ESTA" << endl;
+
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
 
@@ -71,8 +76,12 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
             } else {
                 if(velocity.y > 0) {
                     onGround = true;
+                }else{
+                    
                 }   
             }
+            onGround = false;
+
             break;
         }
         default:
