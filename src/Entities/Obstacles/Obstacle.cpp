@@ -19,10 +19,11 @@ void Obstacle::execute() {
 
 void Obstacle::collision(Entity* other, sf::Vector2f ds) {
     switch (other->getTypeId()) {
-        case(Entities::IDs::player):
+        case(Entities::IDs::player) : {
             Entities::Characters::Player* pPlayer = static_cast<Entities::Characters::Player*>(other);
             handleCollision(pPlayer, ds);
             break;
+        }
         default:
             break;
     }

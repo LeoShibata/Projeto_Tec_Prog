@@ -22,14 +22,14 @@ namespace Entities {
 
         protected:
             void setSpeedmod(float spd);
-            void setVelocity(sf::Vector2f vel);
-
-        public:
+            
+            public:
             Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
             
             float getSpeedmod();
             sf::Vector2f getVelocity();
+            void setVelocity(sf::Vector2f vel);
             virtual IDs::IDs getTypeId() const;
             
             virtual void update() = 0;

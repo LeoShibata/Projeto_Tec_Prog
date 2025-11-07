@@ -17,7 +17,6 @@ namespace Entities::Obstacles {
             void execute() override;
             virtual void collision(Entity* other, sf::Vector2f ds) override;
 
-            virtual void execute() = 0;
             virtual void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) = 0; 
     };
 }

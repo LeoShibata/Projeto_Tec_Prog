@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Characters/Enemies/Spirit.hpp"
+#include "Entities/Obstacles/Platform.hpp"
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
@@ -27,8 +28,18 @@ Game::Game() :
     characterList->addEntity(player);
     characterList->addEntity(spirit);    
     
-    pEvent->setPlayer(player);
+    Entities::Obstacles::Platform* floor = new Entities::Obstacles::Platform(sf::Vector2f(0.f, 500.f), sf::Vector2f(800.f, 50.f));
+    Entities::Obstacles::Platform* platform1 = new Entities::Obstacles::Platform(sf::Vector2f(400.f, 390.f), sf::Vector2f(500.f, 50.f));
+    Entities::Obstacles::Platform* platform2 = new Entities::Obstacles::Platform(sf::Vector2f(0.f, 450.f), sf::Vector2f(500.f, 50.f));
+    Entities::Obstacles::Platform* platform3 = new Entities::Obstacles::Platform(sf::Vector2f(100.f, 100.f), sf::Vector2f(100.f, 100.f));
 
+
+    obstacleList->addEntity(floor);
+    obstacleList->addEntity(platform1);
+    obstacleList->addEntity(platform2);
+    obstacleList->addEntity(platform3);
+
+    pEvent->setPlayer(player);
     Entities::Characters::Enemies::setPlayer(player);
 }   
 
