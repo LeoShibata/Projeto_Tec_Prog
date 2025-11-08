@@ -19,6 +19,7 @@ namespace Managers {
             static GraphicManager* getGraphicManager();
             sf::RenderWindow* getWindow();
             
+            sf::Texture loadFileTexture(const char* pathtexture);
             void clearWindow();
             void drawElement(const sf::RectangleShape& body);
             void showElements();

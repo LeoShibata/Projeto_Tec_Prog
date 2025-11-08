@@ -13,6 +13,8 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     initialize();
     typeId = IDs::player;
     speed_mod = 300.f;
+    texture = pGraphic->loadFileTexture("../assets/player.png");
+    body.setTexture(&texture);
     cout << onGround << " O PLAYER ESTA" << endl;
 
 }
@@ -32,7 +34,6 @@ void Player::adjustPosition(sf::Vector2f ds) {
 }
 
 void Player::move(){
-    cout << onGround << " O PLAYER ESTA" << endl;
 
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
@@ -67,7 +68,6 @@ void Player::execute() {
 void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
-            cout << "Player collided with enemy!" << endl;
             break;      
         }
         case(Entities::IDs::platform) : {

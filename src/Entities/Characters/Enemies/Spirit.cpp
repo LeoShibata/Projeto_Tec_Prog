@@ -9,7 +9,8 @@ Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade
 {
     initialize();
     speed_mod = 3.f;
-    body.setFillColor(sf::Color::White);
+    texture = pGraphic->loadFileTexture("../assets/enemy.png");
+    body.setTexture(&texture);
 }
 
 Spirit::~Spirit() { }

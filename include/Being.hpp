@@ -12,6 +12,7 @@ class Being {
         sf::RectangleShape body;
         const int id;
         static int cont;
+        sf::Texture texture;
 
     public:
         Being(sf::Vector2f size);

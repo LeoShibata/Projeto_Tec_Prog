@@ -1,5 +1,7 @@
 #include "Managers/GraphicManager.hpp"
+#include <stdio.h>
 
+using namespace std;
 namespace Managers {
 
 GraphicManager* GraphicManager::pGraphic = nullptr;
@@ -37,6 +39,14 @@ sf::RenderWindow* GraphicManager::getWindow() {
 
 void GraphicManager::clearWindow() {
     window->clear();
+}
+
+sf::Texture GraphicManager::loadFileTexture(const char* pathtexture){
+    sf::Texture aux;
+    aux.loadFromFile(pathtexture);
+    cout << "found" << endl;
+    
+    return aux;
 }
 
 void GraphicManager::drawElement(const sf::RectangleShape& body) {
