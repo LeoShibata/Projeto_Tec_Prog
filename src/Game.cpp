@@ -2,6 +2,8 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Obstacles/Platform.hpp"
+#include "Stages/stage.hpp"
+using json = nlohmann::json;
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
@@ -49,6 +51,9 @@ Game::Game() :
 
     pEvent->setPlayer(player);
     Entities::Characters::Enemies::setPlayer(player);
+    stage = new Stages::Stage();
+    stage->createMap();
+
 }   
 
 Game::~Game() {
