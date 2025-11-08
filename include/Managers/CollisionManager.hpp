@@ -6,6 +6,7 @@
 #include <cmath>
 #include <vector>
 #include <list>
+
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Obstacles/Obstacle.hpp"
@@ -14,14 +15,14 @@ using namespace std;
 namespace Managers {
     class CollisionManager {
         private:
-            vector<Entities::Characters::Enemies*> lIs;
             Entities::Characters::Player* pPlayer;
+            vector<Entities::Characters::Enemies*> lIs;
             list<Entities::Obstacles::Obstacle*> lOs;
-
 
         public:
             CollisionManager();
             ~CollisionManager();
+
             void setPlayer(Entities::Characters::Player* pPlayer);
             void includeEntity(Entities::Entity* ent1);
             void removeEntity(Entities::Entity* ent1);

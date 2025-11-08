@@ -10,7 +10,6 @@ namespace Managers {
         private:
             Managers::GraphicManager* pGraphic;
             Entities::Characters::Player* pPlayer;
-
             static EventManager* pEvent;
         
         private:

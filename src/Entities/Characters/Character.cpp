@@ -35,6 +35,10 @@ void Character::setOnGround(bool ground) {
     onGround = ground;
 }
 
+bool Character::getOnGround() const {
+    return onGround;
+}
+
 void Character::execute() { 
     this->update(); 
     this->move();
