@@ -1,6 +1,8 @@
 #ifndef STAGE_HPP
 #define STAGE_HPP
 
+#include <iostream>
+
 #include "Managers/GraphicManager.hpp"
 #include "Managers/EventManager.hpp"
 #include "Managers/CollisionManager.hpp"
@@ -14,7 +16,6 @@
 #include "Entities/Obstacles/Platform.hpp"
 #include "utils/json.hpp"
 
-
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -24,31 +25,31 @@
 #include <list>
 
 namespace Stages {
+    class Stage : public Being {
+        protected:
+            Managers::EventManager* pEvent; 
+            Managers::CollisionManager* pCollision;
 
-class Stage : public Being {
+            List::EntityList* characterList;
+            List::EntityList* obstacleList;
 
-    protected:
-        Managers::EventManager* pEvent; 
-        Managers::CollisionManager* pCollision;
-        List::EntityList* characterList;
-        List::EntityList* obstacleList;
-        string jsonPath;
+            string jsonPath;
 
-    protected:
+        protected:
+            void createSpirit();
+            void createPlatform();
+            void createPlayer();
+            //virtual void createEnemies() = 0;
+            //virtual void createObstacles () = 0;
 
-        void createSpirit();
-        void createPlatform();
-        void createPlayer();
-        //virtual void createEnemies() = 0;
-        //virtual void createObstacles () = 0;
-    public:
-        Stage();
-        ~Stage();
-        void createMap();
-        void execute() override;
-
-};
-
+        public:
+            Stage();
+            ~Stage();
+            
+            void createMap(const char* path);
+            void draw(sf::RenderWindow* window);
+            void execute() override;
+    };
 }
 
 #endif

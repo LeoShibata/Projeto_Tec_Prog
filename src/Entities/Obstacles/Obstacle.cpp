@@ -25,6 +25,7 @@ void Obstacle::collision(Entity* other, sf::Vector2f ds) {
             handleCollision(pPlayer, ds);
             break;
         }
+        
         default:
             break;
     }

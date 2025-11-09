@@ -22,6 +22,7 @@ namespace Entities::Characters {
             void startMovingRight();
             void stopMoving();
             void setOnGround(bool ground);
+            bool getOnGround() const;
 
             virtual void move() = 0;
             virtual void update() = 0;

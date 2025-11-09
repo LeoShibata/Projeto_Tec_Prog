@@ -1,13 +1,14 @@
 #include "Managers/GraphicManager.hpp"
-#include <stdio.h>
 
+#include <iostream>
 using namespace std;
+
 namespace Managers {
 
 GraphicManager* GraphicManager::pGraphic = nullptr;
 
 GraphicManager::GraphicManager() :
-    window(new sf::RenderWindow(sf::VideoMode(800.f, 600.f), "Game Test"))
+    window(new sf::RenderWindow(sf::VideoMode(1920.f, 1280.f), "Game Test"))
 {
     if(window == nullptr) {
         std::cout << "ERROR: Failed to create a graphics window." 
@@ -37,16 +38,25 @@ sf::RenderWindow* GraphicManager::getWindow() {
     return window;
 }
 
-void GraphicManager::clearWindow() {
-    window->clear();
+sf::Texture* GraphicManager::loadFileTexture(const char* pathtexture){
+    std::string path(pathtexture);
+
+    if(textureMap.count(path)) {
+        return &textureMap[path];
+    }
+
+    sf::Texture newTexture;
+    if(!newTexture.loadFromFile(pathtexture)) {
+        std::cout << "ERROR: Failed to load texture from: " << pathtexture << std::endl;
+        return nullptr;
+    }
+
+    textureMap[path] = newTexture;
+    return &textureMap[path];
 }
 
-sf::Texture GraphicManager::loadFileTexture(const char* pathtexture){
-    sf::Texture aux;
-    aux.loadFromFile(pathtexture);
-    cout << "found" << endl;
-    
-    return aux;
+bool GraphicManager::isWindowOpen() const {
+    return window->isOpen();
 }
 
 void GraphicManager::drawElement(const sf::RectangleShape& body) {
@@ -61,8 +71,8 @@ void GraphicManager::closeWindow() {
     window->close();
 }
 
-bool GraphicManager::isWindowOpen() const {
-    return window->isOpen();
+void GraphicManager::clearWindow() {
+    window->clear(sf::Color::White);
 }
 
 }

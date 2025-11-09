@@ -13,10 +13,9 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     initialize();
     typeId = IDs::player;
     speed_mod = 300.f;
-    texture = pGraphic->loadFileTexture("../assets/player.png");
-    body.setTexture(&texture);
-    cout << onGround << " O PLAYER ESTA" << endl;
 
+    texture = pGraphic->loadFileTexture("../assets/player.png");
+    body.setTexture(texture);
 }
 
 Player::~Player() { }
@@ -24,7 +23,6 @@ Player::~Player() { }
 void Player::jump() {
     if(onGround) {
         velocity.y = -jumpSpeed;
-        cout << "TO NO AR " << endl;
         onGround = false;
     }
 }
@@ -34,7 +32,6 @@ void Player::adjustPosition(sf::Vector2f ds) {
 }
 
 void Player::move(){
-
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
 
@@ -62,6 +59,11 @@ void Player::update() {
 
 void Player::execute() {
     update();
+
+    if(onGround) {
+        onGround = false;
+    }
+
     move();
 }
 
@@ -71,19 +73,16 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
             break;      
         }
         case(Entities::IDs::platform) : {
-            if(ds.x > ds.y) {
-
-            } else {
-                if(velocity.y > 0) {
-                    onGround = true;
-                }else{
-                    
-                }   
+            // Simple collision response: reset position based on movement delta
+            adjustPosition(-ds);
+            // If the player was falling and collides from above, set onGround to true
+            if(ds.y > 0) {
+                onGround = true;
+                velocity.y = 0.f;
             }
-            onGround = false;
-
             break;
         }
+
         default:
             break;
     }

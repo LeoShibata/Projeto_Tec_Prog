@@ -23,7 +23,7 @@ namespace Entities::Characters {
             ~Enemies();
 
             static void setPlayer(Player* p);
-            void damaging (Player* pPlayer);
+            void damaging(Player* pPlayer);
             
             virtual void move() = 0;
             virtual void update() = 0;

@@ -2,14 +2,6 @@
 
 namespace Entities {
 
-void Entity::setSpeedmod(float spd) {
-    speed_mod = spd;
-}
-
-void Entity::setVelocity(sf::Vector2f vel) {
-    velocity = vel;
-}
-
 Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     Being(size), 
     speed_mod(speed)
@@ -20,6 +12,14 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
 }
 
 Entity::~Entity() { }
+
+void Entity::setSpeedmod(float spd) {
+    speed_mod = spd;
+}
+
+void Entity::setVelocity(sf::Vector2f vel) {
+    velocity = vel;
+}
 
 float Entity::getSpeedmod() {
     return speed_mod;

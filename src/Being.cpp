@@ -1,6 +1,5 @@
 #include "Being.hpp"           //  Nosso próprio header primeiro
 #include "Managers/GraphicManager.hpp" // Headers locais depois
-#include <iostream>            // Headers do sistema por últimoeam>
 
 //init the class
 Managers::GraphicManager* Being::pGraphic(Managers::GraphicManager::getGraphicManager());

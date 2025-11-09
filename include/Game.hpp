@@ -3,26 +3,22 @@
 
 #include <iostream>
 
+#include "Being.hpp"
 #include "Managers/GraphicManager.hpp"
 #include "Managers/EventManager.hpp"
-#include "Managers/CollisionManager.hpp"
 #include "Stages/stage.hpp"
-#include "Being.hpp"
-#include "List/EntityList.hpp"
+
 
 class Game {
     private:
         Managers::GraphicManager* pGraphic;
         Managers::EventManager* pEvent; 
-        Managers::CollisionManager* pCollision;
-
-        List::EntityList* characterList;
-        List::EntityList* obstacleList;
         Stages::Stage* stage; 
 
     public:
         Game();
         ~Game();
+
         void run();
 };
 

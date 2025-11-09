@@ -3,16 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 #include "Managers/GraphicManager.hpp"
-#include <stdio.h>
-using namespace std;
 
 class Being {
     protected:  
         static Managers::GraphicManager* pGraphic;
+
         sf::RectangleShape body;
+        sf::Texture* texture;
+
         const int id;
         static int cont;
-        sf::Texture texture;
 
     public:
         Being(sf::Vector2f size);
