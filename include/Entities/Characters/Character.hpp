@@ -8,10 +8,10 @@ namespace Entities::Characters {
         protected:
             sf::Clock clock;
             float dt;
+            float jumpSpeed;
             bool canMove;
             bool isMovingLeft;
             bool onGround;
-            float jumpSpeed;
             static const float GRAVITY;
 
         public:

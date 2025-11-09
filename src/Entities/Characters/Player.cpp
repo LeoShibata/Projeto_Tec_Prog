@@ -31,10 +31,9 @@ void Player::adjustPosition(sf::Vector2f ds) {
 }
 
 void Player::move(){
-    // cout << onGround << " O PLAYER ESTA" << endl;
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
-
+ 
     if(!onGround) {
         velocity.y += GRAVITY * dt;
     }
@@ -73,7 +72,17 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
             cout << "Player collided with enemy!" << endl;
             break;      
         }
-
+        case(Entities::IDs::platform) : {
+            // Simple collision response: reset position based on movement delta
+            adjustPosition(-ds);
+            // If the player was falling and collides from above, set onGround to true
+            if(ds.y > 0) {
+                onGround = true;
+                velocity.y = 0.f;
+            }
+            break;
+        }
+        
         default:
             break;
     }
