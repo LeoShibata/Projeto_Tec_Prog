@@ -15,7 +15,7 @@ Stage::Stage() :
     pCollision = new Managers::CollisionManager();
     
     try {
-        createMap("../assets/map1");
+        createMap("../assets/MoonGraveyard");
     }
     catch(const std::exception& e) {
         std::cout << "ERROR: Failed to load level JSON. " << std::endl;
@@ -80,9 +80,10 @@ void Stage::createMap(const char* path) {
 
                     pEvent->setPlayer(pPlayer);
                     Entities::Characters::Enemies::setPlayer(pPlayer);
+                    pGraphic->setPlayer(pPlayer);
                     break;
                 }
-                case(166) : {
+                case(74) : {
                     Entities::Obstacles::Platform* pPlat = new Entities::Obstacles::Platform(sf::Vector2f(x_pos, y_pos), sf::Vector2f(tileSize, tileSize));
                     obstacleList->addEntity(pPlat);
                     pCollision->includeEntity(static_cast<Entities::Entity*>(pPlat));

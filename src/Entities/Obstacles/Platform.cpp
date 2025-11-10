@@ -1,4 +1,5 @@
 #include "Entities/Obstacles/Platform.hpp"
+#include "Entities/Characters/Player.hpp"
 
 namespace Entities::Obstacles {
 
@@ -14,7 +15,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
     float push;
     // Colisão horizontal (Parede)
     if(ds.x > ds.y) {
-        // Lógica para descobrir se empurra para esquerd aou direita
+        // Lógica para descobrir se empurra para esquerda ou direita
         if((pPlayer->getPos().x - getPos().x) > 0) {
             push = -ds.x;
         } else {
@@ -33,8 +34,8 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
         }
 
         // pousou no chão
-        if(push < 0) {
-            pPlayer->setOnGround(true);
+        if(push < 0) { 
+                pPlayer->setOnGround(true);
         }
 
         pPlayer->adjustPosition(sf::Vector2f(0.f, push));

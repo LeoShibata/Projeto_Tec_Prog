@@ -1,4 +1,5 @@
 #include "Managers/GraphicManager.hpp"
+#include "Entities/Characters/Player.hpp"
 
 #include <iostream>
 using namespace std;
@@ -8,13 +9,18 @@ namespace Managers {
 GraphicManager* GraphicManager::pGraphic = nullptr;
 
 GraphicManager::GraphicManager() :
-    window(new sf::RenderWindow(sf::VideoMode(1920.f, 1280.f), "Game Test"))
+    window(new sf::RenderWindow(sf::VideoMode(1280.f, 720.f), "Game Test")),
+    view(),
+    pPlayer(nullptr)
 {
     if(window == nullptr) {
         std::cout << "ERROR: Failed to create a graphics window." 
                   << std::endl;
         exit(1);
     }
+
+    view.setSize(sf::Vector2f(640.f, 360.f));
+    view.setCenter(sf::Vector2f(640.f, 360.f));
 
     if(pGraphic == nullptr)
         pGraphic = this;
@@ -36,6 +42,10 @@ GraphicManager* GraphicManager::getGraphicManager() {
 
 sf::RenderWindow* GraphicManager::getWindow() {
     return window;
+}
+
+void GraphicManager::setPlayer(Entities::Characters::Player* player) {
+    pPlayer = player;
 }
 
 sf::Texture* GraphicManager::loadFileTexture(const char* pathtexture){
@@ -72,7 +82,11 @@ void GraphicManager::closeWindow() {
 }
 
 void GraphicManager::clearWindow() {
-    window->clear(sf::Color::White);
+    if(pPlayer) {
+        view.setCenter(pPlayer->getPos());
+    }
+    window->setView(view);
+    window->clear(sf::Color(100, 100, 100));
 }
 
 }

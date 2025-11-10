@@ -14,8 +14,8 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     typeId = IDs::player;
     speed_mod = 300.f;
 
-    texture = pGraphic->loadFileTexture("../assets/player.png");
-    body.setTexture(texture);
+    // texture = pGraphic->loadFileTexture("../assets/player.png");
+    // body.setTexture(texture);
 }
 
 Player::~Player() { }
@@ -72,18 +72,17 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
         case(Entities::IDs::enemy) : {
             break;      
         }
+        // PLatform::handleCollision já chama pPlayer->setOnGround(true) 
+        // Para evitar lógica duplicada, só trata o caso de pousar no chão 
         case(Entities::IDs::platform) : {
-            // Simple collision response: reset position based on movement delta
-            adjustPosition(-ds);
-            // If the player was falling and collides from above, set onGround to true
-            if(ds.y > 0) {
-                onGround = true;
-                velocity.y = 0.f;
-            }
+            // if(ds.y > 0) {
+            //     onGround = true;
+            //     velocity.y = 0.f;
+            // }
             break;
         }
 
-        default:
+        default :
             break;
     }
 }

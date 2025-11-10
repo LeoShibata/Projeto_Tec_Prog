@@ -7,7 +7,6 @@
 
 namespace Entities::Characters {
     class Spirit : public Enemies {
-        
         private:
             float soul;
 

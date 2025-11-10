@@ -14,7 +14,7 @@ namespace Entities::Characters {
         public:
             Player(const sf::Vector2f position, const sf::Vector2f size);
             virtual ~Player();
-
+            
             void jump();
             void adjustPosition(sf::Vector2f ds);
 
