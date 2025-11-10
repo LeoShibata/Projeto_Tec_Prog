@@ -3,6 +3,7 @@
 #include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Stages/stage.hpp"
+    
 using json = nlohmann::json;
 
 Game::Game() : 
@@ -15,7 +16,7 @@ Game::Game() :
         exit(1);
     }
 
-    stage = new Stages::Stage();
+    stage = new Stages::Stage1();
 }   
 
 Game::~Game() {

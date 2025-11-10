@@ -5,13 +5,13 @@ namespace Entities::Characters {
     
 Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
     Enemies(position, size, maldade), 
-    soul(0.02f)
+    soul(0.04f)
 {
     initialize();
     speed_mod = 3.f;
 
-    texture = pGraphic->loadFileTexture("../assets/enemy.png");
-    body.setTexture(texture);
+    // texture = pGraphic->loadFileTexture("../assets/enemy.png");
+    body.setFillColor(sf::Color::Magenta);
 }
 
 Spirit::~Spirit() { }

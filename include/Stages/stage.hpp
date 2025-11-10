@@ -29,11 +29,12 @@ namespace Stages {
         protected:
             Managers::EventManager* pEvent; 
             Managers::CollisionManager* pCollision;
+            Managers::GraphicManager* pGraphic;
 
             List::EntityList* characterList;
             List::EntityList* obstacleList;
 
-            string jsonPath;
+            
 
         protected:
             void createSpirit();
@@ -41,14 +42,15 @@ namespace Stages {
             void createPlayer();
             //virtual void createEnemies() = 0;
             //virtual void createObstacles () = 0;
+            virtual void createMap() = 0;
 
         public:
             Stage();
-            ~Stage();
+            virtual~Stage();
             
-            void createMap(const char* path);
             void draw(sf::RenderWindow* window);
             void execute() override;
+            
     };
 }
 
