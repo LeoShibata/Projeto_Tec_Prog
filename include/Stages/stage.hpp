@@ -33,13 +33,14 @@ namespace Stages {
 
             List::EntityList* characterList;
             List::EntityList* obstacleList;
-
-            
+            const int max_spirits;
+            const int max_obstacles;
+            static const int tileSize = 32;
 
         protected:
-            void createSpirit();
-            void createPlatform();
-            void createPlayer();
+            void createSpirit(sf::Vector2f pos);
+            void createPlatform(sf::Vector2f pos);
+            void createPlayer(sf::Vector2f pos);
             //virtual void createEnemies() = 0;
             //virtual void createObstacles () = 0;
             virtual void createMap() = 0;

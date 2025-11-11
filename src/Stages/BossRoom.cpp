@@ -1,4 +1,4 @@
-#include "Stages/Stage1.hpp"
+#include "Stages/BossRoom.hpp"
 
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Obstacles/Platform.hpp"
@@ -8,8 +8,8 @@ using json = nlohmann::json;
 
 namespace Stages {
 
-Stage1::Stage1() : 
-    Stage(), max_skeletons(0){
+BossRoom::BossRoom() : 
+    Stage(), max_boss(0){
     try {
         srand(time(0));
         createMap();
@@ -21,10 +21,10 @@ Stage1::Stage1() :
     }
 }
 
-Stage1::~Stage1() { }
+BossRoom::~BossRoom() { }
 
-void Stage1::createMap() {
-    const char* path = "../assets/MoonGraveyard";
+void BossRoom::createMap() {
+    const char* path = "../assets/bossRoom";
 
     ifstream f(path); // get archive
     if(!f.is_open()) {
@@ -35,13 +35,13 @@ void Stage1::createMap() {
     json data = json::parse(f); // pass to jason
     f.close();
 
-    json firstLayer = data["layers"][0]["data"]; // get first matrix
-    int height = data["layers"][0]["height"];    // get height matrix
-    int width = data["layers"][0]["width"];      // get height layers
+    json firstLayer = data["layers"][1]["data"]; // get first matrix
+    int height = data["layers"][1]["height"];    // get height matrix
+    int width = data["layers"][1]["width"];      // get height layers
 
     float tileSize = 32.f;
     int qtd=0;
-    vector<sf::Vector2f> random_enemies((max_skeletons+max_spirits)*2); //Random entities vector;
+    vector<sf::Vector2f> random_enemies((max_spirits)*2); //Random entities vector;
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
@@ -63,14 +63,14 @@ void Stage1::createMap() {
                     createPlayer(sf::Vector2(x_pos,y_pos));
                     break;
                 }
-                case(3) : {
+                case(177) : {
                     random_enemies[qtd] = sf::Vector2f(x_pos, y_pos);
                     cout << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
                     qtd++;
 
                     break;
                 }
-                case(74) : {
+                case(159) : {
                     createPlatform(sf::Vector2(x_pos,y_pos));
                     break;
                 }

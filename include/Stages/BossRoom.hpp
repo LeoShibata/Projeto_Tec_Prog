@@ -1,5 +1,5 @@
-#ifndef STAGE1_HPP
-#define STAGE1_HPP  
+#ifndef BOSSROOM_HPP
+#define BOSSROOM_HPP  
 
 #include "Stages/stage.hpp"
 
@@ -8,15 +8,15 @@
 #include <fstream>
 
 namespace Stages {
-    class Stage1 : public Stage {
+    class BossRoom : public Stage {
         protected:
-            const int max_skeletons;
+            const int max_boss;
         protected:
             void createMap() override;
         
         public: 
-            Stage1();
-            ~Stage1();
+            BossRoom();
+            ~BossRoom();
 
         
     };
