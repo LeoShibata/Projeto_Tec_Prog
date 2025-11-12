@@ -13,6 +13,9 @@ namespace Entities::Characters {
             sf::Clock collisionTimer;
             float collisionCooldown;
             bool isStunned;
+
+            static constexpr float DETECTION_RADIUS = 100.f;
+            static constexpr float DETECTION_RADIUS_SQ = DETECTION_RADIUS * DETECTION_RADIUS;
         
         private:
             void initialize();
@@ -21,7 +24,8 @@ namespace Entities::Characters {
             Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Skeleton();
 
-            void movementPatten(); // Implementar 
+            float distanceSq(const sf::Vector2f& v1, const sf::Vector2f& v2);
+            void movementPattern(); // Implementar 
             void followPlayer(sf::Vector2f playerPos);
             void updateAnimation();
 
