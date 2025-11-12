@@ -5,6 +5,11 @@
 
 namespace Entities::Characters {
     
+void Spirit::initialize() {
+    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
+}
+
 Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
     Enemies(position, size, maldade),
     soul(0.07f),
@@ -13,19 +18,12 @@ Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade
 {
     initialize();
     speed_mod = 3.f;
-
-    // texture = pGraphic->loadFileTexture("../assets/enemy.png");
     body.setFillColor(sf::Color::Magenta);
-
     collisionTimer.restart();
 }
 
 Spirit::~Spirit() { }
 
-void Spirit::initialize() {
-    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
-    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
- }
 
 sf::Vector2f Spirit::normalize(sf::Vector2f vec) {
     float magnitude = sqrt(vec.x * vec.x + vec.y * vec.y);
@@ -49,7 +47,6 @@ void Spirit::move() {
 }
 
 void Spirit::update() {
-    
     if (isStunned) {
         if (collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;

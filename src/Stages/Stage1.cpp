@@ -1,15 +1,16 @@
 #include "Stages/Stage1.hpp"
 
-#include "Entities/Characters/Player.hpp"
-#include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Characters/Enemies/Spirit.hpp"
+#include "Entities/Characters/Enemies/Skeleton.hpp"
 
 using json = nlohmann::json;
 
 namespace Stages {
 
 Stage1::Stage1() : 
-    Stage(), max_skeletons(0){
+    Stage(), 
+    max_skeletons(5)
+{
     try {
         srand(time(0));
         createMap();
@@ -40,12 +41,12 @@ void Stage1::createMap() {
     int width = data["layers"][0]["width"];      // get height layers
 
     float tileSize = 32.f;
-    int qtd=0;
-    vector<sf::Vector2f> random_enemies((max_skeletons+max_spirits)*2); //Random entities vector;
+    int qtd = 0;
+    vector<sf::Vector2f> random_enemies((max_skeletons + max_spirits) * 2); //Random entities vector;
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
+        for(int j = 0; j < width; ++j) {
             matrix[i][j] = firstLayer[i * width + j];
         }
     }
@@ -65,9 +66,14 @@ void Stage1::createMap() {
                 }
                 case(3) : {
                     random_enemies[qtd] = sf::Vector2f(x_pos, y_pos);
-                    cout << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
-                    qtd++;
-
+                    // cout << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
+                    // qtd++;
+                    break;
+                }
+                case(4) : {
+                    random_enemies[qtd] = sf::Vector2f(x_pos, y_pos);
+                    // cout << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
+                    // qtd++;
                     break;
                 }
                 case(74) : {
@@ -80,6 +86,7 @@ void Stage1::createMap() {
             }
         }
     }
+
     int rangedNumber;
     for (qtd = 0; qtd < random_enemies.size(); qtd++)
     {

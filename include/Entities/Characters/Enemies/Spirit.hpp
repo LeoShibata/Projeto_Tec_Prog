@@ -22,9 +22,10 @@ namespace Entities::Characters {
             Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Spirit();
             
-            void movementPattern();
+            void movementPattern(); // Ainda não implementado
             void followPlayer(sf::Vector2f playerPos);
             void updateAnimation();
+
             void move() override;
             void update () override;
             void execute() override;
