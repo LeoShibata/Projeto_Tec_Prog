@@ -6,7 +6,8 @@ namespace Entities::Obstacles {
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::Blue);
+    texture = pGraphic->loadFileTexture("../assets/barrel.png");
+    body.setTexture(&texture);
 }
 
 Platform::~Platform() { }

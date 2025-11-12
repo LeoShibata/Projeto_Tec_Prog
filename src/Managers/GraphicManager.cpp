@@ -48,22 +48,15 @@ void GraphicManager::setPlayer(Entities::Characters::Player* player) {
     pPlayer = player;
 }
 
-sf::Texture* GraphicManager::loadFileTexture(const char* pathtexture){
-    std::string path(pathtexture);
-
-    if(textureMap.count(path)) {
-        return &textureMap[path];
-    }
-
-    sf::Texture newTexture;
-    if(!newTexture.loadFromFile(pathtexture)) {
-        std::cout << "ERROR: Failed to load texture from: " << pathtexture << std::endl;
-        return nullptr;
-    }
-
-    textureMap[path] = newTexture;
-    return &textureMap[path];
+sf::Texture GraphicManager::loadFileTexture(const char* pathtexture){
+    sf::Texture texture;
+        if(!texture.loadFromFile(pathtexture)){
+            std::cout << "ERROR, didnt found texture path, graphickManager - " << pathtexture << std::endl;
+            exit(1); 
+        }
+    return texture;
 }
+
 
 bool GraphicManager::isWindowOpen() const {
     return window->isOpen();

@@ -7,7 +7,6 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     speed_mod(speed)
 {
     body.setPosition(position);
-    body.setFillColor(sf::Color::Green);
     velocity = sf::Vector2f(0.f, 0.f);
 }
 

@@ -19,6 +19,7 @@ namespace Entities::Characters {
             void adjustPosition(sf::Vector2f ds);
 
             void move() override;
+            void updateAnimation();
             void update() override;
             void execute() override;
             void collision(Entities::Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) override;

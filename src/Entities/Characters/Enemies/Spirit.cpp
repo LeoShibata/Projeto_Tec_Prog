@@ -5,7 +5,7 @@ namespace Entities::Characters {
     
 Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
     Enemies(position, size, maldade), 
-    soul(0.04f)
+    soul(0.07f)
 {
     initialize();
     speed_mod = 3.f;
@@ -16,7 +16,10 @@ Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade
 
 Spirit::~Spirit() { }
 
-void Spirit::initialize() { }
+void Spirit::initialize() {
+    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
+ }
 
 sf::Vector2f Spirit::normalize(sf::Vector2f vec) {
     float magnitude = sqrt(vec.x * vec.x + vec.y * vec.y);
@@ -42,14 +45,23 @@ void Spirit::move() {
 void Spirit::update() {
     if(pPlayer != nullptr) {
         followPlayer(pPlayer->getPos());
+        if(velocity.x < 0){
+            isMovingLeft = false;
+        }else{
+            isMovingLeft = true;
+        }
     } else {    
         velocity.x = 0;
         velocity.y = 0;
     }   
 }
 
+void Spirit::updateAnimation(){
+    animation.update(isMovingLeft, "FLY");
+}
 void Spirit::execute() {
     update();
+    updateAnimation();
     move();
 }
 

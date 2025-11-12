@@ -8,9 +8,11 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     Entity(position, size, speed),
     canMove(false),
     isMovingLeft(false),
+    isMoving(false),
     dt(0.f),
     onGround(false),
-    jumpSpeed(450.f)
+    jumpSpeed(450.f),
+    animation(&body)
 {
     setVelocity(sf::Vector2f(0.f, 0.f));
 }
