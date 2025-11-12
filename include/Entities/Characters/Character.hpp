@@ -12,6 +12,9 @@ namespace Entities::Characters {
             bool canMove;
             bool isMovingLeft;
             bool onGround;
+            bool isMoving;
+            bool isAtacking;
+            
             float jumpSpeed;
             Animation::Animator animation;
             static const float GRAVITY;

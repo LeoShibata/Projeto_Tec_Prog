@@ -9,7 +9,7 @@ class Being {
         static Managers::GraphicManager* pGraphic;
 
         sf::RectangleShape body;
-        sf::Texture* texture;
+        sf::Texture texture;
 
         const int id;
         static int cont;

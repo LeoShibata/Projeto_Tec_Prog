@@ -38,7 +38,7 @@ void Animator::update(const bool isRight, std::string imageState){
     image->update(isRight, delayTime);
     body->setTextureRect(image->getSize()); //chopping the image
     body->setTexture(image->getTexture());//load texture
-    body->setScale(scale.x,scale.y); //dont know what this actually do;
+    body->setScale(scale.x,scale.y); //change size of texture;
 }
 
 void Animator::addAnimation(const char* texturePath, std::string animationName, const unsigned int imgCounter, const float frameTime, const sf::Vector2f scale){

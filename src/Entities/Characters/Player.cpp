@@ -6,18 +6,20 @@ using namespace std;
 namespace Entities::Characters {
 
 void Player::initialize() { 
-    
+    animation.addAnimation("../assets/walking.png","WALKING",24, 0.06f, sf::Vector2f(4,4));
+    animation.addAnimation("../assets/player.png", "STOP", 1, 1.f, sf::Vector2f(1.5f,1.5f));
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
+
 }
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 200.f)
 {
+        
     initialize();
     typeId = IDs::player;
     speed_mod = 300.f;
 
-    // texture = pGraphic->loadFileTexture("../assets/player.png");
-    // body.setTexture(texture);
 }
 
 Player::~Player() { }
@@ -57,6 +59,19 @@ void Player::update() {
     } else {
         velocity.x = 0.f;
     }
+    if(velocity.x == 0.f && velocity.y == 0){
+        isMoving = false;
+    }else{
+        isMoving = true;
+    }
+}
+
+void Player::updateAnimation(){
+    cout<< isMoving<< " | " << onGround << endl;
+    if(isMoving == true && onGround== false)
+        animation.update(!(isMovingLeft), "WALKING");
+    if(isMoving == false && onGround ==false)
+        animation.update(!(isMovingLeft), "STOP");
 }
 
 void Player::execute() {
@@ -65,7 +80,7 @@ void Player::execute() {
     if(onGround) {
         onGround = false;
     }
-
+    updateAnimation();
     move();
 }
 
