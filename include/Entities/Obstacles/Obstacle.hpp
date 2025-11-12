@@ -3,6 +3,7 @@
 
 #include "Entities/Entity.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Enemies/Enemies.hpp"
 
 namespace Entities::Obstacles {
     class Obstacle : public Entity {
@@ -17,7 +18,8 @@ namespace Entities::Obstacles {
             void execute() override;
             virtual void collision(Entity* other, sf::Vector2f ds) override;
 
-            virtual void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) = 0; 
+            virtual void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) = 0;
+            virtual void handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) = 0; 
     };
 }
 

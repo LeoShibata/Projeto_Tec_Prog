@@ -13,6 +13,7 @@ namespace Entities::Obstacles {
             ~Platform();
 
             void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) override;
+            void handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) override;
     };
 }
 

@@ -19,6 +19,10 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
 
 Character::~Character() { }
 
+void Character::adjustPosition(sf::Vector2f ds) {
+    body.move(ds);
+}
+
 void Character::startMovingLeft() {
     canMove = true;
     isMovingLeft = true;
