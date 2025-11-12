@@ -25,7 +25,12 @@ void Obstacle::collision(Entity* other, sf::Vector2f ds) {
             handleCollision(pPlayer, ds);
             break;
         }
-        
+        case(Entities::IDs::enemy) : {
+            Entities::Characters::Enemies* pEnemy = static_cast<Entities::Characters::Enemies*>(other);
+            handleCollision(pEnemy, ds);
+            break;
+        }
+
         default:
             break;
     }

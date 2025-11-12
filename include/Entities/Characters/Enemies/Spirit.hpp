@@ -2,6 +2,7 @@
 #define SPIRIT_HPP
 
 #include "Entities/Characters/Enemies/Enemies.hpp"
+#include "SFML/System/Clock.hpp"
 
 #include <cmath>
 
@@ -9,6 +10,9 @@ namespace Entities::Characters {
     class Spirit : public Enemies {
         private:
             float soul;
+            sf::Clock collisionTimer;
+            float collisionCooldown;
+            bool isStunned;
 
         private:
             void initialize();
@@ -18,9 +22,10 @@ namespace Entities::Characters {
             Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Spirit();
             
-            void movementPattern();
+            void movementPattern(); // Ainda não implementado
             void followPlayer(sf::Vector2f playerPos);
             void updateAnimation();
+
             void move() override;
             void update () override;
             void execute() override;

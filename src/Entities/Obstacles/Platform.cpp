@@ -36,11 +36,41 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
 
         // pousou no chão
         if(push < 0) { 
-                pPlayer->setOnGround(true);
+            pPlayer->setOnGround(true);
         }
 
         pPlayer->adjustPosition(sf::Vector2f(0.f, push));
         pPlayer->setVelocity(sf::Vector2f(pPlayer->getVelocity().x, 0.f));
+    }
+}
+
+void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
+    float push;
+    if(ds.x > ds.y) { 
+        if((pEnemy->getPos().x - getPos().x) > 0) {
+            push = -ds.x;
+        } else {
+            push = ds.x;          
+        }
+        
+        pEnemy->adjustPosition(sf::Vector2f(push, 0.f));
+        // Lógica para deslizar do inimigo: Apenas para a velocidade X, mas deixa a y continuar
+        pEnemy->setVelocity(sf::Vector2f(0.f, pEnemy->getVelocity().y));
+        
+    } else {
+        if((pEnemy->getPos().y - getPos().y) > 0) {
+            push = -ds.y;
+        } else { 
+            push = ds.y;
+        }
+
+        
+        if(push < 0) { 
+            pEnemy->setOnGround(true);
+        }
+        
+        pEnemy->adjustPosition(sf::Vector2f(0.f, push));
+        pEnemy->setVelocity(sf::Vector2f(pEnemy->getVelocity().x, 0.f));
     }
 }
 

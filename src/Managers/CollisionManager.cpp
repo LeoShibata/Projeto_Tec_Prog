@@ -74,7 +74,7 @@ const sf::Vector2f CollisionManager::collisionDetection(Entities::Entity* ent1, 
 }
 
 void CollisionManager::verifyPlayerEnemy() {
-    for(int i = 0; i< lIs.size(); i++) {
+    for(int i = 0; i < lIs.size(); i++) {
         sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
         if(ds.x < 0.f && ds.y < 0.f) {
             pPlayer->collision(lIs[i], ds);
@@ -92,9 +92,22 @@ void CollisionManager::verifyPlayerObstacle() {
     } 
 }
 
+void CollisionManager::verifyEnemyObstacle() {
+    for(int i = 0; i < lIs.size(); i++) {
+        for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
+            sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
+            if(ds.x < 0.f && ds.y < 0.f) {
+                lIs[i]->collision(*it, ds);
+                (*it)->collision(lIs[i], ds);
+            }
+        }
+    }
+}
+
 void CollisionManager::run() {
     verifyPlayerEnemy();
     verifyPlayerObstacle();
+    verifyEnemyObstacle();
 }
 
 }

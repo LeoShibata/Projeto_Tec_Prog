@@ -29,6 +29,7 @@ using namespace std;
                 const sf::Vector2f collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2);
                 void verifyPlayerEnemy();
                 void verifyPlayerObstacle();
+                void verifyEnemyObstacle();
 
                 void run();
         };

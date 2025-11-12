@@ -1,15 +1,16 @@
 #include "Stages/Stage1.hpp"
 
-#include "Entities/Characters/Player.hpp"
-#include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Characters/Enemies/Spirit.hpp"
+#include "Entities/Characters/Enemies/Skeleton.hpp"
 
 using json = nlohmann::json;
 
 namespace Stages {
 
 Stage1::Stage1() : 
-    Stage(), max_skeletons(0){
+    Stage(), 
+    max_skeletons(5)
+{
     try {
         srand(time(0));
         createMap();
@@ -40,12 +41,13 @@ void Stage1::createMap() {
     int width = data["layers"][0]["width"];      // get height layers
 
     float tileSize = 32.f;
-    int qtd=0;
-    vector<sf::Vector2f> random_enemies((max_skeletons+max_spirits)*2); //Random entities vector;
+    int qtd = 0;
+    vector<sf::Vector2f> spirit_positions; //Random spirits vector;
+    vector<sf::Vector2f> skeleton_positions; 
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
+        for(int j = 0; j < width; ++j) {
             matrix[i][j] = firstLayer[i * width + j];
         }
     }
@@ -64,10 +66,11 @@ void Stage1::createMap() {
                     break;
                 }
                 case(3) : {
-                    random_enemies[qtd] = sf::Vector2f(x_pos, y_pos);
-                    cout << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
-                    qtd++;
-
+                    spirit_positions.push_back({x_pos, y_pos});
+                    break;
+                }
+                case(4) : {
+                    skeleton_positions.push_back({x_pos, y_pos});
                     break;
                 }
                 case(74) : {
@@ -80,18 +83,28 @@ void Stage1::createMap() {
             }
         }
     }
-    int rangedNumber;
-    for (qtd = 0; qtd < random_enemies.size(); qtd++)
-    {
-        rangedNumber = (rand() % 10) + 1;
-        if (rangedNumber>5){
-            createSpirit(random_enemies[qtd]);
-        }else{
-            cout << "num criou no espaço" << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
+
+    // Create spirits
+    int spirits_spawned = 0;
+    for (int i = 0; i < spirit_positions.size(); i++) {
+            if(spirits_spawned < max_spirits) {
+                if ((rand() % 10) > 4) {// 60% chance
+                createSpirit(spirit_positions[i]);
+                spirits_spawned++;
+            }
         }
     }
-    
 
+    // Create Skeletons
+    int skeletons_spawned = 0;
+    for (int i = 0; i < skeleton_positions.size(); i++) {
+            if(skeletons_spawned < max_skeletons) {
+                if ((rand() % 10) > 4) {
+                createSkeleton(skeleton_positions[i]);
+                skeletons_spawned;
+            }
+        }
+    }
 }
 
 }

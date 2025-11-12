@@ -1,25 +1,29 @@
 #include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Characters/Player.hpp"
 
+#include <iostream>
+
 namespace Entities::Characters {
     
+void Spirit::initialize() {
+    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
+}
+
 Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
-    Enemies(position, size, maldade), 
-    soul(0.07f)
+    Enemies(position, size, maldade),
+    soul(0.07f),
+    collisionCooldown(0.4f),
+    isStunned(false)
 {
     initialize();
     speed_mod = 3.f;
-
-    // texture = pGraphic->loadFileTexture("../assets/enemy.png");
     body.setFillColor(sf::Color::Magenta);
+    collisionTimer.restart();
 }
 
 Spirit::~Spirit() { }
 
-void Spirit::initialize() {
-    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
-    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
- }
 
 sf::Vector2f Spirit::normalize(sf::Vector2f vec) {
     float magnitude = sqrt(vec.x * vec.x + vec.y * vec.y);
@@ -43,14 +47,17 @@ void Spirit::move() {
 }
 
 void Spirit::update() {
-    if(pPlayer != nullptr) {
-        followPlayer(pPlayer->getPos());
-        if(velocity.x < 0){
-            isMovingLeft = false;
-        }else{
-            isMovingLeft = true;
+    if (isStunned) {
+        if (collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
+            isStunned = false;
         }
-    } else {    
+    }
+
+    if (!isStunned && pPlayer != nullptr) {
+        followPlayer(pPlayer->getPos());
+    } 
+
+    else if (!isStunned) {
         velocity.x = 0;
         velocity.y = 0;
     }   
@@ -65,6 +72,19 @@ void Spirit::execute() {
     move();
 }
 
-void Spirit::collision(Entities::Entity *other, sf::Vector2f ds) { }
+void Spirit::collision(Entities::Entity* other, sf::Vector2f ds) {
+    switch(other->getTypeId()) {
+        case(Entities::IDs::obstacle) : {
+            if(!isStunned) {
+                isStunned = true;
+                collisionTimer.restart();
+            }
+            break;
+        }
+        
+        default :
+            break;
+    }
+}
 
 }
