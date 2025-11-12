@@ -18,6 +18,7 @@ namespace Entities::Characters {
             Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
             virtual ~Character();
 
+            void adjustPosition(sf::Vector2f ds);
             void startMovingLeft();
             void startMovingRight();
             void stopMoving();

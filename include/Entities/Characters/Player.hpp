@@ -16,7 +16,6 @@ namespace Entities::Characters {
             virtual ~Player();
             
             void jump();
-            void adjustPosition(sf::Vector2f ds);
 
             void move() override;
             void update() override;

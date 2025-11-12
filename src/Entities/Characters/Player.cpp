@@ -27,10 +27,6 @@ void Player::jump() {
     }
 }
 
-void Player::adjustPosition(sf::Vector2f ds) {
-    body.move(ds);
-}
-
 void Player::move(){
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();

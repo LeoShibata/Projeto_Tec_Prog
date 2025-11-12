@@ -21,7 +21,7 @@ GraphicManager::GraphicManager() :
 
     view.setSize(sf::Vector2f(640.f, 360.f));
     view.setCenter(sf::Vector2f(640.f, 360.f));
-
+    
     if(pGraphic == nullptr)
         pGraphic = this;
 }   

@@ -1,17 +1,23 @@
 #include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Characters/Player.hpp"
 
+#include <iostream>
+
 namespace Entities::Characters {
     
 Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
-    Enemies(position, size, maldade), 
-    soul(0.04f)
+    Enemies(position, size, maldade),
+    soul(0.04f),
+    collisionCooldown(0.4f),
+    isStunned(false)
 {
     initialize();
     speed_mod = 3.f;
 
     // texture = pGraphic->loadFileTexture("../assets/enemy.png");
     body.setFillColor(sf::Color::Magenta);
+
+    collisionTimer.restart();
 }
 
 Spirit::~Spirit() { }
@@ -40,9 +46,18 @@ void Spirit::move() {
 }
 
 void Spirit::update() {
-    if(pPlayer != nullptr) {
+    
+    if (isStunned) {
+        if (collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
+            isStunned = false;
+        }
+    }
+
+    if (!isStunned && pPlayer != nullptr) {
         followPlayer(pPlayer->getPos());
-    } else {    
+    } 
+
+    else if (!isStunned) {
         velocity.x = 0;
         velocity.y = 0;
     }   
@@ -53,6 +68,19 @@ void Spirit::execute() {
     move();
 }
 
-void Spirit::collision(Entities::Entity *other, sf::Vector2f ds) { }
+void Spirit::collision(Entities::Entity* other, sf::Vector2f ds) {
+    switch(other->getTypeId()) {
+        case(Entities::IDs::obstacle) : {
+            if(!isStunned) {
+                isStunned = true;
+                collisionTimer.restart();
+            }
+            break;
+        }
+        
+        default :
+            break;
+    }
+}
 
 }

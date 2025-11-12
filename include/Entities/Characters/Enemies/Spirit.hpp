@@ -2,6 +2,7 @@
 #define SPIRIT_HPP
 
 #include "Entities/Characters/Enemies/Enemies.hpp"
+#include "SFML/System/Clock.hpp"
 
 #include <cmath>
 
@@ -9,6 +10,9 @@ namespace Entities::Characters {
     class Spirit : public Enemies {
         private:
             float soul;
+            sf::Clock collisionTimer;
+            float collisionCooldown;
+            bool isStunned;
 
         private:
             void initialize();
