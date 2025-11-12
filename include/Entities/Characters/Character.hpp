@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include "Entities/Entity.hpp"
+#include "Animation/Animator.hpp"
 
 namespace Entities::Characters {
     class Character : public Entity {
@@ -12,6 +13,7 @@ namespace Entities::Characters {
             bool isMovingLeft;
             bool onGround;
             float jumpSpeed;
+            Animation::Animator animation;
             static const float GRAVITY;
 
         public:

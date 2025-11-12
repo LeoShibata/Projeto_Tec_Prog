@@ -20,7 +20,7 @@ namespace Entities::Characters {
             
             void movementPattern();
             void followPlayer(sf::Vector2f playerPos);
-            
+            void updateAnimation();
             void move() override;
             void update () override;
             void execute() override;

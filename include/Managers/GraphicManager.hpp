@@ -16,7 +16,6 @@ namespace Managers {
             static GraphicManager* pGraphic;
             sf::View view;
             Entities::Characters::Player* pPlayer;
-            std::map<std::string, sf::Texture> textureMap;
 
         private:    
             GraphicManager();
@@ -27,7 +26,7 @@ namespace Managers {
             static GraphicManager* getGraphicManager();
             sf::RenderWindow* getWindow();
             void setPlayer(Entities::Characters::Player* player);
-            sf::Texture* loadFileTexture(const char* pathtexture);
+            sf::Texture loadFileTexture(const char* pathtexture);
 
             bool isWindowOpen() const;
             void drawElement(const sf::RectangleShape& body);

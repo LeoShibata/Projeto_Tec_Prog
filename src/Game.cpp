@@ -18,12 +18,13 @@ Game::Game() :
     }
 
     stage2 = new Stages::BossRoom();
+    stage1 = new Stages::Stage1();
 }   
 
 Game::~Game() {
-    if(stage2) {
-        delete stage2;
-        stage2 = nullptr;
+    if(stage1) {
+        delete stage1;
+        stage1 = nullptr;
     }
 }
 
@@ -31,13 +32,13 @@ void Game::run() {
     while (pGraphic->isWindowOpen()) {
         pEvent->run();
 
-        if(stage2) {
-            stage2->execute();
+        if(stage1) {
+            stage1->execute();
         }
         
         pGraphic->clearWindow(); 
-        if(stage2) {
-            stage2->draw(pGraphic->getWindow());
+        if(stage1) {
+            stage1->draw(pGraphic->getWindow());
         } 
         pGraphic->showElements(); 
     }

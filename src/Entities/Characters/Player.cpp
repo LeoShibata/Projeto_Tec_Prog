@@ -5,7 +5,9 @@ using namespace std;
 
 namespace Entities::Characters {
 
-void Player::initialize() { }
+void Player::initialize() { 
+    
+}
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 200.f)
