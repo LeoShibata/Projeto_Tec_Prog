@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
+#
 
 namespace Entities::Characters {
     class Player; // para evitar include circular
@@ -16,6 +17,8 @@ namespace Managers {
             static GraphicManager* pGraphic;
             sf::View view;
             Entities::Characters::Player* pPlayer;
+            sf::Clock clock;
+            float time;
 
         private:    
             GraphicManager();
@@ -33,6 +36,8 @@ namespace Managers {
             void showElements();
             void closeWindow();
             void clearWindow();
+            void resetClock();
+            const float getTime() const;
     };
 }
 

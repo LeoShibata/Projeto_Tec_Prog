@@ -31,5 +31,8 @@ const sf::Vector2f Being::getSize() const {
 void Being::draw() {
     pGraphic->drawElement(getBody()); //  try to use getbody after();
 }
- 
+
+void Being::setPos(sf::Vector2f pos) {
+    body.setPosition(pos);
+}
 //...

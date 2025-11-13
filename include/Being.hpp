@@ -23,6 +23,7 @@ class Being {
         const sf::Vector2f getPos() const;
         const sf::Vector2f getSize() const;
         void draw();
+        void setPos(sf::Vector2f pos);
 
         virtual void execute() = 0; 
 };

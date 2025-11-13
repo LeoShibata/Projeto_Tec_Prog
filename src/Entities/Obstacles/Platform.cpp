@@ -1,6 +1,6 @@
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Characters/Player.hpp"
-
+using namespace std;
 namespace Entities::Obstacles {
 
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
@@ -17,6 +17,9 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
     if(collisionType == 1) {
         // Lógica para descobrir se empurra para esquerda ou direita
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
+        pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
+        cout <<ds << " colisao  obstaculo horizontal" <<endl;
+
         if(pPlayer->getOnGround()) {
             pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
         }
@@ -26,13 +29,14 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
         if(ds < 0) { 
             pPlayer->setOnGround(true);
         }
-
+        cout <<ds << " colisao  obstaculo vertical" <<endl;
         pPlayer->adjustPosition(sf::Vector2f(0.f, ds));
         pPlayer->setVelocity(sf::Vector2f(pPlayer->getVelocity().x, 0.f));
     }
 }
 
 void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
+        ds *= -1;
     if(collisionType == 1) { 
         
         pEnemy->adjustPosition(sf::Vector2f(ds, 0.f));

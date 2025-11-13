@@ -99,6 +99,7 @@ void CollisionManager::verifyPlayerEnemy() {
         CollisionData data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
         if(data.collided == true) {
             pPlayer->collision(lIs[i], data.ds, int(data.type));
+
         }
     }
 }
@@ -107,7 +108,6 @@ void CollisionManager::verifyPlayerObstacle() {
     for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
         CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer));
         if(data.collided == true) {
-            cout <<data.ds << " colisao player  inimigo " <<data.collided << endl;
 
             (*it)->collision(pPlayer, data.ds, int(data.type)); // search more after
             pPlayer->collision(*it, data.ds, int(data.type));
@@ -120,7 +120,6 @@ void CollisionManager::verifyEnemyObstacle() {
         for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
             CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
             if(data.collided == true) {
-                cout <<data.ds << " enemy obstacle  " <<data.collided << endl;
 
                 lIs[i]->collision(*it, data.ds, int(data.type));
                 (*it)->collision(lIs[i], data.ds, int(data.type));

@@ -63,7 +63,7 @@ void Player::update() {
 }
 
 void Player::updateAnimation(){
-   
+    cout<< isMoving<< " | " << onGround << endl;
     if(isMoving == true && onGround== false)
         animation.update(isMovingLeft, "WALKING");
     if(isMoving == false && onGround ==false)

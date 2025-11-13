@@ -2,7 +2,7 @@
 #define PLATFORM_HPP
 
 #include "Entities/Obstacles/Obstacle.hpp"
-
+#include <iostream>
 namespace Entities::Obstacles {
     class Platform : public Obstacle {
         private:

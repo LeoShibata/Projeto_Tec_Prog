@@ -11,6 +11,7 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     isMoving(false),
     dt(0.f),
     onGround(false),
+    isDying(false),
     jumpSpeed(450.f),
     animation(&body)
 {
@@ -20,7 +21,10 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
 Character::~Character() { }
 
 void Character::adjustPosition(sf::Vector2f ds) {
+    dt= clock.getElapsedTime().asSeconds();
+    
     body.move(ds);
+
 }
 
 void Character::startMovingLeft() {

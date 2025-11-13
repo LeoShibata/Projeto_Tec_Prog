@@ -82,4 +82,12 @@ void GraphicManager::clearWindow() {
     window->clear(sf::Color(100, 100, 100));
 }
 
+void GraphicManager::resetClock(){
+    time = clock.getElapsedTime().asSeconds(); //to get as second, time = clock.restart()
+    clock.restart();
+}
+const float GraphicManager::getTime() const {
+    return time;
+}
+
 }

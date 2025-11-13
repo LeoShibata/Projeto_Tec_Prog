@@ -20,6 +20,7 @@ namespace Entities::Characters {
             static const float GRAVITY;
 
         public:
+            bool isDying;
             Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
             virtual ~Character();
 
