@@ -1,6 +1,7 @@
 #include "Managers/CollisionManager.hpp"
 #include <Entities/Entity.hpp>
 
+using namespace std;
 namespace Managers {
 
 CollisionManager::CollisionManager() : 
@@ -55,39 +56,61 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
     }
 }
 
-const sf::Vector2f CollisionManager::collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2) {
+const CollisionManager::CollisionData CollisionManager::collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2) {
+
+   
     sf::Vector2f pos1 = ent1->getPos();
     sf::Vector2f pos2 = ent2->getPos();
 
     sf::Vector2f size1 = ent1->getSize();
     sf::Vector2f size2 = ent2->getSize();
 
+    CollisionData cData;
     sf::Vector2f distanceBetweenCenters(
         fabs((pos1.x + size1.x/2.f) - (pos2.x + size2.x/2.f)),
         fabs((pos1.y + size1.y/2.f) - (pos2.y + size2.y/2.f))
     );
     sf::Vector2f sumHalfRectangle(size1.x/2.f + size2.x/2.f, size1.y/2.f + size2.y/2.f);
-    return sf::Vector2f(
-        distanceBetweenCenters.x - sumHalfRectangle.x,
-        distanceBetweenCenters.y - sumHalfRectangle.y
-    );
+    
+    float overX = distanceBetweenCenters.x - sumHalfRectangle.x;
+    float overY = distanceBetweenCenters.y - sumHalfRectangle.y;
+    
+    if( overX <0 && overY <0){
+        cData.collided = true;
+
+    if(overX > overY){
+        if((pos2.x - pos1.x) > 0)
+            overX *= -1;
+        cData.ds = overX;
+        cData.type = CollisionType::Horizontal;
+    }else{
+        if((pos2.y - pos1.y) > 0)
+            overY *= -1;
+        cData.ds = overY;
+        cData.type = CollisionType::Vertical;
+        }
+        
+    }
+    return cData;   
 }
 
 void CollisionManager::verifyPlayerEnemy() {
     for(int i = 0; i < lIs.size(); i++) {
-        sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
-        if(ds.x < 0.f && ds.y < 0.f) {
-            pPlayer->collision(lIs[i], ds);
+        CollisionData data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
+        if(data.collided == true) {
+            pPlayer->collision(lIs[i], data.ds, int(data.type));
         }
     }
 }
 
 void CollisionManager::verifyPlayerObstacle() {
     for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
-        sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer));
-        if(ds.x < 0.f && ds.y < 0.f) {
-            (*it)->collision(pPlayer, ds); // search more after
-            pPlayer->collision(*it, ds);
+        CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer));
+        if(data.collided == true) {
+            cout <<data.ds << " colisao player  inimigo " <<data.collided << endl;
+
+            (*it)->collision(pPlayer, data.ds, int(data.type)); // search more after
+            pPlayer->collision(*it, data.ds, int(data.type));
         }
     } 
 }
@@ -95,10 +118,13 @@ void CollisionManager::verifyPlayerObstacle() {
 void CollisionManager::verifyEnemyObstacle() {
     for(int i = 0; i < lIs.size(); i++) {
         for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
-            sf::Vector2f ds = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
-            if(ds.x < 0.f && ds.y < 0.f) {
-                lIs[i]->collision(*it, ds);
-                (*it)->collision(lIs[i], ds);
+            CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
+            if(data.collided == true) {
+                cout <<data.ds << " enemy obstacle  " <<data.collided << endl;
+
+                lIs[i]->collision(*it, data.ds, int(data.type));
+                (*it)->collision(lIs[i], data.ds, int(data.type));
+                
             }
         }
     }

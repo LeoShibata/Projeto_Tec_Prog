@@ -63,7 +63,7 @@ void Player::update() {
 }
 
 void Player::updateAnimation(){
-    cout<< isMoving<< " | " << onGround << endl;
+   
     if(isMoving == true && onGround== false)
         animation.update(isMovingLeft, "WALKING");
     if(isMoving == false && onGround ==false)
@@ -80,7 +80,7 @@ void Player::execute() {
     move();
 }
 
-void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
+void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
             break;      

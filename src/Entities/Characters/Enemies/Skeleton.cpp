@@ -62,7 +62,7 @@ void Skeleton::execute() {
     move();
 }
 
-void Skeleton::collision(Entities::Entity* other, sf::Vector2f ds) {
+void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::player) : {
             break;

@@ -18,16 +18,16 @@ void Obstacle::execute() {
     update();
 }
 
-void Obstacle::collision(Entity* other, sf::Vector2f ds) {
+void Obstacle::collision(Entity* other, float ds, int collisionType) {
     switch (other->getTypeId()) {
         case(Entities::IDs::player) : {
             Entities::Characters::Player* pPlayer = static_cast<Entities::Characters::Player*>(other);
-            handleCollision(pPlayer, ds);
+            handleCollision(pPlayer, ds, collisionType);
             break;
         }
         case(Entities::IDs::enemy) : {
             Entities::Characters::Enemies* pEnemy = static_cast<Entities::Characters::Enemies*>(other);
-            handleCollision(pEnemy, ds);
+            handleCollision(pEnemy, ds, collisionType);
             break;
         }
 

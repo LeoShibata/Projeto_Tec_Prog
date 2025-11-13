@@ -33,7 +33,7 @@ namespace Entities {
             virtual IDs::IDs getTypeId() const;
             
             virtual void update() = 0;
-            virtual void collision(Entity* other, sf::Vector2f ds = sf::Vector2f(0.f, 0.f)) = 0;
+            virtual void collision(Entity* other, float over, int collisionType) = 0;
     };
 }
 

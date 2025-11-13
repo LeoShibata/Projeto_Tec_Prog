@@ -16,10 +16,10 @@ namespace Entities::Obstacles {
 
             void update() override;
             void execute() override;
-            virtual void collision(Entity* other, sf::Vector2f ds) override;
+            virtual void collision(Entity* other, float ds, int collisionType);
 
-            virtual void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) = 0;
-            virtual void handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) = 0; 
+            virtual void handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) = 0;
+            virtual void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) = 0; 
     };
 }
 

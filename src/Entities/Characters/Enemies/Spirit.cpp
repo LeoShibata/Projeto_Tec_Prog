@@ -72,7 +72,7 @@ void Spirit::execute() {
     move();
 }
 
-void Spirit::collision(Entities::Entity* other, sf::Vector2f ds) {
+void Spirit::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
             if(!isStunned) {
