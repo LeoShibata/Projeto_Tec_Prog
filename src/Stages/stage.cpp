@@ -33,6 +33,7 @@ Stage::~Stage() {
     }
 }
 
+// ----------------- Players -----------------
 void Stage::createPlayer(sf::Vector2f pos) {
     Entities::Characters::Player* pPlayer = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
     characterList->addEntity(pPlayer);
@@ -45,6 +46,7 @@ void Stage::createPlayer(sf::Vector2f pos) {
     pGraphic->setPlayer(pPlayer);
 }
 
+// ----------------- Obstacles -----------------
 void Stage::createFloor(sf::Vector2f pos) {
     Entities::Obstacles::Floor* pFloor = new Entities::Obstacles::Floor(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
     obstacleList->addEntity(pFloor);
@@ -57,6 +59,13 @@ void Stage::createPlatform(sf::Vector2f pos) {
     pCollision->includeEntity(static_cast<Entities::Entity*>(pPlat));
 }
 
+void Stage::createSpike(sf::Vector2f pos) {
+    Entities::Obstacles::Spike* pSpike = new Entities::Obstacles::Spike(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    obstacleList->addEntity(pSpike);
+    pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
+}
+
+// ----------------- Enemies -----------------
 void Stage::createBat(sf::Vector2f pos) {
     Entities::Characters::Bat* pBat = new Entities::Characters::Bat(sf::Vector2f(pos),sf::Vector2f(tileSize, tileSize), 10);
     characterList->addEntity(pBat);
@@ -75,9 +84,9 @@ void Stage::createDeath(sf::Vector2f pos) {
     pCollision->includeEntity(pDeath);
 }
 
+
 void Stage::draw(sf::RenderWindow* window) {
     window->draw(background);
-    
     characterList->drawAll(window);
     obstacleList->drawAll(window);
 }

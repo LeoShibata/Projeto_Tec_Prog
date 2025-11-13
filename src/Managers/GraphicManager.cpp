@@ -50,10 +50,10 @@ void GraphicManager::setPlayer(Entities::Characters::Player* player) {
 
 sf::Texture GraphicManager::loadFileTexture(const char* pathtexture){
     sf::Texture texture;
-        if(!texture.loadFromFile(pathtexture)){
-            std::cout << "ERROR, didnt found texture path, graphickManager - " << pathtexture << std::endl;
-            exit(1); 
-        }
+    if(!texture.loadFromFile(pathtexture)){
+        std::cout << "ERROR, didnt found texture path, graphickManager - " << pathtexture << std::endl;
+        exit(1); 
+    }
     return texture;
 }
 

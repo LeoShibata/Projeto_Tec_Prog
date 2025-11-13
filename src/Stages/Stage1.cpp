@@ -83,11 +83,15 @@ void Stage1::createMap() {
                     break;
                 }
                 case(74) : {
-                    createFloor(sf::Vector2(x_pos,y_pos));
+                    createFloor(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(75) : {
-                    createPlatform(sf::Vector2(x_pos,y_pos));
+                    createPlatform(sf::Vector2(x_pos, y_pos));
+                    break;
+                }
+                case(76) : {
+                    createSpike(sf::Vector2(x_pos, y_pos));
                     break;
                 }
 
