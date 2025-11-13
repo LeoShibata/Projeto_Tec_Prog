@@ -21,6 +21,7 @@ void Spike::handleCollision(Entities::Characters::Player* pPlayer, float ds, int
         // Lógica para descobrir se empurra para esquerda ou direita
         
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
+        pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
         if(pPlayer->getOnGround()) {
             pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
         }
@@ -38,7 +39,7 @@ void Spike::handleCollision(Entities::Characters::Player* pPlayer, float ds, int
 
 void Spike::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
     pEnemy->takeDamage(1);
-    float push;
+    ds *= -1;
     if(collisionType == 1) { 
         
         pEnemy->adjustPosition(sf::Vector2f(ds, 0.f));
