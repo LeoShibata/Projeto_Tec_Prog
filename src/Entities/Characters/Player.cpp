@@ -6,8 +6,8 @@ using namespace std;
 namespace Entities::Characters {
 
 void Player::initialize() { 
-    animation.addAnimation("../assets/walking.png","WALKING",24, 0.06f, sf::Vector2f(4,4));
-    animation.addAnimation("../assets/player.png", "STOP", 1, 1.f, sf::Vector2f(1.5f,1.5f));
+    animation.addAnimation("../assets/playerAnimation/walking.png","WALKING",24, 0.05f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/playerAnimation/idle.png", "STOP", 18, 0.08f, sf::Vector2f(3,3));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 
 }
@@ -64,9 +64,9 @@ void Player::update() {
 
 void Player::updateAnimation(){
     if(isMoving == true && onGround== false)
-        animation.update(!(isMovingLeft), "WALKING");
+        animation.update(isMovingLeft, "WALKING");
     if(isMoving == false && onGround ==false)
-        animation.update(!(isMovingLeft), "STOP");
+        animation.update(isMovingLeft, "STOP");
 }
 
 void Player::execute() {
