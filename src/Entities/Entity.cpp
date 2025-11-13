@@ -32,4 +32,8 @@ IDs::IDs Entity::getTypeId() const {
     return typeId;
 }
 
+bool Entity::getIsAlive() const {
+    return true;
+}
+
 }

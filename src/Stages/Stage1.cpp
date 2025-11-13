@@ -118,7 +118,7 @@ void Stage1::createMap() {
             if(skeletons_spawned < max_skeletons) {
                 if ((rand() % 10) > 4) {
                 createSkeleton(skeleton_positions[i]);
-                skeletons_spawned;
+                skeletons_spawned++;
             }
         }
     }

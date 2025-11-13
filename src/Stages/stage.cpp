@@ -92,8 +92,30 @@ void Stage::draw(sf::RenderWindow* window) {
 }
 
 void Stage::execute() {
-    characterList->executeAll();
+    List::EntityList* chars = characterList;
+    for(int i = 0; i < chars->getSize(); i++) {
+        if((*chars)[i]->getIsAlive()) {
+           (*chars)[i]->execute(); 
+        }
+    }
+
     obstacleList->executeAll();
+
+    for(int i = chars->getSize() - 1; i  >= 0; i--) {
+        Entities::Entity* ent = (*chars)[i];
+
+        if(!ent->getIsAlive()) {
+            if(ent->getTypeId() == Entities::IDs::player) {
+                // adicionar tela de game over
+            } else {
+                pCollision->removeEntity(ent);
+                chars->removeEntity(i);
+                delete ent;
+                ent = nullptr;
+            }
+        }
+    }
+
     pCollision->run();
 }
 
