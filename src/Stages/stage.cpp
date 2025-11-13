@@ -57,10 +57,10 @@ void Stage::createPlatform(sf::Vector2f pos) {
     pCollision->includeEntity(static_cast<Entities::Entity*>(pPlat));
 }
 
-void Stage::createSpirit(sf::Vector2f pos) {
-    Entities::Characters::Spirit* pSpirit = new Entities::Characters::Spirit(sf::Vector2f(pos),sf::Vector2f(tileSize, tileSize), 10);
-    characterList->addEntity(pSpirit);
-    pCollision->includeEntity(pSpirit);
+void Stage::createBat(sf::Vector2f pos) {
+    Entities::Characters::Bat* pBat = new Entities::Characters::Bat(sf::Vector2f(pos),sf::Vector2f(tileSize, tileSize), 10);
+    characterList->addEntity(pBat);
+    pCollision->includeEntity(pBat);
 }
 
 void Stage::createSkeleton(sf::Vector2f pos) {

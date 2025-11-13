@@ -13,12 +13,12 @@ void Player::initialize() {
 }
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
-    Character(position, size, 200.f)
+    Character(position, size, 100.f)
 {
         
     initialize();
     typeId = IDs::player;
-    speed_mod = 300.f;
+    speed_mod = 250.f;
 
 }
 

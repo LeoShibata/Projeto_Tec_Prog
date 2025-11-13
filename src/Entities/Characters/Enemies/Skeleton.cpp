@@ -8,10 +8,6 @@ namespace Entities::Characters {
 
 void Skeleton::initialize() { }
 
-float Skeleton::distanceSq(const sf::Vector2f& v1, const sf::Vector2f& v2) {
-    return std::pow(v1.x - v2.x, 2) + std::pow(v1.y - v2.y, 2);
-}
-
 Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
     soul(0.7f),
@@ -31,7 +27,6 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 }
 
 Skeleton::~Skeleton() { }
-
 
 void Skeleton::followPlayer(sf::Vector2f playerPos) { 
     static_cast<void>(playerPos);

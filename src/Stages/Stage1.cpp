@@ -1,8 +1,5 @@
 #include "Stages/Stage1.hpp"
 
-#include "Entities/Characters/Enemies/Spirit.hpp"
-#include "Entities/Characters/Enemies/Skeleton.hpp"
-
 using json = nlohmann::json;
 
 namespace Stages {
@@ -50,7 +47,7 @@ void Stage1::createMap() {
 
     float tileSize = 32.f;
     int qtd = 0;
-    vector<sf::Vector2f> spirit_positions; //Random spirits vector;
+    vector<sf::Vector2f> bat_positions; //Random spirits vector;
     vector<sf::Vector2f> skeleton_positions; 
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
@@ -74,7 +71,7 @@ void Stage1::createMap() {
                     break;
                 }
                 case(3) : {
-                    spirit_positions.push_back({x_pos, y_pos});
+                    bat_positions.push_back({x_pos, y_pos});
                     break;
                 }
                 case(4) : {
@@ -98,10 +95,10 @@ void Stage1::createMap() {
 
     // Create spirits
     int spirits_spawned = 0;
-    for (int i = 0; i < spirit_positions.size(); i++) {
+    for (int i = 0; i < bat_positions.size(); i++) {
             if(spirits_spawned < max_spirits) {
                 if ((rand() % 10) > 4) {// 60% chance
-                createSpirit(spirit_positions[i]);
+                createBat(bat_positions[i]);
                 spirits_spawned++;
             }
         }
