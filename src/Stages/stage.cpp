@@ -12,7 +12,7 @@ Stage::Stage() :
     pCollision(nullptr),
     characterList(new List::EntityList()),
     obstacleList(new List::EntityList()),
-    max_spirits(20),
+    max_bats(20),
     max_obstacles(12)
 { 
     pCollision = new Managers::CollisionManager();
@@ -67,6 +67,12 @@ void Stage::createSkeleton(sf::Vector2f pos) {
     Entities::Characters::Skeleton* pSkeleton = new Entities::Characters::Skeleton(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
     characterList->addEntity(pSkeleton);
     pCollision->includeEntity(pSkeleton);
+}
+
+void Stage::createDeath(sf::Vector2f pos) {
+    Entities::Characters::Death* pDeath = new Entities::Characters::Death(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
+    characterList->addEntity(pDeath);
+    pCollision->includeEntity(pDeath);
 }
 
 void Stage::draw(sf::RenderWindow* window) {

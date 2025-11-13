@@ -41,7 +41,7 @@ void BossRoom::createMap() {
 
     float tileSize = 32.f;
     int qtd=0;
-    vector<sf::Vector2f> random_enemies((max_spirits)*2); //Random entities vector;
+    vector<sf::Vector2f> random_enemies((max_bats)*2); //Random entities vector;
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {

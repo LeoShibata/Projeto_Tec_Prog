@@ -84,7 +84,7 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
         case(Entities::IDs::enemy) : {
             break;      
         }
-        // PLatform::handleCollision já chama pPlayer->setOnGround(true) 
+        // Platform::handleCollision já chama pPlayer->setOnGround(true) 
         // Para evitar lógica duplicada, só trata o caso de pousar no chão 
         case(Entities::IDs::floor) : {
             // if(ds.y > 0) {

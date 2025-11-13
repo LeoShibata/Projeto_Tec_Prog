@@ -6,7 +6,7 @@ namespace Stages {
 
 Stage1::Stage1() : 
     Stage(), 
-    max_skeletons(5)
+    max_skeletons(20)
 {
     try {
         srand(time(0));
@@ -67,7 +67,7 @@ void Stage1::createMap() {
             // factory logic
             switch(tileId) {
                 case(1) : {
-                    createPlayer(sf::Vector2(x_pos,y_pos));
+                    createPlayer(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(3) : {
@@ -76,6 +76,10 @@ void Stage1::createMap() {
                 }
                 case(4) : {
                     skeleton_positions.push_back({x_pos, y_pos});
+                    break;
+                }
+                case(5) : {
+                    createDeath({x_pos, y_pos});
                     break;
                 }
                 case(74) : {
@@ -96,7 +100,7 @@ void Stage1::createMap() {
     // Create spirits
     int spirits_spawned = 0;
     for (int i = 0; i < bat_positions.size(); i++) {
-            if(spirits_spawned < max_spirits) {
+            if(spirits_spawned < max_bats) {
                 if ((rand() % 10) > 4) {// 60% chance
                 createBat(bat_positions[i]);
                 spirits_spawned++;
