@@ -1,15 +1,15 @@
-#ifndef PLATFORM_HPP
-#define PLATFORM_HPP
+#ifndef SPIKE_HPP
+#define SPIKE_HPP
 
 #include "Entities/Obstacles/Obstacle.hpp"
 
 namespace Entities::Obstacles {
-    class Platform : public Obstacle {
+    class Spike : public Obstacle {
         // criar atributo específico
 
         public:
-            Platform(sf::Vector2f position, sf::Vector2f size);
-            ~Platform();
+            Spike(sf::Vector2f position, sf::Vector2f size);
+            ~Spike();
 
             void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) override;
             void handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) override;

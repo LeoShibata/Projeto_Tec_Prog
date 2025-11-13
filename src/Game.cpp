@@ -1,6 +1,5 @@
 #include "Game.hpp"
 #include "Entities/Characters/Player.hpp"
-#include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 
     

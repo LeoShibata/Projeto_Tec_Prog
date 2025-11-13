@@ -1,18 +1,20 @@
-#include "Entities/Obstacles/Platform.hpp"
+#include "Entities/Obstacles/Spike.hpp"
 #include "Entities/Characters/Player.hpp"
 
 namespace Entities::Obstacles {
 
-Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
+Spike::Spike(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::Cyan);
-    // typeId = IDs::platform;
+    body.setFillColor(sf::Color::White);
+    // typeId = IDs::Spike;
 }
 
-Platform::~Platform() { }
+Spike::~Spike() { }
 
-void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) {
+void Spike::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) {
+    pPlayer->takeDamage(1);
+
     float push;
     // Colisão horizontal (Parede)
     if(ds.x > ds.y) {
@@ -44,7 +46,8 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
     }
 }
 
-void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
+void Spike::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
+    pEnemy->takeDamage(1);
     float push;
     if(ds.x > ds.y) { 
         if((pEnemy->getPos().x - getPos().x) > 0) {

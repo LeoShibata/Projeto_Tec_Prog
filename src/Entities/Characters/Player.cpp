@@ -13,19 +13,19 @@ void Player::initialize() {
 }
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
-    Character(position, size, 200.f)
+    Character(position, size, 100.f)
 {
         
     initialize();
     typeId = IDs::player;
-    speed_mod = 300.f;
+    speed_mod = 250.f;
 
 }
 
 Player::~Player() { }
 
 void Player::jump() {
-    if(onGround) {
+    if(onGround && isAlive) {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
@@ -46,6 +46,11 @@ void Player::move(){
 }
 
 void Player::update() {
+    if(!isAlive) {
+        velocity.x = 0.f;
+        return;
+    }
+
     if(canMove) {
         if(isMovingLeft) {
             velocity.x = -speed_mod;
@@ -63,7 +68,6 @@ void Player::update() {
 }
 
 void Player::updateAnimation(){
-    cout<< isMoving<< " | " << onGround << endl;
     if(isMoving == true && onGround== false)
         animation.update(isMovingLeft, "WALKING");
     if(isMoving == false && onGround ==false)
@@ -85,13 +89,17 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
         case(Entities::IDs::enemy) : {
             break;      
         }
-        // PLatform::handleCollision já chama pPlayer->setOnGround(true) 
+        // Platform::handleCollision já chama pPlayer->setOnGround(true) 
         // Para evitar lógica duplicada, só trata o caso de pousar no chão 
-        case(Entities::IDs::platform) : {
+        case(Entities::IDs::floor) : {
             // if(ds.y > 0) {
             //     onGround = true;
             //     velocity.y = 0.f;
             // }
+            break;
+        }
+        case(Entities::IDs::platform) : {
+            // A lógica de colisão já é tratada pela plataforma (Obstacle::collision -> Platform::handleCollision)
             break;
         }
 

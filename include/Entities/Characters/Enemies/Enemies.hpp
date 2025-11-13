@@ -22,6 +22,7 @@ namespace Entities::Characters {
             Enemies(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Enemies();
 
+            float distanceSq(const sf::Vector2f& v1, const sf::Vector2f& v2);
             static void setPlayer(Player* p);
             void damaging(Player* pPlayer);
             
