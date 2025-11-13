@@ -6,8 +6,8 @@ namespace Entities::Obstacles {
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    texture = pGraphic->loadFileTexture("../assets/barrel.png");
-    body.setTexture(&texture);
+    body.setFillColor(sf::Color::Cyan);
+    // typeId = IDs::platform;
 }
 
 Platform::~Platform() { }
@@ -41,7 +41,7 @@ void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, 
         
         pEnemy->adjustPosition(sf::Vector2f(ds, 0.f));
         // Lógica para deslizar do inimigo: Apenas para a velocidade X, mas deixa a y continuar
-        pEnemy->setVelocity(sf::Vector2f(0.f, pEnemy->getVelocity().y));
+        // pEnemy->setVelocity(sf::Vector2f(0.f, pEnemy->getVelocity().y));
         
     } else {
         if(ds < 0){

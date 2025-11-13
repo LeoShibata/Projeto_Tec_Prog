@@ -1,15 +1,12 @@
 #include "Stages/Stage1.hpp"
 
-#include "Entities/Characters/Enemies/Spirit.hpp"
-#include "Entities/Characters/Enemies/Skeleton.hpp"
-
 using json = nlohmann::json;
 
 namespace Stages {
 
 Stage1::Stage1() : 
     Stage(), 
-    max_skeletons(5)
+    max_skeletons(20)
 {
     try {
         srand(time(0));
@@ -25,8 +22,16 @@ Stage1::Stage1() :
 Stage1::~Stage1() { }
 
 void Stage1::createMap() {
-    const char* path = "../assets/MoonGraveyard";
+    if(!bgTexture.loadFromFile("../assets/MoonGraveyard.png")) {
+        std::cout << "ERROR: Failed to load background texture for Stage1" << std::endl;
+        exit(1);
+    }   
+    background.setTexture(&bgTexture);
+    background.setSize(sf::Vector2f(bgTexture.getSize().x, bgTexture.getSize().y));
+    background.setPosition(0.f, 0.f);
 
+    const char* path = "../assets/MoonGraveyard";
+    
     ifstream f(path); // get archive
     if(!f.is_open()) {
         std::cout << "ERROR: Could not open map file st " << path << std::endl;
@@ -42,7 +47,7 @@ void Stage1::createMap() {
 
     float tileSize = 32.f;
     int qtd = 0;
-    vector<sf::Vector2f> spirit_positions; //Random spirits vector;
+    vector<sf::Vector2f> bat_positions; //Random spirits vector;
     vector<sf::Vector2f> skeleton_positions; 
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
@@ -62,19 +67,31 @@ void Stage1::createMap() {
             // factory logic
             switch(tileId) {
                 case(1) : {
-                    createPlayer(sf::Vector2(x_pos,y_pos));
+                    createPlayer(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(3) : {
-                    spirit_positions.push_back({x_pos, y_pos});
+                    bat_positions.push_back({x_pos, y_pos});
                     break;
                 }
                 case(4) : {
                     skeleton_positions.push_back({x_pos, y_pos});
                     break;
                 }
+                case(5) : {
+                    createDeath({x_pos, y_pos});
+                    break;
+                }
                 case(74) : {
-                    createPlatform(sf::Vector2(x_pos,y_pos));
+                    createFloor(sf::Vector2(x_pos, y_pos));
+                    break;
+                }
+                case(75) : {
+                    createPlatform(sf::Vector2(x_pos, y_pos));
+                    break;
+                }
+                case(76) : {
+                    createSpike(sf::Vector2(x_pos, y_pos));
                     break;
                 }
 
@@ -86,10 +103,10 @@ void Stage1::createMap() {
 
     // Create spirits
     int spirits_spawned = 0;
-    for (int i = 0; i < spirit_positions.size(); i++) {
-            if(spirits_spawned < max_spirits) {
+    for (int i = 0; i < bat_positions.size(); i++) {
+            if(spirits_spawned < max_bats) {
                 if ((rand() % 10) > 4) {// 60% chance
-                createSpirit(spirit_positions[i]);
+                createBat(bat_positions[i]);
                 spirits_spawned++;
             }
         }

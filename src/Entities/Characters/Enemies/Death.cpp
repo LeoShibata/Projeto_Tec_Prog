@@ -1,4 +1,4 @@
-#include "Entities/Characters/Enemies/Skeleton.hpp"
+#include "Entities/Characters/Enemies/Death.hpp"
 #include "Entities/Characters/Player.hpp"
 
 #include <cmath>
@@ -6,9 +6,9 @@
 
 namespace Entities::Characters {
 
-void Skeleton::initialize() { }
+void Death::initialize() { }
 
-Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
+Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
     soul(0.7f),
     collisionCooldown(0.3f),
@@ -16,7 +16,7 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 {   
     initialize();
     speed_mod = 100.f;
-    body.setFillColor(sf::Color::Yellow);
+    body.setFillColor(sf::Color::Red);
     collisionTimer.restart();
 
     if (rand() % 2 == 0) {
@@ -26,13 +26,13 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
     }
 }
 
-Skeleton::~Skeleton() { }
+Death::~Death() { }
 
-void Skeleton::followPlayer(sf::Vector2f playerPos) { 
+void Death::followPlayer(sf::Vector2f playerPos) { 
     static_cast<void>(playerPos);
 }
 
-void Skeleton::movementPattern() { 
+void Death::movementPattern() { 
     if(pPlayer == nullptr || isStunned) {
         velocity.x = 0;
         return;
@@ -79,7 +79,7 @@ void Skeleton::movementPattern() {
     velocity.y = 0.f;
 }
 
-void Skeleton::move() { 
+void Death::move() { 
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
 
@@ -93,7 +93,7 @@ void Skeleton::move() {
     body.move(ds_x, ds_y);
 }
 
-void Skeleton::update() { 
+void Death::update() { 
     if(isStunned) {
         if(collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;
@@ -107,24 +107,14 @@ void Skeleton::update() {
     }
 }
 
-void Skeleton::execute() { 
+void Death::execute() { 
     update();
     move();
 }
 
-void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {
+void Death::collision(Entities::Entity* other, sf::Vector2f ds) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
-            // if(!isStunned && ds.x < 0.f && ds.y > ds.x) {
-            //     if(isMovingLeft) {
-            //         startMovingRight();
-            //     } else {
-            //         startMovingLeft();
-            //     }
-                
-            //     isStunned = true;
-            //     collisionTimer.restart();
-            // }
             break;
         }
         case(Entities::IDs::player) : {

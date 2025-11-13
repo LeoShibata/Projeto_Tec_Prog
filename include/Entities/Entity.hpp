@@ -10,7 +10,8 @@ namespace Entities {
             player,
             enemy,
             obstacle,
-            platform
+            platform,
+            floor
         };
     }
 

@@ -1,18 +1,18 @@
-#include "Entities/Characters/Enemies/Spirit.hpp"
+#include "Entities/Characters/Enemies/Bat.hpp"
 #include "Entities/Characters/Player.hpp"
 
 #include <iostream>
 
 namespace Entities::Characters {
     
-void Spirit::initialize() {
+void Bat::initialize() {
     animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
 }
 
-Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
+Bat::Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
     Enemies(position, size, maldade),
-    soul(0.07f),
+    soul(0.05f),
     collisionCooldown(0.4f),
     isStunned(false)
 {
@@ -22,10 +22,9 @@ Spirit::Spirit(const sf::Vector2f position, const sf::Vector2f size, int maldade
     collisionTimer.restart();
 }
 
-Spirit::~Spirit() { }
+Bat::~Bat() { }
 
-
-sf::Vector2f Spirit::normalize(sf::Vector2f vec) {
+sf::Vector2f Bat::normalize(sf::Vector2f vec) {
     float magnitude = sqrt(vec.x * vec.x + vec.y * vec.y);
     if(magnitude != 0) {
         return sf::Vector2f(vec.x/magnitude, vec.y/magnitude);
@@ -33,7 +32,7 @@ sf::Vector2f Spirit::normalize(sf::Vector2f vec) {
     return vec;
 } 
 
-void Spirit::followPlayer(sf::Vector2f playerPos) {
+void Bat::followPlayer(sf::Vector2f playerPos) {
     sf::Vector2f direction = playerPos - body.getPosition();
     direction = normalize(direction);
 
@@ -42,11 +41,11 @@ void Spirit::followPlayer(sf::Vector2f playerPos) {
     velocity.y = direction.y * speed;
 }
 
-void Spirit::move() {
+void Bat::move() {
     body.move(velocity);
 }
 
-void Spirit::update() {
+void Bat::update() {
     if (isStunned) {
         if (collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;
@@ -54,8 +53,14 @@ void Spirit::update() {
     }
 
     if (!isStunned && pPlayer != nullptr) {
-        followPlayer(pPlayer->getPos());
-    } 
+        float distance_to_player_sq = distanceSq(body.getPosition(), pPlayer->getPos());
+        if(distance_to_player_sq <  DETECTION_RADIUS_SQ) {
+            followPlayer(pPlayer->getPos());
+        } else {
+            velocity.x = 0;
+            velocity.y = 0;
+        }
+    }       
 
     else if (!isStunned) {
         velocity.x = 0;
@@ -63,16 +68,20 @@ void Spirit::update() {
     }   
 }
 
-void Spirit::updateAnimation(){
+void Bat::updateAnimation(){
     animation.update(isMovingLeft, "FLY");
 }
-void Spirit::execute() {
+void Bat::execute() {
     update();
     updateAnimation();
     move();
 }
 
+<<<<<<< HEAD:src/Entities/Characters/Enemies/Spirit.cpp
 void Spirit::collision(Entities::Entity* other, float ds, int collisionType) {
+=======
+void Bat::collision(Entities::Entity* other, sf::Vector2f ds) {
+>>>>>>> main:src/Entities/Characters/Enemies/Bat.cpp
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
             if(!isStunned) {

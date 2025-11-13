@@ -2,7 +2,7 @@
 
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Obstacles/Platform.hpp"
-#include "Entities/Characters/Enemies/Spirit.hpp"
+#include "Entities/Characters/Enemies/Bat.hpp"
 
 using json = nlohmann::json;
 
@@ -41,7 +41,7 @@ void BossRoom::createMap() {
 
     float tileSize = 32.f;
     int qtd=0;
-    vector<sf::Vector2f> random_enemies((max_spirits)*2); //Random entities vector;
+    vector<sf::Vector2f> random_enemies((max_bats)*2); //Random entities vector;
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
@@ -85,9 +85,9 @@ void BossRoom::createMap() {
     {
         rangedNumber = (rand() % 10) + 1;
         if (rangedNumber>5){
-            createSpirit(random_enemies[qtd]);
+            createBat(random_enemies[qtd]);
         }else{
-            cout << "num criou no espaço" << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
+            // cout << "Nao criou no espaço" << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
         }
     }
     

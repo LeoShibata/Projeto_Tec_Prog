@@ -1,5 +1,5 @@
-#ifndef SKELETON_HPP 
-#define SKELETON_HPP
+#ifndef DEATH_HPP 
+#define DEATH_HPP
 
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "SFML/System/Clock.hpp"
@@ -7,7 +7,7 @@
 #include <cmath>
 
 namespace Entities::Characters {
-    class Skeleton : public Enemies {
+    class Death : public Enemies {
         private: 
             float soul; // Mudar atributo
             sf::Clock collisionTimer;
@@ -21,8 +21,8 @@ namespace Entities::Characters {
             void initialize();
 
         public:
-            Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade);
-            ~Skeleton();
+            Death(const sf::Vector2f position, const sf::Vector2f size, int maldade);
+            ~Death();
 
             void movementPattern(); // Implementar 
             void followPlayer(sf::Vector2f playerPos);
@@ -31,7 +31,7 @@ namespace Entities::Characters {
             void move() override;
             void update() override;
             void execute() override;
-            void collision(Entities::Entity* other, float ds, int collisionType);    
+            void collision(Entities::Entity* other, sf::Vector2f ds) override;    
 
     };
 }

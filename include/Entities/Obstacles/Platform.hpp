@@ -5,8 +5,7 @@
 #include <iostream>
 namespace Entities::Obstacles {
     class Platform : public Obstacle {
-        private:
-            int height;
+        // criar atributo específico
 
         public:
             Platform(sf::Vector2f position, sf::Vector2f size);
