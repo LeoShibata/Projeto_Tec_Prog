@@ -112,7 +112,7 @@ void Death::execute() {
     move();
 }
 
-void Death::collision(Entities::Entity* other, sf::Vector2f ds) {
+void Death::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
             break;

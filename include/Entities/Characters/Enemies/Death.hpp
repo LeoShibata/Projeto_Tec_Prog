@@ -31,7 +31,7 @@ namespace Entities::Characters {
             void move() override;
             void update() override;
             void execute() override;
-            void collision(Entities::Entity* other, sf::Vector2f ds) override;    
+            void collision(Entities::Entity* other, float ds, int collisionType) override;    
 
     };
 }

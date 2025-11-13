@@ -77,11 +77,7 @@ void Bat::execute() {
     move();
 }
 
-<<<<<<< HEAD:src/Entities/Characters/Enemies/Spirit.cpp
-void Spirit::collision(Entities::Entity* other, float ds, int collisionType) {
-=======
-void Bat::collision(Entities::Entity* other, sf::Vector2f ds) {
->>>>>>> main:src/Entities/Characters/Enemies/Bat.cpp
+void Bat::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
             if(!isStunned) {

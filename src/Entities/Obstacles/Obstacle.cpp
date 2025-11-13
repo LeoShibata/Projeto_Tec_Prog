@@ -18,13 +18,8 @@ void Obstacle::execute() {
     update();
 }
 
-<<<<<<< HEAD
 void Obstacle::collision(Entity* other, float ds, int collisionType) {
     switch (other->getTypeId()) {
-=======
-void Obstacle::collision(Entity* other, sf::Vector2f ds) {
-    switch(other->getTypeId()) {
->>>>>>> main
         case(Entities::IDs::player) : {
             Entities::Characters::Player* pPlayer = static_cast<Entities::Characters::Player*>(other);
             handleCollision(pPlayer, ds, collisionType);

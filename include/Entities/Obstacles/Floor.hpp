@@ -12,8 +12,8 @@ namespace Entities::Obstacles {
             Floor(sf::Vector2f position, sf::Vector2f size);
             ~Floor();
 
-            void handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) override;
-            void handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) override;
+            void handleCollision(Entities::Characters::Player* pPlayer,float ds, int collisionType);
+            void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) ;
     };
 }
 
