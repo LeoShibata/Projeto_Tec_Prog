@@ -19,8 +19,11 @@ GraphicManager::GraphicManager() :
         exit(1);
     }
 
-    view.setSize(sf::Vector2f(640.f, 360.f));
-    view.setCenter(sf::Vector2f(640.f, 360.f));
+    // view.setSize(sf::Vector2f(640.f, 360.f));
+    // view.setCenter(sf::Vector2f(640.f, 360.f));
+    
+    view.setSize(sf::Vector2f(1280.f, 720.f));
+    view.setCenter(sf::Vector2f(1280.f, 720.f));
     
     if(pGraphic == nullptr)
         pGraphic = this;

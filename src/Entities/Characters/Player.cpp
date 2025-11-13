@@ -25,7 +25,7 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
 Player::~Player() { }
 
 void Player::jump() {
-    if(onGround) {
+    if(onGround && isAlive) {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
@@ -46,6 +46,11 @@ void Player::move(){
 }
 
 void Player::update() {
+    if(!isAlive) {
+        velocity.x = 0.f;
+        return;
+    }
+
     if(canMove) {
         if(isMovingLeft) {
             velocity.x = -speed_mod;

@@ -13,6 +13,8 @@ Spike::Spike(sf::Vector2f position, sf::Vector2f size) :
 Spike::~Spike() { }
 
 void Spike::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) {
+    pPlayer->takeDamage(1);
+
     float push;
     // Colisão horizontal (Parede)
     if(ds.x > ds.y) {
@@ -45,6 +47,7 @@ void Spike::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f 
 }
 
 void Spike::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
+    pEnemy->takeDamage(1);
     float push;
     if(ds.x > ds.y) { 
         if((pEnemy->getPos().x - getPos().x) > 0) {
