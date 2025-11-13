@@ -9,11 +9,14 @@
 
 #include "Being.hpp"
 #include "List/EntityList.hpp"
+
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Enemies/Spirit.hpp"
 #include "Entities/Characters/Enemies/Skeleton.hpp"
+
 #include "Entities/Obstacles/Obstacle.hpp"
+#include "Entities/Obstacles/Floor.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "utils/json.hpp"
 
@@ -28,6 +31,9 @@
 namespace Stages {
     class Stage : public Being {
         protected:
+            sf::RectangleShape background;
+            sf::Texture bgTexture;
+
             Managers::EventManager* pEvent; 
             Managers::CollisionManager* pCollision;
             Managers::GraphicManager* pGraphic;
@@ -40,6 +46,7 @@ namespace Stages {
 
         protected:
             void createPlayer(sf::Vector2f pos);
+            void createFloor(sf::Vector2f pos);
             void createPlatform(sf::Vector2f pos);
             void createSpirit(sf::Vector2f pos);    
             void createSkeleton(sf::Vector2f pos);

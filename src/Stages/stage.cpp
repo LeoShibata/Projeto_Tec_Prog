@@ -45,6 +45,12 @@ void Stage::createPlayer(sf::Vector2f pos) {
     pGraphic->setPlayer(pPlayer);
 }
 
+void Stage::createFloor(sf::Vector2f pos) {
+    Entities::Obstacles::Floor* pFloor = new Entities::Obstacles::Floor(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    obstacleList->addEntity(pFloor);
+    pCollision->includeEntity(static_cast<Entities::Entity*>(pFloor));
+}
+
 void Stage::createPlatform(sf::Vector2f pos) {
     Entities::Obstacles::Platform* pPlat = new Entities::Obstacles::Platform(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
     obstacleList->addEntity(pPlat);
@@ -64,6 +70,8 @@ void Stage::createSkeleton(sf::Vector2f pos) {
 }
 
 void Stage::draw(sf::RenderWindow* window) {
+    window->draw(background);
+    
     characterList->drawAll(window);
     obstacleList->drawAll(window);
 }

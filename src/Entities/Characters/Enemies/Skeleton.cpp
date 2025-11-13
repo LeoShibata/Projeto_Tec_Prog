@@ -67,7 +67,11 @@ void Skeleton::movementPattern() {
         current_speed = speed_mod * 0.5f;
 
         if(!canMove) {
-            startMovingLeft();
+            if(rand() % 2 == 0) {
+                startMovingLeft();
+            } else {
+                startMovingRight();
+            }
         }
     }
 
@@ -115,14 +119,17 @@ void Skeleton::execute() {
 
 void Skeleton::collision(Entities::Entity* other, sf::Vector2f ds) {
     switch(other->getTypeId()) {
-        case(Entities::IDs::platform) : {
-            if(ds.x < 0.f && ds.y > ds.x) {
-                if(isMovingLeft) {
-                    startMovingRight();
-                } else {
-                    startMovingLeft();
-                }
-            }
+        case(Entities::IDs::obstacle) : {
+            // if(!isStunned && ds.x < 0.f && ds.y > ds.x) {
+            //     if(isMovingLeft) {
+            //         startMovingRight();
+            //     } else {
+            //         startMovingLeft();
+            //     }
+                
+            //     isStunned = true;
+            //     collisionTimer.restart();
+            // }
             break;
         }
         case(Entities::IDs::player) : {

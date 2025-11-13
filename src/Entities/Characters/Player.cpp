@@ -63,7 +63,6 @@ void Player::update() {
 }
 
 void Player::updateAnimation(){
-    cout<< isMoving<< " | " << onGround << endl;
     if(isMoving == true && onGround== false)
         animation.update(!(isMovingLeft), "WALKING");
     if(isMoving == false && onGround ==false)
@@ -87,11 +86,15 @@ void Player::collision(Entities::Entity* other, sf::Vector2f ds) {
         }
         // PLatform::handleCollision já chama pPlayer->setOnGround(true) 
         // Para evitar lógica duplicada, só trata o caso de pousar no chão 
-        case(Entities::IDs::platform) : {
+        case(Entities::IDs::floor) : {
             // if(ds.y > 0) {
             //     onGround = true;
             //     velocity.y = 0.f;
             // }
+            break;
+        }
+        case(Entities::IDs::platform) : {
+            // A lógica de colisão já é tratada pela plataforma (Obstacle::collision -> Platform::handleCollision)
             break;
         }
 

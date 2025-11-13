@@ -1,18 +1,21 @@
-#include "Entities/Obstacles/Platform.hpp"
+#include "Entities/Obstacles/Floor.hpp"
 #include "Entities/Characters/Player.hpp"
 
 namespace Entities::Obstacles {
 
-Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
+Floor::Floor(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::Cyan);
-    // typeId = IDs::platform;
+    // texture = pGraphic->loadFileTexture("../assets/barrel.png");
+    // body.setTexture(&texture);
+
+    // typeId = IDs::floor;
+    body.setFillColor(sf::Color::Transparent);
 }
 
-Platform::~Platform() { }
+Floor::~Floor() { }
 
-void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) {
+void Floor::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector2f ds) {
     float push;
     // Colisão horizontal (Parede)
     if(ds.x > ds.y) {
@@ -44,7 +47,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, sf::Vector
     }
 }
 
-void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
+void Floor::handleCollision(Entities::Characters::Enemies* pEnemy, sf::Vector2f ds) {
     float push;
     if(ds.x > ds.y) { 
         if((pEnemy->getPos().x - getPos().x) > 0) {

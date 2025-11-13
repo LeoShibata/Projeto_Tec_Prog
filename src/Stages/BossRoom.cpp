@@ -87,7 +87,7 @@ void BossRoom::createMap() {
         if (rangedNumber>5){
             createSpirit(random_enemies[qtd]);
         }else{
-            cout << "num criou no espaço" << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
+            cout << "Não criou no espaço" << random_enemies[qtd].x << " " << random_enemies[qtd].y << endl;
         }
     }
     
