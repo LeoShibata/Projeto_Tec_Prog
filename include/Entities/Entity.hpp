@@ -11,7 +11,8 @@ namespace Entities {
             enemy,
             obstacle,
             platform,
-            floor
+            floor,
+            projectile
         };
     }
 

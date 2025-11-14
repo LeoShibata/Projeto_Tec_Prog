@@ -1,6 +1,7 @@
 #include "Entities/Characters/Player.hpp"
-
+#include "Stages/stage.hpp"
 #include <iostream>
+
 using namespace std;
 
 namespace Entities::Characters {
@@ -13,7 +14,8 @@ void Player::initialize() {
 }
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
-    Character(position, size, 100.f)
+    Character(position, size, 100.f),
+    pStage(nullptr)
 {
         
     initialize();
@@ -29,6 +31,13 @@ void Player::jump() {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
+}
+
+void Player::shoot(){
+    float speed =3;
+    if(isMovingLeft)
+        speed *= -1;
+    pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y));
 }
 
 void Player::move(){
@@ -82,6 +91,10 @@ void Player::execute() {
     }
     updateAnimation();
     move();
+}
+
+void Player::setStage(Stages::Stage* pStage){
+    this->pStage = pStage; //this in bidirecional things
 }
 
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {

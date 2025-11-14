@@ -10,7 +10,7 @@
 #include "Being.hpp"
 #include "List/EntityList.hpp"
 
-#include "Entities/Characters/Player.hpp"
+#include "Entities/Projectile.hpp"
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Enemies/Bat.hpp"
 #include "Entities/Characters/Enemies/Skeleton.hpp"
@@ -30,6 +30,7 @@
 #include <vector>
 #include <list>
 
+class Player;
 namespace Stages {
     class Stage : public Being {
         protected:
@@ -42,6 +43,7 @@ namespace Stages {
 
             List::EntityList* characterList;
             List::EntityList* obstacleList;
+            List::EntityList* projectileList;
             const int max_bats;
             const int max_obstacles;
             static const int tileSize = 32;
@@ -62,7 +64,8 @@ namespace Stages {
         public:
             Stage();
             virtual~Stage();
-            
+            void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position);
+
             void draw(sf::RenderWindow* window);
             void execute() override;
             
