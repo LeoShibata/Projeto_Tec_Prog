@@ -17,7 +17,8 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     jumpSpeed(450.f),
     animation(&body),
     health(1000),
-    isAlive(true)
+    isAlive(true),
+    isAttacking(false)
 {
     setVelocity(sf::Vector2f(0.f, 0.f));
 }
@@ -79,7 +80,7 @@ void Character::takeDamage(int damage) {
     if(health < 0) {
         health = 0;
         isAlive = 0;
-        std::cout << "ID " << id << " morreu. Vida: " << health << " Vivo:" << isAlive << std::endl;
+        // std::cout << "ID " << id << " morreu. Vida: " << health << " Vivo:" << isAlive << std::endl;
     }
 
     std::cout << "ID " << id << " tomou dano! Vida: " << health << " Vivo:" << isAlive << std::endl;

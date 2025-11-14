@@ -109,6 +109,7 @@ void Skeleton::update() {
 
 void Skeleton::execute() { 
     update();
+    checkPlayerAttack();
     move();
 }
 

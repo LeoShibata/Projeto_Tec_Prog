@@ -37,11 +37,15 @@ void EventManager::run() {
             pGraphic->closeWindow();
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space || 
-           event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up) 
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up) 
         {
             if(pPlayer != nullptr) {
                 pPlayer->jump();
+            }
+        }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+            if(pPlayer != nullptr) {
+                pPlayer->attack();
             }
         }
     }

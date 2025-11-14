@@ -13,13 +13,17 @@ void Player::initialize() {
 }
 
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
-    Character(position, size, 100.f)
+    Character(position, size, 100.f),
+    attackDuration(0.3f),
+    attackCooldown(0.8f),
+    damageCooldown(1.f)
 {
         
     initialize();
     typeId = IDs::player;
-    speed_mod = 250.f;
 
+    health = 1000;
+    speed_mod = 250.f;
 }
 
 Player::~Player() { }
@@ -28,6 +32,45 @@ void Player::jump() {
     if(onGround && isAlive) {
         velocity.y = -jumpSpeed;
         onGround = false;
+    }
+}
+
+void Player::attack() {
+    if(!isAlive) {
+        return;
+    }
+
+    if(attackTimer.getElapsedTime().asSeconds() > attackDuration) {
+        isAttacking = true;
+        attackTimer.restart();
+        // animação
+    }
+}
+
+bool Player::getIsAttacking() const {
+    return isAttacking;
+}
+
+sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conforme necessário
+    sf::Vector2f hitPos = getPos();
+    sf::Vector2f hitSize(60.f, 40.f); // tamanho da hitbox
+
+    if(isMovingLeft) {
+        hitPos.x -= 50.f;
+    } else {
+        hitPos.x += 10.f;
+    }
+    hitPos.y += 10.f;
+
+    return sf::FloatRect(hitPos.x, hitPos.y, hitSize.x, hitSize.y);
+}
+
+void Player::updateAnimation(){
+    if(isMoving == true && onGround == false) {
+        animation.update(isMovingLeft, "WALKING");
+    }
+    if(isMoving == false && onGround == false) {
+        animation.update(isMovingLeft, "STOP");
     }
 }
 
@@ -51,6 +94,10 @@ void Player::update() {
         return;
     }
 
+    if(isAttacking && attackTimer.getElapsedTime().asSeconds() > attackDuration) {
+        isAttacking = false;
+    }
+
     if(canMove) {
         if(isMovingLeft) {
             velocity.x = -speed_mod;
@@ -60,18 +107,12 @@ void Player::update() {
     } else {
         velocity.x = 0.f;
     }
+
     if(velocity.x == 0.f && velocity.y == 0){
         isMoving = false;
     }else{
         isMoving = true;
     }
-}
-
-void Player::updateAnimation(){
-    if(isMoving == true && onGround== false)
-        animation.update(isMovingLeft, "WALKING");
-    if(isMoving == false && onGround ==false)
-        animation.update(isMovingLeft, "STOP");
 }
 
 void Player::execute() {
@@ -80,6 +121,7 @@ void Player::execute() {
     if(onGround) {
         onGround = false;
     }
+
     updateAnimation();
     move();
 }
@@ -87,15 +129,13 @@ void Player::execute() {
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
+            if(damageTimer.getElapsedTime().asSeconds() > damageCooldown) {
+                takeDamage(1); // jogador toma esse dano ao tocar em inimigo
+                damageTimer.restart();
+            }
             break;      
         }
-        // Platform::handleCollision já chama pPlayer->setOnGround(true) 
-        // Para evitar lógica duplicada, só trata o caso de pousar no chão 
         case(Entities::IDs::floor) : {
-            // if(ds.y > 0) {
-            //     onGround = true;
-            //     velocity.y = 0.f;
-            // }
             break;
         }
         case(Entities::IDs::platform) : {

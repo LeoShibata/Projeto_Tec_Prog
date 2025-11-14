@@ -73,6 +73,7 @@ void Bat::updateAnimation(){
 }
 void Bat::execute() {
     update();
+    checkPlayerAttack();
     updateAnimation();
     move();
 }

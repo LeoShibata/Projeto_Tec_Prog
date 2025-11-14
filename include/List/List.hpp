@@ -93,7 +93,7 @@ namespace List {
             prev->setNext(current->getNext());
         }
         
-        if(current = pLast) {
+        if(current == pLast) {
             pLast = prev;
         }
         

@@ -109,6 +109,7 @@ void Death::update() {
 
 void Death::execute() { 
     update();
+    checkPlayerAttack();
     move();
 }
 

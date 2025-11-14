@@ -21,7 +21,7 @@ namespace Entities::Characters {
             bool isMovingLeft;
             bool onGround;
             bool isMoving;
-            bool isAtacking;
+            bool isAttacking;
             
             float jumpSpeed;
             Animation::Animator animation;
