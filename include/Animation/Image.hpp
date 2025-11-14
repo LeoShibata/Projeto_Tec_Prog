@@ -16,9 +16,11 @@ namespace Animation{
         unsigned int atualImage; //change between images in line
         const float frameTime; //time to change images
         float animationTime; //time to make full cicle
+        int numRows;
+        int numCols;
         
         public:
-        Image(const char* texturePath, const unsigned int imagecounter, const float frameTime, const sf::Vector2f scale);
+        Image(const char* texturePath, const unsigned int imagecounter, const float frameTime, const sf::Vector2f scale, int rows, int cols);
         ~Image();
         void update(const bool isRight, const float delayTime);//change images
         void reset();//reset circles between states

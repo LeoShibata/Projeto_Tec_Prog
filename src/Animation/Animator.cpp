@@ -41,7 +41,9 @@ void Animator::update(const bool isRight, std::string imageState) {
     body->setScale(scale.x,scale.y); //change size of texture;
 }
 
-void Animator::addAnimation(const char* texturePath, std::string animationName, const unsigned int imgCounter, const float frameTime, const sf::Vector2f scale) {
-    Image *image = new Image(texturePath, imgCounter, frameTime, scale);
+void Animator::addAnimation(const char* texturePath, std::string animationName, const unsigned int imgCounter, 
+                            const float frameTime, const sf::Vector2f scale, int rows, int cols) 
+{
+    Image *image = new Image(texturePath, imgCounter, frameTime, scale, rows, cols);
     imageMap.insert(std::pair<std::string, Image*>(animationName, image));
 }   

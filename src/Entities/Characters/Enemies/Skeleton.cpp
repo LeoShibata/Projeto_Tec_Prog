@@ -19,6 +19,10 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
     body.setFillColor(sf::Color::Yellow);
     collisionTimer.restart();
 
+    damageAnimationDuration = 0.3f; // duração da animação hurt
+    dieAnimationDuration = 1.f; // duração da animação die
+    damageTimer.restart();
+
     if (rand() % 2 == 0) {
         startMovingLeft(); 
     } else { 
@@ -93,7 +97,15 @@ void Skeleton::move() {
     body.move(ds_x, ds_y);
 }
 
-void Skeleton::update() { 
+void Skeleton::update() {
+    if(isDying) {
+        velocity = sf::Vector2f(0.f, 0.f);
+        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
+            isAlive = false;
+        }
+        return;
+    }
+
     if(isStunned) {
         if(collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;
@@ -110,7 +122,9 @@ void Skeleton::update() {
 void Skeleton::execute() { 
     update();
     checkPlayerAttack();
-    move();
+    if (!isDying) {
+        move();
+    }
 }
 
 void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {

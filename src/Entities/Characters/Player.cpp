@@ -6,16 +6,16 @@ using namespace std;
 namespace Entities::Characters {
 
 void Player::initialize() { 
-    animation.addAnimation("../assets/playerAnimation/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3,3));
-    animation.addAnimation("../assets/playerAnimation/idle.png", "STOP", 18, 0.08f, sf::Vector2f(3,3));
-    animation.addAnimation("../assets/playerAnimation/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3,3));
-    animation.addAnimation("../assets/playerAnimation/hurt2.png", "DAMAGE", 7, 0.05f, sf::Vector2f(3,3));
-    animation.addAnimation("../assets/playerAnimation/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/player/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3, 3));
+    animation.addAnimation("../assets/player/idle.png", "IDLE", 18, 0.08f, sf::Vector2f(3, 3));
+    animation.addAnimation("../assets/player/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3, 3));
+    animation.addAnimation("../assets/player/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 3));
+    animation.addAnimation("../assets/player/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 3));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 
 }
 
-Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
+Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 100.f),
     attackDuration(0.3f),
     attackCooldown(0.f),
@@ -71,13 +71,13 @@ sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conform
     return sf::FloatRect(hitPos.x, hitPos.y, hitSize.x, hitSize.y);
 }
 
-void Player::updateAnimation(){
+void Player::updateAnimation() {
     if(!isAlive) {
         return;
     }
     
     if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
-        animation.update(isMovingLeft, "DAMAGE"); 
+        animation.update(isMovingLeft, "HURT"); 
     } else if(isAttacking) {
         animation.update(isMovingLeft, "ATTACK");  
     } else if(!onGround) {
@@ -85,11 +85,11 @@ void Player::updateAnimation(){
     } else if(isMoving) {
         animation.update(isMovingLeft, "WALKING");
     } else {
-        animation.update(isMovingLeft, "STOP");
+        animation.update(isMovingLeft, "IDLE");
     }
 }
 
-void Player::move(){
+void Player::move() {
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
 

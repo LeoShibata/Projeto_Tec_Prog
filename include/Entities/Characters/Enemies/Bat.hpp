@@ -25,7 +25,7 @@ namespace Entities::Characters {
             Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Bat();
             
-            void movementPattern(); // Ainda não implementado
+            // void movementPattern(); // Ainda não implementado
             void followPlayer(sf::Vector2f playerPos);
             void updateAnimation();
 

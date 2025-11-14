@@ -24,7 +24,7 @@ BossRoom::BossRoom() :
 BossRoom::~BossRoom() { }
 
 void BossRoom::createMap() {
-    const char* path = "../assets/bossRoom";
+    const char* path = "../assets/stages/bossRoom";
 
     ifstream f(path); // get archive
     if(!f.is_open()) {

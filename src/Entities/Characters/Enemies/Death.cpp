@@ -6,7 +6,11 @@
 
 namespace Entities::Characters {
 
-void Death::initialize() { }
+void Death::initialize() {
+    animation.addAnimation("../assets/enemies/Death/idle2.png", "IDLE", 8, 0.15f, sf::Vector2f(5, 5), 2, 4);
+    animation.addAnimation("../assets/enemies/Death/death.png", "DIE", 18, 0.15f, sf::Vector2f(5, 5), 2, 10);
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
+}
 
 Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
@@ -16,8 +20,9 @@ Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) 
 {   
     initialize();
     speed_mod = 100.f;
-    body.setFillColor(sf::Color::Red);
     collisionTimer.restart();
+    dieAnimationDuration = 2.7f; // duração da animação die
+    damageTimer.restart();
 
     if (rand() % 2 == 0) {
         startMovingLeft(); 
@@ -50,9 +55,10 @@ void Death::movementPattern() {
         current_speed = speed_mod;
         float direction_x = pPlayer->getPos().x - body.getPosition().x;
 
-        if(direction_x > 0) {
+        float dead_zone = 1.f; // zona morta para ele não ficar se movendo de um lado para o outro
+        if(direction_x > dead_zone) {
             startMovingRight();
-        } else if(direction_x < 0) {
+        } else if(direction_x < -dead_zone) {
             startMovingLeft();
         } else {
             stopMoving();
@@ -94,6 +100,14 @@ void Death::move() {
 }
 
 void Death::update() { 
+    if(isDying) {
+        velocity = sf::Vector2f(0.f, 0.f);
+        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
+            isAlive = false;
+        }
+        return;
+    }
+
     if(isStunned) {
         if(collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;
@@ -107,10 +121,21 @@ void Death::update() {
     }
 }
 
+void Death::updateAnimation() {
+    if(isDying) {
+        animation.update(isMovingLeft, "DIE");
+    } else {
+        animation.update(isMovingLeft, "IDLE");
+    }
+}
+
 void Death::execute() { 
     update();
     checkPlayerAttack();
-    move();
+    updateAnimation();
+    if(!isDying) {
+        move();
+    }
 }
 
 void Death::collision(Entities::Entity* other, float ds, int collisionType) {

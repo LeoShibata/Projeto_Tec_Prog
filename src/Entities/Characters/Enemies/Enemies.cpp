@@ -44,7 +44,7 @@ void Enemies::checkPlayerAttack() {
             sf::FloatRect myHitBox = body.getGlobalBounds(); // caixa exata que inimigo está ocupando na tela
         
             if(playerAttackBox.intersects(myHitBox)) { //verifica se dois retângulos estão se sobrepondo    
-                takeDamage(200); // dano que inimigo toma
+                takeDamage(300); // dano que inimigo toma
                 damageTimer.restart();
             }
         }
