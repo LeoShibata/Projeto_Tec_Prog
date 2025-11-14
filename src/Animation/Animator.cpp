@@ -2,7 +2,7 @@
 
 using namespace Animation;
 
-Animator::Animator(sf::RectangleShape* body): 
+Animator::Animator(sf::RectangleShape* body) : 
     body(body),
     imageMap(),
     imageState(""),
@@ -11,10 +11,10 @@ Animator::Animator(sf::RectangleShape* body):
 
 }
 
-Animator::~Animator(){
+Animator::~Animator() {
     std::map<std::string, Image*>::iterator it;
-    for(it = imageMap.begin(); it!= imageMap.end();it++){
-        if(it->second){
+    for(it = imageMap.begin(); it!= imageMap.end();it++) {
+        if(it->second) {
             delete(it->second); //cleaning texture
             it->second = nullptr; //making the space null. to clear after
         }
@@ -22,9 +22,9 @@ Animator::~Animator(){
     imageMap.clear();
 }
 
-void Animator::update(const bool isRight, std::string imageState){
+void Animator::update(const bool isRight, std::string imageState) {
     //class is to update the moments when its change;
-    if(this->imageState != imageState){
+    if(this->imageState != imageState) {
         if(this->imageState != "")
             imageMap[this->imageState]->reset(); //was image name in add Animation
         this->imageState = imageState;    
@@ -41,8 +41,7 @@ void Animator::update(const bool isRight, std::string imageState){
     body->setScale(scale.x,scale.y); //change size of texture;
 }
 
-void Animator::addAnimation(const char* texturePath, std::string animationName, const unsigned int imgCounter, const float frameTime, const sf::Vector2f scale){
+void Animator::addAnimation(const char* texturePath, std::string animationName, const unsigned int imgCounter, const float frameTime, const sf::Vector2f scale) {
     Image *image = new Image(texturePath, imgCounter, frameTime, scale);
     imageMap.insert(std::pair<std::string, Image*>(animationName, image));
-    
 }   

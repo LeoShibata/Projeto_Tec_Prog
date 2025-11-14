@@ -14,6 +14,7 @@ namespace Entities::Characters {
 
             sf::Clock damageTimer;
             float damageCooldown;
+            float damageAnimationDuration;
 
         private:
             void initialize();

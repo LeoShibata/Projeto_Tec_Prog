@@ -6,8 +6,11 @@ using namespace std;
 namespace Entities::Characters {
 
 void Player::initialize() { 
-    animation.addAnimation("../assets/playerAnimation/walking.png","WALKING",24, 0.05f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/playerAnimation/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3,3));
     animation.addAnimation("../assets/playerAnimation/idle.png", "STOP", 18, 0.08f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/playerAnimation/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/playerAnimation/hurt2.png", "DAMAGE", 7, 0.05f, sf::Vector2f(3,3));
+    animation.addAnimation("../assets/playerAnimation/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3,3));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 
 }
@@ -15,8 +18,9 @@ void Player::initialize() {
 Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 100.f),
     attackDuration(0.3f),
-    attackCooldown(0.8f),
-    damageCooldown(1.f)
+    attackCooldown(0.f),
+    damageCooldown(1.f),
+    damageAnimationDuration(0.2f)
 {
         
     initialize();
@@ -24,6 +28,8 @@ Player::Player (const sf::Vector2f position, const sf::Vector2f size) :
 
     health = 1000;
     speed_mod = 250.f;
+
+    damageTimer.restart();
 }
 
 Player::~Player() { }
@@ -40,7 +46,7 @@ void Player::attack() {
         return;
     }
 
-    if(attackTimer.getElapsedTime().asSeconds() > attackDuration) {
+    if(attackTimer.getElapsedTime().asSeconds() > attackCooldown) {
         isAttacking = true;
         attackTimer.restart();
         // animação
@@ -66,10 +72,19 @@ sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conform
 }
 
 void Player::updateAnimation(){
-    if(isMoving == true && onGround == false) {
-        animation.update(isMovingLeft, "WALKING");
+    if(!isAlive) {
+        return;
     }
-    if(isMoving == false && onGround == false) {
+    
+    if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
+        animation.update(isMovingLeft, "DAMAGE"); 
+    } else if(isAttacking) {
+        animation.update(isMovingLeft, "ATTACK");  
+    } else if(!onGround) {
+        animation.update(isMovingLeft, "JUMP");
+    } else if(isMoving) {
+        animation.update(isMovingLeft, "WALKING");
+    } else {
         animation.update(isMovingLeft, "STOP");
     }
 }
@@ -98,7 +113,7 @@ void Player::update() {
         isAttacking = false;
     }
 
-    if(canMove) {
+    if(canMove && !isAttacking) { // permite movimento se o jogador não estiver atacando 
         if(isMovingLeft) {
             velocity.x = -speed_mod;
         } else {
@@ -117,22 +132,22 @@ void Player::update() {
 
 void Player::execute() {
     update();
-
+    updateAnimation();
+    
     if(onGround) {
         onGround = false;
     }
-
-    updateAnimation();
+    
     move();
 }
 
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
-            if(damageTimer.getElapsedTime().asSeconds() > damageCooldown) {
-                takeDamage(1); // jogador toma esse dano ao tocar em inimigo
-                damageTimer.restart();
-            }
+            // if(damageTimer.getElapsedTime().asSeconds() > damageCooldown) {
+            //     takeDamage(1); // jogador toma esse dano ao tocar em inimigo
+            //     damageTimer.restart();
+            // }
             break;      
         }
         case(Entities::IDs::floor) : {
