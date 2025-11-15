@@ -1,15 +1,18 @@
 #ifndef COLLISIONMANAGER_HPP
 #define COLLISIONMANAGER_HPP
 
+#include "Entities/Projectile.hpp"
+#include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Enemies/Enemies.hpp"
+#include "Entities/Obstacles/Obstacle.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <vector>
 #include <list>
-
-#include "Entities/Characters/Player.hpp"
-#include "Entities/Characters/Enemies/Enemies.hpp"
-#include "Entities/Obstacles/Obstacle.hpp"
 #include <iostream>
+#include <set>
+
 using namespace std;
     namespace Managers {
         class CollisionManager {
@@ -28,7 +31,7 @@ using namespace std;
                 vector<Entities::Characters::Enemies*> lIs;
                 Entities::Characters::Player* pPlayer;
                 list<Entities::Obstacles::Obstacle*> lOs;
-
+                set<Entities::Projectile*> lPs;
 
             public:
                 CollisionManager();
@@ -41,7 +44,9 @@ using namespace std;
                 void verifyPlayerEnemy();
                 void verifyPlayerObstacle();
                 void verifyEnemyObstacle();
-
+                void verifyProjecObstacle();
+                void verifyProjecEnemies();
+                //NEED BETTER POSITION, or player kill himself void verifyProjecPlayers();
                 void run();
         };
 }

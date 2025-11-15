@@ -17,7 +17,7 @@ Bat::Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade) :
     isStunned(false)
 {
     initialize();
-    speed_mod = 3.f;
+    speed_mod = 5.f;
     body.setFillColor(sf::Color::Magenta);
     collisionTimer.restart();
 }
