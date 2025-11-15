@@ -21,7 +21,7 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     attackDuration(0.3f),
     attackCooldown(0.f),
     damageCooldown(1.f),
-    damageAnimationDuration(0.2f)
+    damageAnimationDuration(0.2f),
     pStage(nullptr)
 {
         
@@ -91,7 +91,7 @@ void Player::updateAnimation() {
     }
 }
 
-void Player::move() {}
+//void Player::move() {}
   
 void Player::shoot(){
     float speed =3;
