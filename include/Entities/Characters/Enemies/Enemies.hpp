@@ -11,6 +11,8 @@ namespace Entities::Characters {
 
         protected:
             static Player* pPlayer;
+            sf::Clock damageTimer;
+            float damageCooldown;
 
         private:
             void initialize();
@@ -25,6 +27,7 @@ namespace Entities::Characters {
             float distanceSq(const sf::Vector2f& v1, const sf::Vector2f& v2);
             static void setPlayer(Player* p);
             void damaging(Player* pPlayer);
+            virtual void checkPlayerAttack();
             
             virtual void move() = 0;
             virtual void update() = 0;

@@ -9,7 +9,16 @@ namespace Stages{
 namespace Entities::Characters {
     class Player : public Character {
         private:
-            float jump_h;
+            float jump_h; // verificar esse atributo
+
+            sf::Clock attackTimer;
+            float attackCooldown;
+            float attackDuration;
+
+            sf::Clock damageTimer;
+            float damageCooldown;
+            float damageAnimationDuration;
+      
             Stages::Stage* pStage;
         private:
             void initialize();
@@ -19,10 +28,13 @@ namespace Entities::Characters {
             virtual ~Player();
             
             void jump();
+            void attack();
+            bool getIsAttacking() const;
+            sf::FloatRect getAttackHitbox() const;
+            void updateAnimation();
 
             void shoot();
             void move() override;
-            void updateAnimation();
             void update() override;
             void execute() override;
             void collision(Entities::Entity* other, float ds, int collisionType);

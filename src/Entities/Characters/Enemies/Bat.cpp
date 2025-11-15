@@ -6,7 +6,9 @@
 namespace Entities::Characters {
     
 void Bat::initialize() {
-    animation.addAnimation("../assets/BatidleFly.png","FLY",9,0.15f, sf::Vector2f(3,2));
+    animation.addAnimation("../assets/enemies/Bat_without_VFX/Bat-IdleFly.png", "IDLEFLY", 9, 0.15f, sf::Vector2f(3, 2));
+    animation.addAnimation("../assets/enemies/Bat_without_VFX/Bat-Hurt.png", "HURT", 5, 0.1f, sf::Vector2f(3, 2));
+    animation.addAnimation("../assets/enemies/Bat_without_VFX/Bat-Die.png", "DIE", 12, 0.1f, sf::Vector2f(3, 2));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
 }
 
@@ -17,9 +19,11 @@ Bat::Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade) :
     isStunned(false)
 {
     initialize();
-    speed_mod = 5.f;
-    body.setFillColor(sf::Color::Magenta);
-    collisionTimer.restart();
+    speed_mod = 3.f;
+    collisionTimer.restart(); 
+    damageAnimationDuration = 0.3f; // duração da animação hurt
+    dieAnimationDuration = 1.f; // duração da animação die
+    damageTimer.restart();
 }
 
 Bat::~Bat() { }
@@ -46,13 +50,21 @@ void Bat::move() {
 }
 
 void Bat::update() {
-    if (isStunned) {
+    if(isDying) {
+        velocity = sf::Vector2f(0.f, 0.f);
+        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
+            isAlive = false;
+        }
+        return;
+    }
+
+    if(isStunned) {
         if (collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
             isStunned = false;
         }
     }
 
-    if (!isStunned && pPlayer != nullptr) {
+    if(!isStunned && pPlayer != nullptr) {
         float distance_to_player_sq = distanceSq(body.getPosition(), pPlayer->getPos());
         if(distance_to_player_sq <  DETECTION_RADIUS_SQ) {
             followPlayer(pPlayer->getPos());
@@ -62,19 +74,29 @@ void Bat::update() {
         }
     }       
 
-    else if (!isStunned) {
+    else if(!isStunned) {
         velocity.x = 0;
         velocity.y = 0;
     }   
 }
 
-void Bat::updateAnimation(){
-    animation.update(isMovingLeft, "FLY");
+void Bat::updateAnimation() {
+    if(isDying) {
+        animation.update(isMovingLeft, "DIE");
+    } else if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
+        animation.update(isMovingLeft, "HURT");
+    } else {
+        animation.update(isMovingLeft, "IDLEFLY");
+    }
 }
+
 void Bat::execute() {
     update();
+    checkPlayerAttack();
     updateAnimation();
-    move();
+    if (!isDying) {
+        move();
+    }
 }
 
 void Bat::collision(Entities::Entity* other, float ds, int collisionType) {

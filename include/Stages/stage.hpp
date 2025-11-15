@@ -10,6 +10,7 @@
 #include "Being.hpp"
 #include "List/EntityList.hpp"
 
+#include "Entities/Entity.hpp"
 #include "Entities/Projectile.hpp"
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Enemies/Bat.hpp"
