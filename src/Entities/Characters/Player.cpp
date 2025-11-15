@@ -60,7 +60,7 @@ bool Player::getIsAttacking() const {
 
 sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conforme necessário
     sf::Vector2f hitPos = getPos();
-    sf::Vector2f hitSize(60.f, 40.f); // tamanho da hitbox
+    sf::Vector2f hitSize(50.f, 40.f); // tamanho da hitbox
 
     if(isMovingLeft) {
         hitPos.x -= 50.f;

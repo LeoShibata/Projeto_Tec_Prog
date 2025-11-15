@@ -10,6 +10,7 @@ namespace Entities::Characters {
     class Bat : public Enemies {
         private:
             float soul;
+            
             sf::Clock collisionTimer;
             float collisionCooldown;
             bool isStunned;
@@ -20,6 +21,8 @@ namespace Entities::Characters {
         private:
             void initialize();
             sf::Vector2f normalize(sf::Vector2f vector);
+            void attack();
+            sf::FloatRect getAttackHitbox() const;
             
         public:
             Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade);
