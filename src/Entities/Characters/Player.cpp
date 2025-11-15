@@ -64,13 +64,13 @@ void Player::shoot(){
     }
     
     if(shootingTimer.getElapsedTime().asSeconds() > shootingCooldown){
-        
         float speed =3;
+        shootingTimer.restart();
+        
         if(isMovingLeft)
             speed *= -1;
         pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 200, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
         isShooting = true;//for animation
-        shootingTimer.restart();
 
     }
 }
@@ -107,6 +107,7 @@ void Player::updateAnimation() {
     } else if(isMoving) {
         animation.update(isMovingLeft, "WALKING");
     } else if(isShooting){
+        velocity.x = 0;
         animation.update(!(isMovingLeft), "SHOT");
     } else {
         animation.update(isMovingLeft, "IDLE");
