@@ -7,12 +7,12 @@
 namespace Entities::Characters {
 
 void Skeleton::initialize() {
-    animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Skeleton/Take Hit.png", "HURT", 4, 0.05f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Skeleton/Walk.png", "WALKING", 4, 0.15f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Skeleton/Attack.png", "ATTACK", 8, 0.05f, sf::Vector2f(4, 4));
-    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
+    animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(5, 5));
+    animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(5, 5));
+    animation.addAnimation("../assets/enemies/Skeleton/Take Hit.png", "HURT", 4, 0.05f, sf::Vector2f(5, 5));
+    animation.addAnimation("../assets/enemies/Skeleton/Walk.png", "WALKING", 4, 0.15f, sf::Vector2f(5, 5));
+    animation.addAnimation("../assets/enemies/Skeleton/Attack.png", "ATTACK", 8, 0.05f, sf::Vector2f(5, 5));
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y - 1.5)/2.f));
 }
 
 Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
@@ -36,6 +36,9 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
     attackTimer.restart();
     
     hasAppliedDamage = false;
+
+    attackDamageStart = 0.25f;
+    attackDamageEnd = 0.4f;
    
     if (rand() % 2 == 0) {
         startMovingLeft(); 
@@ -62,7 +65,7 @@ sf::FloatRect Skeleton::getAttackHitbox() const {
     sf::Vector2f hitSize(60.f, 40.f); // tam do hitbox do attack 
 
     if(isMovingLeft) {
-        hitPos.x -= 50.f;
+        hitPos.x -= hitSize.x;
     } else {
         hitPos.x += 10.f;
     }
@@ -159,16 +162,21 @@ void Skeleton::update() {
 
     if(isAttacking) {   
         velocity.x = 0.f;
-        if(attackTimer.getElapsedTime().asSeconds() > attackDuration) {
+        float currentTime = attackTimer.getElapsedTime().asSeconds();
+
+        if(currentTime >= attackDuration) {
             isAttacking = false;
         }
 
         if(pPlayer && pPlayer->getIsAlive()) {
             sf::FloatRect myAttackBox = getAttackHitbox();
             sf::FloatRect playerHitbox =pPlayer->getBody().getGlobalBounds();
-            if(myAttackBox.intersects(playerHitbox) && !hasAppliedDamage) {
-                pPlayer->takeDamage(10);
-                hasAppliedDamage = true;
+
+            if(currentTime >= attackDamageStart && currentTime <= attackDamageEnd) {
+                if(myAttackBox.intersects(playerHitbox) && !hasAppliedDamage) {
+                    pPlayer->takeDamage(10);
+                    hasAppliedDamage = true;
+                }
             }
         }
     } else {

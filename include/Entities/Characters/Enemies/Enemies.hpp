@@ -11,6 +11,8 @@ namespace Entities::Characters {
 
         protected:
             static Player* pPlayer;
+            float attackDamageStart; // Tempo para a hitbox ficar ativa
+            float attackDamageEnd;   // Tempo para a hitbox desativar
             
         private:
             void initialize();

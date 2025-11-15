@@ -14,6 +14,7 @@ namespace Entities::Characters {
     class Death : public Enemies {
         private: 
             float soul; // Mudar atributo
+
             sf::Clock collisionTimer;
             Stages::Stage* pStage;
 
@@ -25,6 +26,8 @@ namespace Entities::Characters {
         
         private:
             void initialize();
+            void attack();
+            sf::FloatRect getAttackHitbox() const;
 
         public:
             Death(const sf::Vector2f position, const sf::Vector2f size, int maldade);
