@@ -21,6 +21,7 @@ Projectile::~Projectile(){}
 
 void Projectile::removeProjectile(){
     isAlive = false;
+    velocity.x = 0;
     
     //replace for deletion after
 }
@@ -38,6 +39,9 @@ void Projectile::damageEntity(Entity* other){
         removeProjectile();
         break;
     case IDs::player :
+        break;
+    case IDs::obstacle :
+        removeProjectile();
         break;
     default:
         break;
@@ -70,14 +74,12 @@ void Projectile::collision(Entity* other, float over, int collisionType){
 }
 
 void Projectile::update(){
-    distance = velocity.x + distance;
+    distance = abs(velocity.x)+ distance;
     if (distance > maxrange)
-        isAlive == false;
+        removeProjectile();
     body.move(velocity);
-    
 }
 void Projectile::execute(){
-    
     update();
     //animation after
 }

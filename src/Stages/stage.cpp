@@ -105,12 +105,9 @@ void Stage::draw(sf::RenderWindow* window) {
 
 void Stage::execute() {
     List::EntityList* chars = characterList;
-    
     for(int i = 0; i < chars->getSize(); i++) {
         if((*chars)[i]->getIsAlive()) {
            (*chars)[i]->execute(); 
-            cout << (*chars)[i]->getTypeId()<< endl;
-
         }
     }
 
@@ -129,7 +126,6 @@ void Stage::execute() {
                 ent = nullptr;
             }
         }
-        
     }
 
     pCollision->run();
