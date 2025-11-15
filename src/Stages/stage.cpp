@@ -69,8 +69,8 @@ void Stage::createSpike(sf::Vector2f pos) {
 }
 // ----------------- Projectile -----------------
 
-void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position){
-    Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position);
+void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot){
+    Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position, whoShot);
     characterList->addEntity(pProjectile);
     pCollision->includeEntity(pProjectile);
 
@@ -91,6 +91,7 @@ void Stage::createSkeleton(sf::Vector2f pos) {
 
 void Stage::createDeath(sf::Vector2f pos) {
     Entities::Characters::Death* pDeath = new Entities::Characters::Death(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
+    pDeath->setStage(static_cast<Stage*>(this));
     characterList->addEntity(pDeath);
     pCollision->includeEntity(pDeath);
 }

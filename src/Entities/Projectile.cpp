@@ -3,13 +3,13 @@
 using namespace Entities;
 using namespace std;
 
-Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position): 
+Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot): 
     Entity(position, size, speed), 
     isEraseble(false), 
     dt(0),damage(ddamage),
     maxrange(maxrange),
     distance(0),
-    idEnt(0)
+    whoShot(whoShot)
 {
     typeId = IDs::projectile;
     initialize();
@@ -20,42 +20,59 @@ Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxran
 Projectile::~Projectile(){}
 
 void Projectile::removeProjectile(){
-    this->isAlive = false;
-    velocity.x = 0;
+    isAlive = false;
+    
     //replace for deletion after
 }
 
 void Projectile::initialize(){
     //animation
 }
-void Projectile::damageEnemy(Entities::Characters::Enemies* pEnemy){
-    pEnemy->takeDamage(damage);
-}
-void Projectile::collision(Entity* other, float over, int collisionType){
-    //would use switch case to make not damage enemies
-    //since it should be a boss thing, to damage player,
-    //but we want to make the player shoot also, so, need more work
+void Projectile::damageEntity(Entity* other){
+    if (whoShot == 1){
+        cout<< "plauer atirou" << endl;
     switch (other->getTypeId())
     {
-    case (Entities::IDs::enemy) :
-        damageEnemy(static_cast<Entities::Characters::Enemies*> (other));
+    case IDs::enemy :
+        static_cast<Entities::Characters::Enemies*> (other)->takeDamage(damage);
+        removeProjectile();
+        break;
+    case IDs::player :
         break;
     default:
         break;
+        removeProjectile();
     }
-
-    removeProjectile();
+}else{
+    switch (other->getTypeId())
+    {
+    case IDs::player :
+        static_cast<Entities::Characters::Player*> (other)->takeDamage(damage);
+        removeProjectile();
+        break;
+    case IDs::enemy :
+        break;
+    default:
+        removeProjectile();
+        break;
+    }
+}
+}
+void Projectile::collision(Entity* other, float over, int collisionType){
+    //this other is who got shot 
+    //since it should be a boss thing, to damage player,
+    //but we want to make the player shoot also, so, need more work
+    
+    
+    damageEntity(other);
+    cout<<"collided projectil" <<endl;
 
 }
 
 void Projectile::update(){
-    // make a projectile physics
-    this->distance = distance + abs(velocity.x);
-    if (distance >= maxrange)
-    {
-        removeProjectile();
-    }
-    
+    distance = velocity.x + distance;
+    if (distance > maxrange)
+        isAlive == false;
     body.move(velocity);
     
 }

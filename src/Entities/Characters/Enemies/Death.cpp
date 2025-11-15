@@ -1,12 +1,13 @@
 #include "Entities/Characters/Enemies/Death.hpp"
 #include "Entities/Characters/Player.hpp"
-
+#include "Stages/stage.hpp"
 #include <cmath>
 #include <cstdlib>
 
 namespace Entities::Characters {
 
-void Death::initialize() {
+void Death::initialize(){
+    pStage = nullptr;
     animation.addAnimation("../assets/enemies/Death/idle2.png", "IDLE", 8, 0.15f, sf::Vector2f(5, 5), 2, 4);
     animation.addAnimation("../assets/enemies/Death/death.png", "DIE", 18, 0.15f, sf::Vector2f(5, 5), 2, 10);
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
@@ -18,6 +19,7 @@ Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) 
     collisionCooldown(0.3f),
     isStunned(false)
 {   
+    health = 1000;
     initialize();
     speed_mod = 100.f;
     collisionTimer.restart();
@@ -57,6 +59,7 @@ void Death::movementPattern() {
 
         float dead_zone = 1.f; // zona morta para ele não ficar se movendo de um lado para o outro
         if(direction_x > dead_zone) {
+            shoot();
             startMovingRight();
         } else if(direction_x < -dead_zone) {
             startMovingLeft();
@@ -99,6 +102,13 @@ void Death::move() {
     body.move(ds_x, ds_y);
 }
 
+void Death::shoot(){
+    float speed =10;
+    if(isMovingLeft)
+        speed *= -1;
+    pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
+}
+
 void Death::update() { 
     if(isDying) {
         velocity = sf::Vector2f(0.f, 0.f);
@@ -137,7 +147,9 @@ void Death::execute() {
         move();
     }
 }
-
+void Death::setStage(Stages::Stage* pStage){
+    this->pStage = pStage; //this in bidirecional things
+}
 void Death::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
