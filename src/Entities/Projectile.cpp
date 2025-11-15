@@ -74,8 +74,10 @@ void Projectile::update(){
     if (distance > maxrange)
         isAlive == false;
     body.move(velocity);
+    
 }
 void Projectile::execute(){
+    
     update();
     //animation after
 }

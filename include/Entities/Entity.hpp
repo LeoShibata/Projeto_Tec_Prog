@@ -34,7 +34,7 @@ namespace Entities {
             void setVelocity(sf::Vector2f vel);
             virtual IDs::IDs getTypeId() const;
             virtual bool getIsAlive() const;
-            
+            bool getIsEraseble() const;
             virtual void update() = 0;
             virtual void collision(Entity* other, float over, int collisionType) = 0;
     };

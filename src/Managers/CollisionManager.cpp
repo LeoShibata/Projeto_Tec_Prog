@@ -32,7 +32,6 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
             break;
         case(Entities::IDs::projectile) :
             lPs.insert(static_cast<Entities::Projectile*> (ent1));
-            cout<<"added projectil" <<endl;
             break;
         default:
             break;
