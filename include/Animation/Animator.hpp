@@ -17,8 +17,9 @@ namespace Animation{
         ~Animator();
         void update(const bool isRight, std::string imageState); //is const to not change isRight inside this class
         void addAnimation(const char* texturePath, std::string animationName, 
-                          const unsigned int imgCounter, const float frameTime, 
-                          const sf::Vector2f scale, int rows = 1, int cols = 0);
+        const unsigned int imgCounter, const float frameTime, 
+        const sf::Vector2f scale, int rows = 1, int cols = 0);
     };
+    
 }
 #endif 

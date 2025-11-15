@@ -20,31 +20,47 @@ Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxran
 Projectile::~Projectile(){}
 
 void Projectile::removeProjectile(){
-    isEraseble= true;
-    body.setFillColor(sf::Color::Transparent);
+    this->isAlive = false;
+    velocity.x = 0;
     //replace for deletion after
 }
 
 void Projectile::initialize(){
     //animation
 }
-void Projectile::damageEntity(){
-
+void Projectile::damageEnemy(Entities::Characters::Enemies* pEnemy){
+    pEnemy->takeDamage(damage);
 }
 void Projectile::collision(Entity* other, float over, int collisionType){
     //would use switch case to make not damage enemies
     //since it should be a boss thing, to damage player,
     //but we want to make the player shoot also, so, need more work
-    damageEntity();
+    switch (other->getTypeId())
+    {
+    case (Entities::IDs::enemy) :
+        damageEnemy(static_cast<Entities::Characters::Enemies*> (other));
+        break;
+    default:
+        break;
+    }
+
     removeProjectile();
-    cout<<"collided projectil" <<endl;
 
 }
 
 void Projectile::update(){
+    // make a projectile physics
+    this->distance = distance + abs(velocity.x);
+    if (distance >= maxrange)
+    {
+        removeProjectile();
+    }
+    
     body.move(velocity);
+    
 }
 void Projectile::execute(){
+    
     update();
     //animation after
 }

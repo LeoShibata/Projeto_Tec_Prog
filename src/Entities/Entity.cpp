@@ -4,7 +4,9 @@ namespace Entities {
 
 Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     Being(size), 
-    speed_mod(speed)
+    speed_mod(speed),
+    isAlive(true),
+    isEraseble(false)
 {
     body.setPosition(position);
     velocity = sf::Vector2f(0.f, 0.f);
@@ -33,7 +35,9 @@ IDs::IDs Entity::getTypeId() const {
 }
 
 bool Entity::getIsAlive() const {
-    return true;
+    return isAlive;
 }
-
+bool Entity::getIsEraseble() const{
+    return isEraseble;
+}
 }
