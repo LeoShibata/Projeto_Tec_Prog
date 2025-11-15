@@ -7,10 +7,11 @@
 namespace Entities::Characters {
 
 void Skeleton::initialize() {
-    animation.addAnimation("../assets/enemies/Necromancer/Idle/spr_NecromancerIdle_strip50.png", "IDLE", 50, 0.15f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Necromancer/Death/spr_NecromancerDeath_strip52.png", "DIE", 52, 0.05f, sf::Vector2f(4, 4));
-    animation.addAnimation("../assets/enemies/Necromancer/GetHit/spr_NecromancerGetHitWithoutEffect_strip9.png", "HURT", 9, 0.05f, sf::Vector2f(4, 4));
-    //animation.addAnimation("../assets/enemies/Necromancer/Walk/spr_NecromancerWalk_strip10.png", "WALKING", 10, 0.05f, sf::Vector2f(4, 4));
+    animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(4, 4));
+    animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(4, 4));
+    animation.addAnimation("../assets/enemies/Skeleton/Take Hit.png", "HURT", 4, 0.05f, sf::Vector2f(4, 4));
+    animation.addAnimation("../assets/enemies/Skeleton/Walk.png", "WALKING", 4, 0.15f, sf::Vector2f(4, 4));
+    animation.addAnimation("../assets/enemies/Skeleton/Attack.png", "ATTACK", 8, 0.05f, sf::Vector2f(4, 4));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
 }
 
@@ -22,13 +23,20 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 {   
     initialize();
     speed_mod = 100.f;
-    // body.setFillColor(sf::Color::Yellow);
     collisionTimer.restart();
 
-    damageAnimationDuration = 0.3f; // duração da animação hurt
-    dieAnimationDuration = 2.6f; // duração da animação die
+    damageAnimationDuration = 0.2f; // duração da animação hurt
+    dieAnimationDuration = 0.6f; // duração da animação die
     damageTimer.restart();
-
+    
+    isAttacking = false;
+    attackCooldown = 2.f; // tempo de espera entre os ataques
+    attackDuration = 0.4f;
+    attackRangeSq = 60.f * 60.f ; // distancia que começa a atacar
+    attackTimer.restart();
+    
+    hasAppliedDamage = false;
+   
     if (rand() % 2 == 0) {
         startMovingLeft(); 
     } else { 
@@ -37,6 +45,31 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 }
 
 Skeleton::~Skeleton() { }
+
+void Skeleton::attack() {
+    if(!isAlive || isAttacking) {
+        return;
+    }
+
+    isAttacking = true;
+    attackTimer.restart();
+    stopMoving();
+    hasAppliedDamage = false;
+}
+
+sf::FloatRect Skeleton::getAttackHitbox() const {
+    sf::Vector2f hitPos = getPos();
+    sf::Vector2f hitSize(60.f, 40.f); // tam do hitbox do attack 
+
+    if(isMovingLeft) {
+        hitPos.x -= 50.f;
+    } else {
+        hitPos.x += 10.f;
+    }
+    hitPos.y += 10.f;
+
+    return sf::FloatRect(hitPos.x, hitPos.y, hitSize.x, hitSize.y);
+}
 
 void Skeleton::followPlayer(sf::Vector2f playerPos) { 
     static_cast<void>(playerPos);
@@ -56,10 +89,15 @@ void Skeleton::movementPattern() {
     float current_speed = 0.f;
 
     if(distance_to_player_sq < DETECTION_RADIUS_SQ) {
-        // modo de perseguição
+        // modo de perseguição        
+        if(distance_to_player_sq < attackRangeSq && attackTimer.getElapsedTime().asSeconds() > attackCooldown) {
+            attack();
+            return;
+        }
+
         current_speed = speed_mod;
         float direction_x = pPlayer->getPos().x - body.getPosition().x;
-        
+
         float dead_zone = 1.f; // zona morta para ele não ficar se movendo de um lado para o outro
         if(direction_x > dead_zone) {
             startMovingRight();
@@ -119,7 +157,23 @@ void Skeleton::update() {
         }
     }
 
-    movementPattern();
+    if(isAttacking) {   
+        velocity.x = 0.f;
+        if(attackTimer.getElapsedTime().asSeconds() > attackDuration) {
+            isAttacking = false;
+        }
+
+        if(pPlayer && pPlayer->getIsAlive()) {
+            sf::FloatRect myAttackBox = getAttackHitbox();
+            sf::FloatRect playerHitbox =pPlayer->getBody().getGlobalBounds();
+            if(myAttackBox.intersects(playerHitbox) && !hasAppliedDamage) {
+                pPlayer->takeDamage(10);
+                hasAppliedDamage = true;
+            }
+        }
+    } else {
+        movementPattern();
+    }
 
     if(onGround) {
         onGround = false;
@@ -137,11 +191,11 @@ void Skeleton::updateAnimation() {
         animation.update(isMovingLeft, "DIE");
     } else if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
         animation.update(isMovingLeft, "HURT"); 
-    } 
-    // else if(isMoving) {
-    //     animation.update(isMovingLeft, "WALKING");
-    // } 
-    else {
+    } else if(isAttacking) {
+        animation.update(isMovingLeft, "ATTACK");
+    } else if(isMoving) {
+        animation.update(isMovingLeft, "WALKING");
+    } else {
         animation.update(isMovingLeft, "IDLE");
     }
 }

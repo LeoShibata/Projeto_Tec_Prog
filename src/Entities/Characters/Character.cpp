@@ -7,24 +7,17 @@ const float Entities::Characters::Character::GRAVITY = 981.f;
 namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
-    Entity(position, size, speed),
-    canMove(false),
-    isMovingLeft(false),
-    isMoving(false),
-    dt(0.f),
-    onGround(false),
-    jumpSpeed(450.f),
-    animation(&body),
-    health(1000),
-    isAlive(true),
-    isDying(false),
-    isAttacking(false),
-    damageAnimationDuration(0.3f),
+    Entity(position, size, speed), canMove(false), isMovingLeft(false), isMoving(false), 
+    dt(0.f), onGround(false), jumpSpeed(450.f), animation(&body),
+    health(1000), isAlive(true), isDying(false),
+    isAttacking(false), attackCooldown(1.f), attackDuration(1.f), attackRangeSq(0.f),
+    hasAppliedDamage(false), damageCooldown(1.f), damageAnimationDuration(0.3f), 
     dieAnimationDuration(1.f)
 {
     setVelocity(sf::Vector2f(0.f, 0.f));
     damageTimer.restart();
     dieTimer.restart();
+    attackTimer.restart();
 }
 
 Character::~Character() { }
@@ -83,7 +76,7 @@ void Character::takeDamage(int damage) {
     health -= damage;
     damageTimer.restart(); // para animação hurt
 
-    if(health < 0) {
+    if(health <= 0) {
         health = 0;
         isDying = true;
         dieTimer.restart();
