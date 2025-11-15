@@ -12,13 +12,16 @@ void Player::initialize() {
     animation.addAnimation("../assets/player/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3, 3));
     animation.addAnimation("../assets/player/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 3));
     animation.addAnimation("../assets/player/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 3));
+    animation.addAnimation("../assets/player/bowAttack.png", "SHOT", 9, 0.07f, sf::Vector2f(3, 3));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 
 }
 
 Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 100.f),
-    pStage(nullptr)
+    pStage(nullptr),
+    isShooting(false),
+    shootingCooldown(0.63f)
 {
         
     initialize();
@@ -29,7 +32,8 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     attackDuration = 0.3f;
     attackCooldown = 0.f;
 
-    damageCooldown = 0.1f;
+
+    damageCooldown = 0.2f;
     damageAnimationDuration= 0.2f;
 }
 
@@ -51,6 +55,23 @@ void Player::attack() {
         isAttacking = true;
         attackTimer.restart();
         // animação
+    }
+}
+
+void Player::shoot(){
+    if(!isAlive) {
+        return;
+    }
+    
+    if(shootingTimer.getElapsedTime().asSeconds() > shootingCooldown){
+        
+        float speed =3;
+        if(isMovingLeft)
+            speed *= -1;
+        pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 200, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
+        isShooting = true;//for animation
+        shootingTimer.restart();
+
     }
 }
 
@@ -85,19 +106,14 @@ void Player::updateAnimation() {
         animation.update(isMovingLeft, "JUMP");
     } else if(isMoving) {
         animation.update(isMovingLeft, "WALKING");
+    } else if(isShooting){
+        animation.update(!(isMovingLeft), "SHOT");
     } else {
         animation.update(isMovingLeft, "IDLE");
     }
 }
 
 // void Player::move() {}
-  
-void Player::shoot(){
-    float speed =3;
-    if(isMovingLeft)
-        speed *= -1;
-    pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y));
-}
 
 void Player::move(){
     dt = clock.getElapsedTime().asSeconds();
@@ -121,6 +137,10 @@ void Player::update() {
 
     if(isAttacking && attackTimer.getElapsedTime().asSeconds() > attackDuration) {
         isAttacking = false;
+    }
+
+    if(isShooting && shootingTimer.getElapsedTime().asSeconds() > shootingCooldown) {
+        isShooting = false;
     }
 
     if(canMove && !isAttacking) { // permite movimento se o jogador não estiver atacando 
