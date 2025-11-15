@@ -3,6 +3,9 @@
 
 #include "Entities/Characters/Character.hpp"
 
+namespace Stages{
+    class Stage;
+} //referencia bidirecional, fazer foward declaration para evitar include circular dependecies;
 namespace Entities::Characters {
     class Player : public Character {
         private:
@@ -15,7 +18,8 @@ namespace Entities::Characters {
             sf::Clock damageTimer;
             float damageCooldown;
             float damageAnimationDuration;
-
+      
+            Stages::Stage* pStage;
         private:
             void initialize();
 
@@ -29,10 +33,12 @@ namespace Entities::Characters {
             sf::FloatRect getAttackHitbox() const;
             void updateAnimation();
 
+            void shoot();
             void move() override;
             void update() override;
             void execute() override;
             void collision(Entities::Entity* other, float ds, int collisionType);
+            void setStage(Stages::Stage* pStage);
     };
 }
 

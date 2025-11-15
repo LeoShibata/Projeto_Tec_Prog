@@ -30,7 +30,10 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
         case(Entities::IDs::obstacle) :
             lOs.push_back(static_cast<Entities::Obstacles::Obstacle*> (ent1));
             break;
-        
+        case(Entities::IDs::projectile) :
+            lPs.insert(static_cast<Entities::Projectile*> (ent1));
+            cout<<"added projectil" <<endl;
+            break;
         default:
             break;
     }
@@ -50,7 +53,9 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
         case (Entities::IDs::obstacle) :
             lOs.erase(std::remove(lOs.begin(), lOs.end(), static_cast<Entities::Obstacles::Obstacle*> (ent1)), lOs.end());
             break;
-
+        case(Entities::IDs::projectile) :
+            lPs.insert(static_cast<Entities::Projectile*> (ent1));
+            break;
         default:
             break;
     }
@@ -129,10 +134,39 @@ void CollisionManager::verifyEnemyObstacle() {
     }
 }
 
+void CollisionManager::verifyProjecObstacle() {
+    for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
+        for(list<Entities::Obstacles::Obstacle*>::iterator itl = lOs.begin(); itl != lOs.end(); ++itl) {
+            CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(*itl));
+            if(data.collided == true) {
+                cout<<"collded"<<endl;
+                (*its)->collision(*itl, data.ds, int(data.type));
+                //(*itl)->collision(*its, data.ds, int(data.type));
+                
+            }
+        }
+    }
+}
+
+void CollisionManager::verifyProjecEnemies() {
+    for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
+        for(int i = 0; i < lIs.size(); i++) {
+            CollisionData data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(lIs[i]));
+            if(data.collided == true) {
+                cout<<"collded"<<endl;
+                (*its)->collision(lIs[i], data.ds, int(data.type));
+                //(*itl)->collision(*its, data.ds, int(data.type));
+                
+            }
+        }
+    }
+}
 void CollisionManager::run() {
     verifyPlayerEnemy();
     verifyPlayerObstacle();
     verifyEnemyObstacle();
+    verifyProjecObstacle();
+    verifyProjecEnemies();
 }
 
 }
