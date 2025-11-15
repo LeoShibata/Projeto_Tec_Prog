@@ -13,7 +13,7 @@ namespace Entities::Characters {
 
         protected:
             int health;
-            bool isAlive;
+            
             
             sf::Clock clock;
             float dt;

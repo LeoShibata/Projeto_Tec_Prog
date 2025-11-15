@@ -2,6 +2,7 @@
 #define PROJECTILE_HPP
 
 #include "Entities/Entity.hpp"
+#include "Entities/Characters/Enemies/Enemies.hpp"
 
 namespace Entities {
 
@@ -24,8 +25,8 @@ class Projectile : public Entity{
         virtual void collision(Entity* other, float over, int collisionType);
         virtual void update();
         virtual void execute();
-
-        void damageEntity();//use id system and maybe one more bool to make targets
+        
+        void damageEnemy(Entities::Characters::Enemies* pEnemy);//use id system and maybe one more bool to make targets
         //for now, the projectile will damage everything;
         void updateAnimation();
         void initialize();

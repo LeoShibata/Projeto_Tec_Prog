@@ -32,7 +32,6 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
             break;
         case(Entities::IDs::projectile) :
             lPs.insert(static_cast<Entities::Projectile*> (ent1));
-            cout<<"added projectil" <<endl;
             break;
         default:
             break;
@@ -54,7 +53,7 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
             lOs.erase(std::remove(lOs.begin(), lOs.end(), static_cast<Entities::Obstacles::Obstacle*> (ent1)), lOs.end());
             break;
         case(Entities::IDs::projectile) :
-            lPs.insert(static_cast<Entities::Projectile*> (ent1));
+            lPs.erase(static_cast<Entities::Projectile*> (ent1));
             break;
         default:
             break;

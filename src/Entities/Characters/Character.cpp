@@ -16,7 +16,6 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     jumpSpeed(450.f),
     animation(&body),
     health(1000),
-    isAlive(true),
     isDying(false),
     isAttacking(false),
     damageAnimationDuration(0.3f),

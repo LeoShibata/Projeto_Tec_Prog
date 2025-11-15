@@ -94,10 +94,10 @@ void Player::updateAnimation() {
 //void Player::move() {}
   
 void Player::shoot(){
-    float speed =3;
+    float speed =1;
     if(isMovingLeft)
         speed *= -1;
-    pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y));
+    pStage->createProjectile(sf::Vector2f (10,10), 500, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y));
 }
 
 void Player::move(){

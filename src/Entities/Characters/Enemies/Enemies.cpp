@@ -40,6 +40,7 @@ void Enemies::checkPlayerAttack() {
 
     if(damageTimer.getElapsedTime().asSeconds() > damageCooldown) {
         if(pPlayer->getIsAttacking()) {
+            //medo de por estar fora do gerenciador de colisões o professor n curtir
             sf::FloatRect playerAttackBox = pPlayer->getAttackHitbox();
             sf::FloatRect myHitBox = body.getGlobalBounds(); // caixa exata que inimigo está ocupando na tela
         
