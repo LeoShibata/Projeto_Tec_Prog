@@ -6,12 +6,18 @@
 
 #include <cmath>
 
+namespace Stages {
+    class Stage;
+}
+
 namespace Entities::Characters {
     class Death : public Enemies {
         private: 
             float soul; // Mudar atributo
 
             sf::Clock collisionTimer;
+            Stages::Stage* pStage;
+
             float collisionCooldown;
             bool isStunned;
 
@@ -30,10 +36,13 @@ namespace Entities::Characters {
             void movementPattern(); // Implementar 
             void followPlayer(sf::Vector2f playerPos);
             void updateAnimation();
+            void shoot();
 
             void move() override;
             void update() override;
             void execute() override;
+            void setStage(Stages::Stage* pStage);
+
             void collision(Entities::Entity* other, float ds, int collisionType) override;    
 
     };

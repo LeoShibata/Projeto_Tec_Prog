@@ -12,7 +12,9 @@ namespace Entities::Characters {
         private:
             float jump_h; // verificar esse atributo
             Stages::Stage* pStage;
-      
+            bool isShooting;
+            float shootingCooldown;
+            sf::Clock shootingTimer;
         private:
             void initialize();
 

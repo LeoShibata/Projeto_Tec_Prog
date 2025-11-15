@@ -46,6 +46,7 @@ using namespace std;
                 void verifyEnemyObstacle();
                 void verifyProjecObstacle();
                 void verifyProjecEnemies();
+                void verifyProjectPlayers();
                 //NEED BETTER POSITION, or player kill himself void verifyProjecPlayers();
                 void run();
         };
