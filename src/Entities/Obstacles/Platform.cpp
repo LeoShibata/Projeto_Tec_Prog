@@ -36,7 +36,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
 }
 
 void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
-        ds *= -1;
+    ds *= -1;
     if(collisionType == 1) { 
         
         pEnemy->adjustPosition(sf::Vector2f(ds, 0.f));

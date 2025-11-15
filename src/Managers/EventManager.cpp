@@ -48,6 +48,8 @@ void EventManager::run() {
                 pPlayer->attack();
             }
         }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F)
+            pPlayer->shoot();
     }
 
     if(pPlayer == nullptr)

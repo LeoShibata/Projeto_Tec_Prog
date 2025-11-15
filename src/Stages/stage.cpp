@@ -1,4 +1,5 @@
 #include "Stages/stage.hpp"
+#include "Entities/Characters/Player.hpp"
 
 using json = nlohmann::json;
 using namespace std;
@@ -12,6 +13,7 @@ Stage::Stage() :
     pCollision(nullptr),
     characterList(new List::EntityList()),
     obstacleList(new List::EntityList()),
+    projectileList(new List::EntityList()),
     max_bats(20),
     max_obstacles(12)
 { 
@@ -36,6 +38,7 @@ Stage::~Stage() {
 // ----------------- Players -----------------
 void Stage::createPlayer(sf::Vector2f pos) {
     Entities::Characters::Player* pPlayer = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    pPlayer->setStage(static_cast<Stage*>(this));// please work
     characterList->addEntity(pPlayer);
 
     pCollision->includeEntity(static_cast<Entities::Entity*>(pPlayer));
@@ -63,6 +66,14 @@ void Stage::createSpike(sf::Vector2f pos) {
     Entities::Obstacles::Spike* pSpike = new Entities::Obstacles::Spike(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
     obstacleList->addEntity(pSpike);
     pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
+}
+// ----------------- Projectile -----------------
+
+void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position){
+    Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position);
+    characterList->addEntity(pProjectile);
+    pCollision->includeEntity(pProjectile);
+
 }
 
 // ----------------- Enemies -----------------
