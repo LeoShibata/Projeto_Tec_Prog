@@ -24,6 +24,7 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     setVelocity(sf::Vector2f(0.f, 0.f));
     damageTimer.restart();
     dieTimer.restart();
+    attackTimer.restart();
 }
 
 Character::~Character() { }
@@ -82,7 +83,7 @@ void Character::takeDamage(int damage) {
     health -= damage;
     damageTimer.restart(); // para animação hurt
 
-    if(health < 0) {
+    if(health <= 0) {
         health = 0;
         isDying = true;
         dieTimer.restart();

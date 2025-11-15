@@ -11,9 +11,7 @@ namespace Entities::Characters {
 
         protected:
             static Player* pPlayer;
-            sf::Clock damageTimer;
-            float damageCooldown;
-
+            
         private:
             void initialize();
 

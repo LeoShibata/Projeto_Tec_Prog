@@ -18,20 +18,19 @@ void Player::initialize() {
 
 Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     Character(position, size, 100.f),
-    attackDuration(0.3f),
-    attackCooldown(0.f),
-    damageCooldown(1.f),
-    damageAnimationDuration(0.2f),
     pStage(nullptr)
 {
         
     initialize();
     typeId = IDs::player;
-
     health = 1000;
     speed_mod = 250.f;
 
-    damageTimer.restart();
+    attackDuration = 0.3f;
+    attackCooldown = 0.f;
+
+    damageCooldown = 0.1f;
+    damageAnimationDuration= 0.2f;
 }
 
 Player::~Player() { }
@@ -91,7 +90,7 @@ void Player::updateAnimation() {
     }
 }
 
-//void Player::move() {}
+// void Player::move() {}
   
 void Player::shoot(){
     float speed =1;
@@ -159,10 +158,7 @@ void Player::setStage(Stages::Stage* pStage){
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
-            // if(damageTimer.getElapsedTime().asSeconds() > damageCooldown) {
-            //     takeDamage(1); // jogador toma esse dano ao tocar em inimigo
-            //     damageTimer.restart();
-            // }
+            // takeDamage(1); // jogador toma esse dano ao tocar em inimigo
             break;      
         }
         case(Entities::IDs::floor) : {

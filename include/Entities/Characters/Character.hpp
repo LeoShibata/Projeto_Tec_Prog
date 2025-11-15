@@ -13,22 +13,29 @@ namespace Entities::Characters {
 
         protected:
             int health;
-            
+            bool isAlive;
+            float jumpSpeed;
+            Animation::Animator animation;
             
             sf::Clock clock;
             float dt;
-
+            
             bool canMove;
             bool isMovingLeft;
             bool onGround;
             bool isMoving;
-            bool isAttacking;
             
-            float jumpSpeed;
-            Animation::Animator animation;
+            sf::Clock attackTimer;
+            bool isAttacking;
+            float attackCooldown;
+            float attackDuration;
+            float attackRangeSq; // p/ inimigos            
+            bool hasAppliedDamage;
 
             sf::Clock damageTimer;
+            float damageCooldown;
             float damageAnimationDuration;
+
             sf::Clock dieTimer;
             float dieAnimationDuration;
 

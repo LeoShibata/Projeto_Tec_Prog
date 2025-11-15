@@ -11,11 +11,12 @@ void Enemies::initialize() { }
 
 Enemies::Enemies(const sf::Vector2f position, const sf::Vector2f size, int maldade):    
     Character(position, size, 10.f), 
-    nivel_maldade(maldade),
-    damageCooldown(0.5f) // só toma dano a cada 0.5s
+    nivel_maldade(maldade)
 {
     initialize();
     typeId = IDs::enemy;
+
+    damageCooldown = 0.5f;
 }
 
 Enemies::~Enemies() { }
