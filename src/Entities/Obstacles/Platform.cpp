@@ -17,11 +17,10 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
     if(collisionType == 1) {
         // Lógica para descobrir se empurra para esquerda ou direita
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
-        pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
-        cout <<ds << " colisao  obstaculo horizontal" <<endl;
+        // pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
 
         if(pPlayer->getOnGround()) {
-            pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
+            // pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
         }
     } else {
 

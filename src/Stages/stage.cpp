@@ -1,4 +1,4 @@
-#include "Stages/stage.hpp"
+#include "Stages/Stage.hpp"
 #include "Entities/Characters/Player.hpp"
 
 using json = nlohmann::json;

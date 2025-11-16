@@ -4,6 +4,7 @@
 #include "Entities/Entity.hpp"
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Player.hpp"
+
 namespace Entities {
 
 class Projectile : public Entity{

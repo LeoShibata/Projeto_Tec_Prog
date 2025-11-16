@@ -1,22 +1,23 @@
-#ifndef STAGE1_HPP
-#define STAGE1_HPP  
+#ifndef CASTLE_HPP
+#define CASTLE_HPP  
 
-#include "Stages/stage.hpp"
+#include "Stages/Stage.hpp"
 
 #include "utils/json.hpp"
 
 #include <fstream>
 
 namespace Stages {
-    class Stage1 : public Stage {
+    class Castle : public Stage {
         protected:
             const int max_skeletons;
+
         protected:
             void createMap() override;
         
         public: 
-            Stage1();
-            ~Stage1();  
+            Castle();
+            ~Castle();  
     };
 } 
 

@@ -8,22 +8,26 @@ using json = nlohmann::json;
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
     pEvent(Managers::EventManager::getEventManager()),
-    stage2(nullptr),
-    stage1(nullptr)
+    castle(nullptr),
+    graveyard(nullptr)
 {   
     if(pGraphic == nullptr) {
         std::cout << "ERROR: Failed to create graphic manager." << std::endl;
         exit(1);
     }
 
-    stage2 = new Stages::BossRoom();
-    stage1 = new Stages::Stage1();
+    castle = new Stages::Castle();
+    // graveyard = new Stages::Graveyard();
 }   
 
 Game::~Game() {
-    if(stage1) {
-        delete stage1;
-        stage1 = nullptr;
+    if(graveyard) {
+        delete graveyard;
+        graveyard = nullptr;
+    }
+    if(castle) {
+        delete castle;
+        castle = nullptr;
     }
 }
 
@@ -31,13 +35,13 @@ void Game::run() {
     while (pGraphic->isWindowOpen()) {
         pEvent->run();
 
-        if(stage1) {
-            stage1->execute();
+        if(castle) {
+            castle->execute();
         }
         
         pGraphic->clearWindow(); 
-        if(stage1) {
-            stage1->draw(pGraphic->getWindow());
+        if(castle) {
+            castle->draw(pGraphic->getWindow());
         } 
         pGraphic->showElements(); 
     }

@@ -22,7 +22,7 @@ void Floor::handleCollision(Entities::Characters::Player* pPlayer, float ds, int
         
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
         if(pPlayer->getOnGround()) {
-            pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
+            // pPlayer->setVelocity(sf::Vector2f(0.f, 0.f));
         }
     } else {
         // colisão vertical (chão ou teto)
