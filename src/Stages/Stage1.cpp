@@ -22,15 +22,15 @@ Stage1::Stage1() :
 Stage1::~Stage1() { }
 
 void Stage1::createMap() {
-    if(!bgTexture.loadFromFile("../assets/stages/MoonGraveyard.png")) {
+    if(!bgTexture.loadFromFile("../assets/stages/Graveyard/MoonGraveyard.png")) {
         std::cout << "ERROR: Failed to load background texture for Stage1" << std::endl;
         exit(1);
     }   
     background.setTexture(&bgTexture);
     background.setSize(sf::Vector2f(bgTexture.getSize().x, bgTexture.getSize().y));
     background.setPosition(0.f, 0.f);
-
-    const char* path = "../assets/stages/MoonGraveyard";
+   
+    const char* path = "../assets/stages/Graveyard/MoonGraveyard";
     
     ifstream f(path); // get archive
     if(!f.is_open()) {
@@ -83,11 +83,11 @@ void Stage1::createMap() {
                     break;
                 }
                 case(74) : {
-                    createFloor(sf::Vector2(x_pos, y_pos));
+                    createPlatform(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(75) : {
-                    createPlatform(sf::Vector2(x_pos, y_pos));
+                    createFloor(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(76) : {

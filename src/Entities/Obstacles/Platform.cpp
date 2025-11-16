@@ -6,7 +6,7 @@ namespace Entities::Obstacles {
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::Cyan);
+    body.setFillColor(sf::Color::Transparent);
     // typeId = IDs::platform;
 }
 
