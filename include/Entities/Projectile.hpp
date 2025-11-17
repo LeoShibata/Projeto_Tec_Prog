@@ -15,7 +15,7 @@ class Projectile : public Entity{
         //maybe a fancy math
         float maxtime;
         float distance;
-        bool isEraseble;
+        bool isErasable; // CORRIGIR NOME
         float dt;
         int whoShot;
         //maybe add stage pointer

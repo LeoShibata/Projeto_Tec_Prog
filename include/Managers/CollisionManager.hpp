@@ -18,7 +18,7 @@ using namespace std;
         class CollisionManager {
             //inspired by ASCENT https://github.com/0x4D4453/ASCENT/blob/main/include/Manager/Collision/CollisionManager.h
             enum class CollisionType {
-                Vertical =0, //basically boolean type variable, but with better names to code
+                Vertical = 0, //basically boolean type variable, but with better names to code
                 Horizontal
             };
             struct CollisionData {
@@ -29,10 +29,10 @@ using namespace std;
 
             private:
                 vector<Entities::Characters::Enemies*> lIs;
-                Entities::Characters::Player* pPlayer1;
-                Entities::Characters::Player* pPlayer2;
                 list<Entities::Obstacles::Obstacle*> lOs;
                 set<Entities::Projectile*> lPs;
+                Entities::Characters::Player* pPlayer1;
+                Entities::Characters::Player* pPlayer2;
 
 
             public:
@@ -47,8 +47,8 @@ using namespace std;
                 void verifyPlayerEnemy();
                 void verifyPlayerObstacle();
                 void verifyEnemyObstacle();
-                void verifyProjecObstacle();
-                void verifyProjecEnemies();
+                void verifyProjectObstacle();
+                void verifyProjectEnemies();
                 void verifyProjectPlayers();
                 //NEED BETTER POSITION, or player kill himself void verifyProjecPlayers();
                 void run();

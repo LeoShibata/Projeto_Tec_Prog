@@ -178,7 +178,7 @@ void CollisionManager::verifyEnemyObstacle() {
 }
 
 
-void CollisionManager::verifyProjecObstacle() {
+void CollisionManager::verifyProjectObstacle() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
         for(list<Entities::Obstacles::Obstacle*>::iterator itl = lOs.begin(); itl != lOs.end(); ++itl) {
@@ -203,7 +203,7 @@ void CollisionManager::verifyProjecObstacle() {
 }
 
 
-void CollisionManager::verifyProjecEnemies() {
+void CollisionManager::verifyProjectEnemies() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
         for(int i = 0; i < lIs.size(); i++) {
@@ -257,8 +257,8 @@ void CollisionManager::run() {
     verifyPlayerEnemy();
     verifyPlayerObstacle();
     verifyEnemyObstacle();
-    verifyProjecObstacle();
-    verifyProjecEnemies();
+    verifyProjectObstacle();
+    verifyProjectEnemies();
     verifyProjectPlayers();
 }
 

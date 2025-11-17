@@ -26,7 +26,7 @@ namespace Entities {
         protected:
             void setSpeedmod(float spd);
             
-            public:
+        public:
             Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
             

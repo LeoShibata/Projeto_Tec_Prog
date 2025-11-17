@@ -6,7 +6,7 @@ using namespace std;
 
 Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot) : 
     Entity(position, size, speed), 
-    isEraseble(false), 
+    isErasable(false), 
     dt(0), damage(ddamage),
     maxrange(maxrange),
     distance(0),
