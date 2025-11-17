@@ -8,11 +8,11 @@ namespace Entities::Characters {
 
     
 void Skeleton::initialize() {
-    animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(5, 5));
-    animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(5, 5));
-    animation.addAnimation("../assets/enemies/Skeleton/Take Hit.png", "HURT", 4, 0.05f, sf::Vector2f(5, 5));
-    animation.addAnimation("../assets/enemies/Skeleton/Walk.png", "WALKING", 4, 0.15f, sf::Vector2f(5, 5));
-    animation.addAnimation("../assets/enemies/Skeleton/Attack.png", "ATTACK", 8, 0.05f, sf::Vector2f(5, 5));
+    animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(6, 6));
+    animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(6, 6));
+    animation.addAnimation("../assets/enemies/Skeleton/Take Hit.png", "HURT", 4, 0.05f, sf::Vector2f(6, 6));
+    animation.addAnimation("../assets/enemies/Skeleton/Walk.png", "WALKING", 4, 0.15f, sf::Vector2f(6, 6));
+    animation.addAnimation("../assets/enemies/Skeleton/Attack.png", "ATTACK", 8, 0.05f, sf::Vector2f(6, 6));
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y - 1.5)/2.f));
 }
 
