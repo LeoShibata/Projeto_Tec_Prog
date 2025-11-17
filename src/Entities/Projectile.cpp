@@ -18,7 +18,7 @@ Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxran
     if(whoShot == IDs::player) {
         texture = pGraphic->loadFileTexture("../assets/projectile/arrow.png");
         body.setTexture(&texture);
-        // body.setFillColor(sf::Color::White);
+        body.setFillColor(sf::Color::White);
 
         if(speed < 0) {
             body.setScale(-1.f, 1.f);

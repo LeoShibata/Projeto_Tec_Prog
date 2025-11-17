@@ -7,8 +7,10 @@ namespace Entities::Obstacles {
 Spike::Spike(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::White);
     // typeId = IDs::Spike;
+    texture = pGraphic->loadFileTexture("../assets/obstacles/spikes/spikes.png");
+    body.setTexture(&texture);
+    body.setFillColor(sf::Color::White);
 }
 
 

@@ -80,14 +80,15 @@ void Stage::createSpike(sf::Vector2f pos) {
     obstacleList->addEntity(pSpike);
     pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
 }
-// ----------------- Projectile -----------------
 
+
+// ----------------- Projectile -----------------
 void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot){
     Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position, whoShot);
     characterList->addEntity(pProjectile);
     pCollision->includeEntity(pProjectile);
-
 }
+
 
 // ----------------- Enemies -----------------
 void Stage::createBat(sf::Vector2f pos) {
@@ -116,6 +117,7 @@ void Stage::draw(sf::RenderWindow* window) {
     obstacleList->drawAll(window);
 }
 
+
 void Stage::execute() {
     List::EntityList* chars = characterList;
     for(int i = 0; i < chars->getSize(); i++) {
@@ -143,5 +145,6 @@ void Stage::execute() {
 
     pCollision->run();
 }
+
 
 }
