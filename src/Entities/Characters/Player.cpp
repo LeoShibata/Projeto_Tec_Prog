@@ -15,7 +15,7 @@ void Player::initialize() {
         animation.addAnimation("../assets/player/player1/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 4));
         animation.addAnimation("../assets/player/player1/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 4));
         animation.addAnimation("../assets/player/player1/bowAttack.png", "SHOT", 9, 0.07f, sf::Vector2f(3, 4));
-        body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
+        body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y + 5)/2.5f));
     } else {
         // body.setFillColor(sf::Color::Red);
         animation.addAnimation("../assets/player/player2/Run.png", "WALKING", 8, 0.15f, sf::Vector2f(7, 5));

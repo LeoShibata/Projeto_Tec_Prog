@@ -14,27 +14,27 @@ Character::Character(const sf::Vector2f position, const sf::Vector2f size, const
     damageCooldown(1.f), damageAnimationDuration(0.3f), dieAnimationDuration(1.f)
 {
     setVelocity(sf::Vector2f(0.f, 0.f));
-    damageTimer.restart();
-    dieTimer.restart();
-    attackTimer.restart();
 }
+
 
 Character::~Character() { }
 
+
 void Character::adjustPosition(sf::Vector2f ds) {
     dt= clock.getElapsedTime().asSeconds();
-    
     body.move(ds);
-
 }
+
 
 void Character::startMovingLeft() {
     if(!isAlive) {
         return;
     }
+
     canMove = true;
     isMovingLeft = true;
 }
+
 
 void Character::startMovingRight() {
     if(!isAlive) {
@@ -44,6 +44,7 @@ void Character::startMovingRight() {
     isMovingLeft = false;
 }
 
+
 void Character::stopMoving() {
     if(!isAlive) {
         return;
@@ -51,21 +52,26 @@ void Character::stopMoving() {
     canMove = false;
 }
 
+
 void Character::setOnGround(bool ground) {
     onGround = ground;
 }
+
 
 bool Character::getOnGround() const {
     return onGround;
 }
 
+
 int Character::getHealth() const {
     return health;
 }
 
+
 bool Character::getIsAlive() const {
     return isAlive;
 }
+
 
 void Character::takeDamage(int damage) {
     if(!isAlive || isDying) {
@@ -85,9 +91,11 @@ void Character::takeDamage(int damage) {
     std::cout << "ID " << id << " tomou dano! Vida: " << health << " Vivo:" << isAlive << std::endl;
 }
 
+
 void Character::execute() { 
     this->update(); 
     this->move();
 }
+
 
 }
