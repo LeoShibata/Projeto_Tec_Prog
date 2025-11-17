@@ -6,24 +6,31 @@ using namespace std;
 
 namespace Entities::Characters {
 
-void Player::initialize() { 
-    animation.addAnimation("../assets/player/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3, 3));
-    animation.addAnimation("../assets/player/idle.png", "IDLE", 18, 0.08f, sf::Vector2f(3, 3));
-    animation.addAnimation("../assets/player/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3, 3));
-    animation.addAnimation("../assets/player/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 3));
-    animation.addAnimation("../assets/player/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 3));
-    animation.addAnimation("../assets/player/bowAttack.png", "SHOT", 9, 0.07f, sf::Vector2f(3, 3));
-    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 
+void Player::initialize() { 
+    if(playerID == 1) {
+        animation.addAnimation("../assets/player/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3, 3));
+        animation.addAnimation("../assets/player/idle.png", "IDLE", 18, 0.08f, sf::Vector2f(3, 3));
+        animation.addAnimation("../assets/player/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3, 3));
+        animation.addAnimation("../assets/player/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 3));
+        animation.addAnimation("../assets/player/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 3));
+        animation.addAnimation("../assets/player/bowAttack.png", "SHOT", 9, 0.07f, sf::Vector2f(3, 3));
+    } else {
+        //
+        body.setFillColor(sf::Color::Red);
+    }
+    body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.5f));
 }
 
-Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
+
+Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerID) :
     Character(position, size, 100.f),
+    jumpSpeed(450.f),
     pStage(nullptr),
     isShooting(false),
-    shootingCooldown(0.63f)
-{
-        
+    shootingCooldown(0.63f),
+    playerID(playerID)
+{    
     initialize();
     typeId = IDs::player;
     health = 1000;
@@ -32,12 +39,13 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size) :
     attackDuration = 0.3f;
     attackCooldown = 0.f;
 
-
     damageCooldown = 0.2f;
     damageAnimationDuration= 0.2f;
 }
 
+
 Player::~Player() { }
+
 
 void Player::jump() {
     if(onGround && isAlive) {
@@ -94,6 +102,10 @@ sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conform
 }
 
 void Player::updateAnimation() {
+    if(playerID != 1) {
+        return;
+    }
+
     if(!isAlive) {
         return;
     }

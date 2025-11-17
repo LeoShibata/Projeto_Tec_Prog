@@ -29,14 +29,17 @@ using namespace std;
 
             private:
                 vector<Entities::Characters::Enemies*> lIs;
-                Entities::Characters::Player* pPlayer;
+                Entities::Characters::Player* pPlayer1;
+                Entities::Characters::Player* pPlayer2;
                 list<Entities::Obstacles::Obstacle*> lOs;
                 set<Entities::Projectile*> lPs;
+
 
             public:
                 CollisionManager();
                 ~CollisionManager();
-                void setPlayer(Entities::Characters::Player* pPlayer);
+                void setPlayer1(Entities::Characters::Player* pPlayer);
+                void setPlayer2(Entities::Characters::Player* pPlayer);
                 void includeEntity(Entities::Entity* ent1);
                 void removeEntity(Entities::Entity* ent1);
                 

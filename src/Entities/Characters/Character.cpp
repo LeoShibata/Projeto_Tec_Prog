@@ -8,11 +8,10 @@ namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
     Entity(position, size, speed), canMove(false), isMovingLeft(false), isMoving(false), 
-    dt(0.f), onGround(false), jumpSpeed(450.f), animation(&body),
+    dt(0.f), onGround(false), animation(&body),
     health(1000), isAlive(true), isDying(false),
-    isAttacking(false), attackCooldown(1.f), attackDuration(1.f), attackRangeSq(0.f),
-    hasAppliedDamage(false), damageCooldown(1.f), damageAnimationDuration(0.3f), 
-    dieAnimationDuration(1.f)
+    isAttacking(false), attackCooldown(1.f), attackDuration(1.f), 
+    damageCooldown(1.f), damageAnimationDuration(0.3f), dieAnimationDuration(1.f)
 {
     setVelocity(sf::Vector2f(0.f, 0.f));
     damageTimer.restart();

@@ -6,19 +6,21 @@ using namespace std;
 
 namespace Stages {
 
+
 Stage::Stage() : 
     Being(sf::Vector2f(0,0)),
     pEvent(Managers::EventManager::getEventManager()),
     pGraphic(Managers::GraphicManager::getGraphicManager()),
-    pCollision(nullptr),
+    pCollision(nullptr), pPlayer1(nullptr), pPlayer2(nullptr),
     characterList(new List::EntityList()),
     obstacleList(new List::EntityList()),
     projectileList(new List::EntityList()),
-    max_bats(20),
-    max_obstacles(12)
+    max_bats(20), max_obstacles(12)
 { 
     pCollision = new Managers::CollisionManager();
+    Entities::Characters::Enemies::clearPlayers(); // limpa jogadores estáticos de enemies
 }
+
 
 Stage::~Stage() {
     if(pCollision) {
@@ -35,19 +37,30 @@ Stage::~Stage() {
     }
 }
 
+
 // ----------------- Players -----------------
-void Stage::createPlayer(sf::Vector2f pos) {
-    Entities::Characters::Player* pPlayer = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
-    pPlayer->setStage(static_cast<Stage*>(this));// please work
-    characterList->addEntity(pPlayer);
+void Stage::createPlayer1(sf::Vector2f pos) {
+    pPlayer1 = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 1);
+    pPlayer1->setStage(static_cast<Stage*>(this));// please work
+    characterList->addEntity(pPlayer1);
 
-    pCollision->includeEntity(static_cast<Entities::Entity*>(pPlayer));
-    pCollision->setPlayer(pPlayer);
-
-    pEvent->setPlayer(pPlayer);
-    Entities::Characters::Enemies::setPlayer(pPlayer);
-    pGraphic->setPlayer(pPlayer);
+    pCollision->setPlayer1(pPlayer1);
+    pEvent->setPlayer1(pPlayer1);
+    Entities::Characters::Enemies::setPlayer1(pPlayer1);
+    pGraphic->setPlayer1(pPlayer1);
 }
+
+void Stage::createPlayer2(sf::Vector2f pos) {
+    pPlayer2 = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 2);
+    pPlayer2->setStage(static_cast<Stage*>(this));// please work
+    characterList->addEntity(pPlayer2);
+
+    pCollision->setPlayer2(pPlayer2);
+    pEvent->setPlayer2(pPlayer2);
+    Entities::Characters::Enemies::setPlayer2(pPlayer2);
+    pGraphic->setPlayer2(pPlayer2);
+}
+
 
 // ----------------- Obstacles -----------------
 void Stage::createFloor(sf::Vector2f pos) {

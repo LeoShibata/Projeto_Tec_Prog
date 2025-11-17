@@ -6,6 +6,7 @@
 
 namespace Entities::Characters {
 
+    
 void Skeleton::initialize() {
     animation.addAnimation("../assets/enemies/Skeleton/Idle.png", "IDLE", 4, 0.15f, sf::Vector2f(5, 5));
     animation.addAnimation("../assets/enemies/Skeleton/Death.png", "DIE", 4, 0.15f, sf::Vector2f(5, 5));
@@ -15,30 +16,33 @@ void Skeleton::initialize() {
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y - 1.5)/2.f));
 }
 
+
 Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
-    soul(0.7f),
-    collisionCooldown(0.3f),
-    isStunned(false)
+    soul(0.7f)
 {   
     initialize();
     speed_mod = 100.f;
-    collisionTimer.restart();
+
+    // inicialização de atributos de enemies
+    isStunned = false;
+    attackDamage = 10;  
+    detectionRadiusSq = 250.f * 250.f;
+    collisionCooldown = 0.3f;
+    attackDamageStart = 0.25f;
+    attackDamageEnd = 0.4f;
 
     damageAnimationDuration = 0.2f; // duração da animação hurt
     dieAnimationDuration = 0.6f; // duração da animação die
     damageTimer.restart();
+    attackTimer.restart();
     
     isAttacking = false;
     attackCooldown = 2.f; // tempo de espera entre os ataques
     attackDuration = 0.4f;
     attackRangeSq = 60.f * 60.f ; // distancia que começa a atacar
-    attackTimer.restart();
     
     hasAppliedDamage = false;
-
-    attackDamageStart = 0.25f;
-    attackDamageEnd = 0.4f;
    
     if (rand() % 2 == 0) {
         startMovingLeft(); 
@@ -47,7 +51,9 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
     }
 }
 
+
 Skeleton::~Skeleton() { }
+
 
 void Skeleton::attack() {
     if(!isAlive || isAttacking) {
@@ -59,6 +65,7 @@ void Skeleton::attack() {
     stopMoving();
     hasAppliedDamage = false;
 }
+
 
 sf::FloatRect Skeleton::getAttackHitbox() const {
     sf::Vector2f hitPos = getPos();
@@ -74,12 +81,9 @@ sf::FloatRect Skeleton::getAttackHitbox() const {
     return sf::FloatRect(hitPos.x, hitPos.y, hitSize.x, hitSize.y);
 }
 
-void Skeleton::followPlayer(sf::Vector2f playerPos) { 
-    static_cast<void>(playerPos);
-}
 
-void Skeleton::movementPattern() { 
-    if(pPlayer == nullptr || isStunned) {
+void Skeleton::performMovement(Player* pTarget, float distance_to_player_sq) { 
+    if(pTarget == nullptr || isStunned) {
         velocity.x = 0;
         return;
     }
@@ -88,18 +92,16 @@ void Skeleton::movementPattern() {
         return;
     }
 
-    float distance_to_player_sq = distanceSq(body.getPosition(), pPlayer->getPos());
     float current_speed = 0.f;
 
-    if(distance_to_player_sq < DETECTION_RADIUS_SQ) {
-        // modo de perseguição        
+    if(distance_to_player_sq < detectionRadiusSq) { // modo de perseguição        
         if(distance_to_player_sq < attackRangeSq && attackTimer.getElapsedTime().asSeconds() > attackCooldown) {
             attack();
             return;
         }
 
         current_speed = speed_mod;
-        float direction_x = pPlayer->getPos().x - body.getPosition().x;
+        float direction_x = pTarget->getPos().x - body.getPosition().x;
 
         float dead_zone = 1.f; // zona morta para ele não ficar se movendo de um lado para o outro
         if(direction_x > dead_zone) {
@@ -109,8 +111,7 @@ void Skeleton::movementPattern() {
         } else {
             stopMoving();
         }
-    } else {
-        // modo de patrulha
+    } else { // modo de patrulha
         current_speed = speed_mod * 0.5f;
 
         if(!canMove) {
@@ -131,6 +132,7 @@ void Skeleton::movementPattern() {
     velocity.y = 0.f;
 }
 
+
 void Skeleton::move() { 
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
@@ -145,54 +147,6 @@ void Skeleton::move() {
     body.move(ds_x, ds_y);
 }
 
-void Skeleton::update() {
-    if(isDying) {
-        velocity = sf::Vector2f(0.f, 0.f);
-        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
-            isAlive = false;
-        }
-        return;
-    }
-
-    if(isStunned) {
-        if(collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
-            isStunned = false;
-        }
-    }
-
-    if(isAttacking) {   
-        velocity.x = 0.f;
-        float currentTime = attackTimer.getElapsedTime().asSeconds();
-
-        if(currentTime >= attackDuration) {
-            isAttacking = false;
-        }
-
-        if(pPlayer && pPlayer->getIsAlive()) {
-            sf::FloatRect myAttackBox = getAttackHitbox();
-            sf::FloatRect playerHitbox =pPlayer->getBody().getGlobalBounds();
-
-            if(currentTime >= attackDamageStart && currentTime <= attackDamageEnd) {
-                if(myAttackBox.intersects(playerHitbox) && !hasAppliedDamage) {
-                    pPlayer->takeDamage(10);
-                    hasAppliedDamage = true;
-                }
-            }
-        }
-    } else {
-        movementPattern();
-    }
-
-    if(onGround) {
-        onGround = false;
-    }
-
-    if(velocity.x == 0.f && velocity.y == 0.f) {
-        isMoving = false;
-    } else {
-        isMoving = true;
-    }
-}
 
 void Skeleton::updateAnimation() {
     if(isDying) {
@@ -208,6 +162,7 @@ void Skeleton::updateAnimation() {
     }
 }
 
+
 void Skeleton::execute() { 
     update();
     checkPlayerAttack();
@@ -217,19 +172,10 @@ void Skeleton::execute() {
     }
 }
 
+
 void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
-            // if(!isStunned && ds.x < 0.f && ds.y > ds.x) {
-            //     if(isMovingLeft) {
-            //         startMovingRight();
-            //     } else {
-            //         startMovingLeft();
-            //     }
-                
-            //     isStunned = true;
-            //     collisionTimer.restart();
-            // }
             break;
         }
         case(Entities::IDs::player) : {
@@ -241,5 +187,6 @@ void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {
     }
 
 }
+
 
 }

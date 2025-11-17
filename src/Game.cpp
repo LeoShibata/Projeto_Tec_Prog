@@ -16,8 +16,8 @@ Game::Game() :
         exit(1);
     }
 
-    castle = new Stages::Castle();
-    // graveyard = new Stages::Graveyard();
+    // castle = new Stages::Castle();
+    graveyard = new Stages::Graveyard();
 }   
 
 Game::~Game() {
@@ -35,13 +35,13 @@ void Game::run() {
     while (pGraphic->isWindowOpen()) {
         pEvent->run();
 
-        if(castle) {
-            castle->execute();
+        if(graveyard) {
+            graveyard->execute();
         }
         
         pGraphic->clearWindow(); 
-        if(castle) {
-            castle->draw(pGraphic->getWindow());
+        if(graveyard) {
+            graveyard->draw(pGraphic->getWindow());
         } 
         pGraphic->showElements(); 
     }
