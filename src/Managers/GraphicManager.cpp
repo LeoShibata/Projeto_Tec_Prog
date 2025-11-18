@@ -1,5 +1,6 @@
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
+//#include "../Managers/StateManager.hpp"
 
 #include <iostream>
 using namespace std;
@@ -12,6 +13,7 @@ GraphicManager::GraphicManager() :
     window(new sf::RenderWindow(sf::VideoMode(1280.f, 720.f), "Game Test")),
     view(),
     pPlayer(nullptr)
+    //,pStateManager(State)
 {
     if(window == nullptr) {
         std::cout << "ERROR: Failed to create a graphics window." 

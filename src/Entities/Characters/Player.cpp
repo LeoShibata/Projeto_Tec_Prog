@@ -1,5 +1,5 @@
 #include "Entities/Characters/Player.hpp"
-#include "Stages/stage.hpp"
+#include "Stages/Stage.hpp"
 #include <iostream>
 
 using namespace std;
