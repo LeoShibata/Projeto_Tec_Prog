@@ -6,6 +6,7 @@
 
 namespace Entities::Characters {
 
+
 void Death::initialize(){
     pStage = nullptr;
     animation.addAnimation("../assets/enemies/Death/idle2.png", "IDLE", 8, 0.15f, sf::Vector2f(5, 5), 2, 4);
@@ -14,31 +15,35 @@ void Death::initialize(){
     body.setOrigin(sf::Vector2f(getSize().x/2.5f, getSize().y/2.f));
 }
 
+
 Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
-    soul(0.7f),
-    collisionCooldown(0.3f),
-    isStunned(false)
+    soul(0.7f)
 {   
     health = 1000;
     initialize();
     speed_mod = 100.f;
-    collisionTimer.restart();
+    
+    // inicialização de atributos de enemies
+    isStunned = false;
+    attackDamage = 10;  
+    detectionRadiusSq = 250.f * 250.f;
+    collisionCooldown = 0.7f;
+    attackDamageStart = 0.5f;
+    attackDamageEnd = 1.3f;
 
+    damageAnimationDuration = 0.2f; // duração da animação hurt
     dieAnimationDuration = 2.7f; // duração da animação die
     damageTimer.restart();
-
-    isAttacking = false;
-    attackCooldown = 2.f;
-    attackDuration = 1.3f; // olhar anim
-    attackRangeSq = 60.f * 60.f;
     attackTimer.restart();
-
+    
+    isAttacking = false;
+    attackCooldown = 2.f; // tempo de espera entre os ataques
+    attackDuration = 1.3f;
+    attackRangeSq = 60.f * 60.f ; // distancia que começa a atacar
+    
     hasAppliedDamage = false;
-
-    attackDamageStart = 0.5f;
-    attackDamageEnd = 1.3;
-
+   
     if (rand() % 2 == 0) {
         startMovingLeft(); 
     } else { 
@@ -46,7 +51,9 @@ Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) 
     }
 }
 
+
 Death::~Death() { }
+
 
 void Death::attack() {
     if(!isAlive || isAttacking) {
@@ -58,6 +65,7 @@ void Death::attack() {
     stopMoving();
     hasAppliedDamage = false;
 }
+
 
 sf::FloatRect Death::getAttackHitbox() const {
     sf::Vector2f hitPos = getPos();
@@ -73,12 +81,9 @@ sf::FloatRect Death::getAttackHitbox() const {
     return sf::FloatRect(hitPos.x, hitPos.y, hitSize.x, hitSize.y);
 }
 
-void Death::followPlayer(sf::Vector2f playerPos) { 
-    static_cast<void>(playerPos);
-}
 
-void Death::movementPattern() { 
-    if(pPlayer == nullptr || isStunned) {
+void Death::performMovement(Player* pTarget, float distance_to_player_sq) { 
+    if(pTarget == nullptr || isStunned) {
         velocity.x = 0;
         return;
     }
@@ -87,10 +92,9 @@ void Death::movementPattern() {
         return;
     }
 
-    float distance_to_player_sq = distanceSq(body.getPosition(), pPlayer->getPos());
     float current_speed = 0.f;
 
-    if(distance_to_player_sq < DETECTION_RADIUS_SQ) {
+    if(distance_to_player_sq < detectionRadiusSq) {
         // modo de perseguição
         if(distance_to_player_sq < attackRangeSq && attackTimer.getElapsedTime().asSeconds() > attackCooldown) {
             attack();
@@ -98,7 +102,7 @@ void Death::movementPattern() {
         }
 
         current_speed = speed_mod;
-        float direction_x = pPlayer->getPos().x - body.getPosition().x;
+        float direction_x = pTarget->getPos().x - body.getPosition().x;
 
         float dead_zone = 1.f; // zona morta para ele não ficar se movendo de um lado para o outro
         if(direction_x > dead_zone) {
@@ -131,6 +135,7 @@ void Death::movementPattern() {
     velocity.y = 0.f;
 }
 
+
 void Death::move() { 
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
@@ -145,6 +150,7 @@ void Death::move() {
     body.move(ds_x, ds_y);
 }
 
+
 void Death::shoot(){
     float speed =10;
     if(isMovingLeft)
@@ -152,54 +158,6 @@ void Death::shoot(){
     pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
 }
 
-void Death::update() { 
-    if(isDying) {
-        velocity = sf::Vector2f(0.f, 0.f);
-        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
-            isAlive = false;
-        }
-        return;
-    }
-
-    if(isStunned) {
-        if(collisionTimer.getElapsedTime().asSeconds() > collisionCooldown) {
-            isStunned = false;
-        }
-    }
-
-    if(isAttacking) {   
-        velocity.x = 0.f;
-        float currentTime = attackTimer.getElapsedTime().asSeconds();
-
-        if(currentTime >= attackDuration) {
-            isAttacking = false;
-        }
-
-        if(pPlayer && pPlayer->getIsAlive()) {
-            sf::FloatRect myAttackBox = getAttackHitbox();
-            sf::FloatRect playerHitbox =pPlayer->getBody().getGlobalBounds();
-            
-            if(currentTime >= attackDamageStart && currentTime <= attackDamageEnd) {
-                if(myAttackBox.intersects(playerHitbox) && !hasAppliedDamage) {
-                    pPlayer->takeDamage(50);
-                    hasAppliedDamage = true;
-                }
-            }
-        }
-    } else {
-        movementPattern();
-    }
-
-    if(onGround) {
-        onGround = false;
-    }
-
-    if(velocity.x == 0.f && velocity.y == 0.f) {
-        isMoving = false;
-    } else {
-        isMoving = true;
-    }
-}
 
 void Death::updateAnimation() {
     if(isDying) {
@@ -211,6 +169,12 @@ void Death::updateAnimation() {
     }
 }
 
+
+void Death::setStage(Stages::Stage* pStage){
+    this->pStage = pStage; //this in bidirecional things
+}
+
+
 void Death::execute() { 
     update();
     checkPlayerAttack();
@@ -219,9 +183,8 @@ void Death::execute() {
         move();
     }
 }
-void Death::setStage(Stages::Stage* pStage){
-    this->pStage = pStage; //this in bidirecional things
-}
+
+
 void Death::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::obstacle) : {
@@ -236,5 +199,6 @@ void Death::collision(Entities::Entity* other, float ds, int collisionType) {
     }
 
 }
+
 
 }

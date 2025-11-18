@@ -13,13 +13,15 @@ namespace Entities::Characters {
 namespace Managers {  
     class GraphicManager {
         private:
+            float time;
+            sf::View view;
+            sf::Clock clock;
             sf::RenderWindow* window;
             static GraphicManager* pGraphic;
-            sf::View view;
-            Entities::Characters::Player* pPlayer;
-            sf::Clock clock;
-            float time;
             //States::StateManager* pStateManager;
+            Entities::Characters::Player* pPlayer1;
+            Entities::Characters::Player* pPlayer2;
+
 
         private:    
             GraphicManager();
@@ -29,7 +31,8 @@ namespace Managers {
             
             static GraphicManager* getGraphicManager();
             sf::RenderWindow* getWindow();
-            void setPlayer(Entities::Characters::Player* player);
+            void setPlayer1(Entities::Characters::Player* player);
+            void setPlayer2(Entities::Characters::Player* player);
             sf::Texture loadFileTexture(const char* pathtexture);
 
             bool isWindowOpen() const;

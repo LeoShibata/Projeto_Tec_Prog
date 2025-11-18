@@ -10,8 +10,9 @@ namespace Managers {
     class EventManager {
         private:
             Managers::GraphicManager* pGraphic;
-            Entities::Characters::Player* pPlayer;
             Managers::StateManager* pState;
+            Entities::Characters::Player* pPlayer1;
+            Entities::Characters::Player* pPlayer2;
             static EventManager* pEvent;
         
         private:
@@ -21,8 +22,8 @@ namespace Managers {
             ~EventManager();
 
             static EventManager* getEventManager();
-            void setPlayer(Entities::Characters::Player* pPlayer);
-            
+            void setPlayer1(Entities::Characters::Player* pPlayer);
+            void setPlayer2(Entities::Characters::Player* pPlayer);
             void handleKeyPressed(sf::Keyboard::Key key);
             void handleKeyReleased(sf::Keyboard::Key key);
 

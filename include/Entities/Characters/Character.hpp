@@ -14,7 +14,6 @@ namespace Entities::Characters {
         protected:
             int health;
             bool isAlive;
-            float jumpSpeed;
             Animation::Animator animation;
             
             sf::Clock clock;
@@ -29,8 +28,6 @@ namespace Entities::Characters {
             bool isAttacking;
             float attackCooldown;
             float attackDuration;
-            float attackRangeSq; // p/ inimigos            
-            bool hasAppliedDamage;
 
             sf::Clock damageTimer;
             float damageCooldown;
@@ -53,11 +50,11 @@ namespace Entities::Characters {
             int getHealth() const;
             bool getIsAlive() const;
             virtual void takeDamage(int damage);
+            
+            void execute() override;
 
             virtual void move() = 0;
             virtual void update() = 0;
-            
-            void execute() override;
     };
 }
 

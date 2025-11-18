@@ -3,15 +3,20 @@
 
 namespace Managers {
 
+
 EventManager* EventManager::pEvent = nullptr;
+
 
 EventManager::EventManager() {
     pGraphic = GraphicManager::getGraphicManager();
     pState = StateManager::getStateManager();
-    pPlayer = nullptr;
+    pPlayer1 = nullptr;
+    pPlayer2 = nullptr;
 }
 
+
 EventManager::~EventManager() { }
+
 
 EventManager* EventManager::getEventManager() {
     if(pEvent == nullptr)
@@ -19,17 +24,26 @@ EventManager* EventManager::getEventManager() {
     return pEvent;
 }
 
-void EventManager::setPlayer(Entities::Characters::Player* pPlayer) {
-    this->pPlayer = pPlayer;
+
+void EventManager::setPlayer1(Entities::Characters::Player* pPlayer) {
+    this->pPlayer1 = pPlayer;
 }
+
+
+void EventManager::setPlayer2(Entities::Characters::Player* pPlayer) {
+    this->pPlayer2 = pPlayer;
+}
+
 
 void EventManager::handleKeyPressed(sf::Keyboard::Key key) {
     //
 }
 
+
 void EventManager::handleKeyReleased(sf::Keyboard::Key key) {
     // 
 }
+
 
 void EventManager::run() {
     sf::Event event;
@@ -39,44 +53,53 @@ void EventManager::run() {
             pGraphic->closeWindow();
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             pGraphic->closeWindow();
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up) 
-        {
-            if(pPlayer != nullptr) {
-                pPlayer->jump();
+
+        if(pPlayer1 != nullptr) {
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
+                pPlayer1->jump();
+            }
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                pPlayer1->attack();
+            }
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F) {
+                pPlayer1->shoot();
             }
         }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-            if(pPlayer != nullptr) {
-                pPlayer->attack();
+
+        if(pPlayer2 != nullptr) {
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up) {
+                pPlayer2->jump();
+            }
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) { 
+                pPlayer2->attack();
+            }            
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) { 
+                pPlayer2->shoot();
             }
         }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F){
-            if(pPlayer != nullptr) 
-                pPlayer->shoot();
-        }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G){
-            if(pPlayer != nullptr) 
-                pState->addState(1);
-        }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C){
-            if(pPlayer != nullptr) 
-                pState->addState(2);
-        }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H){
-            if(pPlayer != nullptr) 
-                pState->removeState(1);
+        
+    }
+
+    if(pPlayer1 != nullptr) {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            pPlayer1->startMovingLeft();
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            pPlayer1->startMovingRight();
+        } else {
+            pPlayer1->stopMoving();
         }
     }
 
-    if(pPlayer == nullptr)
-        return;
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        pPlayer->startMovingLeft();
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        pPlayer->startMovingRight();
-    else 
-        pPlayer->stopMoving();
+    if(pPlayer2 != nullptr) {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { 
+            pPlayer2->startMovingLeft();
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { 
+            pPlayer2->startMovingRight();
+        } else { 
+            pPlayer2->stopMoving();
+        }
+    }
 }
+
 
 }

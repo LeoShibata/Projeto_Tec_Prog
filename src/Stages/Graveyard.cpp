@@ -2,11 +2,14 @@
 
 using json = nlohmann::json;
 
+
 namespace Stages {
+
 
 Graveyard::Graveyard() : 
     Stage(), 
-    max_skeletons(20)
+    max_skeletons(20),
+    max_spikes(20)
 {
     try {
         srand(time(0));
@@ -19,7 +22,9 @@ Graveyard::Graveyard() :
     }
 }
 
+
 Graveyard::~Graveyard() { }
+
 
 void Graveyard::createMap() {
     if(!bgTexture.loadFromFile("../assets/stages/Graveyard/MoonGraveyard.png")) {
@@ -47,8 +52,10 @@ void Graveyard::createMap() {
 
     float tileSize = 32.f;
     int qtd = 0;
+
     vector<sf::Vector2f> bat_positions; //Random spirits vector;
     vector<sf::Vector2f> skeleton_positions; 
+    vector<sf::Vector2f> spikes_positions; 
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
@@ -67,7 +74,11 @@ void Graveyard::createMap() {
             // factory logic
             switch(tileId) {
                 case(1) : {
-                    createPlayer(sf::Vector2(x_pos, y_pos));
+                    createPlayer1(sf::Vector2(x_pos, y_pos));
+                    break;
+                }
+                case(2) : {
+                    createPlayer2(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(3) : {
@@ -91,7 +102,7 @@ void Graveyard::createMap() {
                     break;
                 }
                 case(76) : {
-                    createSpike(sf::Vector2(x_pos, y_pos));
+                    spikes_positions.push_back(sf::Vector2(x_pos, y_pos));
                     break;
                 }
 
@@ -122,6 +133,17 @@ void Graveyard::createMap() {
             }
         }
     }
+    
+    int spikes_spawned = 0;
+    for (int i = 0; i < spikes_positions.size(); i++) {
+            if(spikes_spawned < max_spikes) {
+                if ((rand() % 10) > 4) {
+                createSpike(spikes_positions[i]);
+                spikes_spawned++;
+            }
+        }
+    }
 }
+
 
 }

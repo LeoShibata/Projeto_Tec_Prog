@@ -10,16 +10,20 @@ namespace Stages {
 namespace Entities::Characters {
     class Player : public Character {
         private:
+            int playerID;
             float jump_h; // verificar esse atributo
-            Stages::Stage* pStage;
-            bool isShooting;
+            float jumpSpeed;
             float shootingCooldown;
+            bool isShooting;
+            Stages::Stage* pStage;
             sf::Clock shootingTimer;
+
+            
         private:
             void initialize();
 
         public:
-            Player(const sf::Vector2f position, const sf::Vector2f size);
+            Player(const sf::Vector2f position, const sf::Vector2f size, int playerID);
             virtual ~Player();
             
             void jump();

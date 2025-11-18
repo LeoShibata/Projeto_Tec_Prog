@@ -1,20 +1,29 @@
 #include "Managers/CollisionManager.hpp"
 #include <Entities/Entity.hpp>
 
-using namespace std;
 namespace Managers {
 
+
 CollisionManager::CollisionManager() : 
-    pPlayer(NULL)
+    pPlayer1(nullptr),
+    pPlayer2(nullptr)
 { 
 
 }
 
+
 CollisionManager::~CollisionManager() { }
 
-void CollisionManager::setPlayer(Entities::Characters::Player* pPlayer) {
-    this->pPlayer = pPlayer;
+
+void CollisionManager::setPlayer1(Entities::Characters::Player* pPlayer) {
+    this->pPlayer1 = pPlayer;
 }
+
+
+void CollisionManager::setPlayer2(Entities::Characters::Player* pPlayer) {
+    this->pPlayer2 = pPlayer;
+}
+
 
 void CollisionManager::includeEntity(Entities::Entity* ent1) {
     switch (ent1->getTypeId()) {
@@ -22,7 +31,6 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
             //try catch
             break;
         case(Entities::IDs::player) :
-            this->pPlayer = static_cast<Entities::Characters::Player*> (ent1);
             break;
         case(Entities::IDs::enemy) :
             lIs.push_back(static_cast<Entities::Characters::Enemies*> (ent1));
@@ -39,13 +47,19 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
     }
 }
 
+
 void CollisionManager::removeEntity(Entities::Entity* ent1){
     switch (ent1->getTypeId()) {
         case(Entities::IDs::empty) :
             //try catch
             break;
         case (Entities::IDs::player) :
-            this->pPlayer = NULL;
+            if(static_cast<Entities::Entity*>(pPlayer1) == ent1) {
+                pPlayer1 = NULL;
+            }
+            if(static_cast<Entities::Entity*>(pPlayer2) == ent1) {
+                pPlayer2 = NULL;
+            }
             break;
         case (Entities::IDs::enemy) :
             lIs.erase(std::remove(lIs.begin(), lIs.end(), static_cast<Entities::Characters::Enemies*> (ent1)), lIs.end());
@@ -60,6 +74,7 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
             break;
     }
 }
+
 
 const CollisionManager::CollisionData CollisionManager::collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2) {
 
@@ -99,92 +114,153 @@ const CollisionManager::CollisionData CollisionManager::collisionDetection(Entit
     return cData;   
 }
 
+
 void CollisionManager::verifyPlayerEnemy() {
     CollisionData data;
     for(int i = 0; i < lIs.size(); i++) {
-        data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer));
-        if(data.collided == true) {
-            pPlayer->collision(lIs[i], data.ds, int(data.type));
-
+        if(pPlayer1 && pPlayer1->getIsAlive()) { 
+            data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer1));
+            if(data.collided == true) {
+                pPlayer1->collision(lIs[i], data.ds, int(data.type));
+            }
+        }
+        if(pPlayer2 && pPlayer2->getIsAlive()) { 
+            data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*> (pPlayer2));
+            if(data.collided == true) {
+                pPlayer2->collision(lIs[i], data.ds, int(data.type));
+            }
         }
     }
 }
 
+
 void CollisionManager::verifyPlayerObstacle() {
     CollisionData data;
     for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
-        data  = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer));
-        if(data.collided == true) {
-
-            (*it)->collision(pPlayer, data.ds, int(data.type)); // search more after
-            pPlayer->collision(*it, data.ds, int(data.type));
+        if(pPlayer1 && pPlayer1->getIsAlive()) { 
+            data  = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer1));
+            if(data.collided == true) {
+                (*it)->collision(pPlayer1, data.ds, int(data.type)); // search more after
+                pPlayer1->collision(*it, data.ds, int(data.type));
+            }
+        }
+        if(pPlayer2 && pPlayer2->getIsAlive()) { 
+            data  = collisionDetection(static_cast<Entities::Entity*>(*it), static_cast<Entities::Entity*> (pPlayer2));
+            if(data.collided == true) {
+                (*it)->collision(pPlayer2, data.ds, int(data.type)); // search more after
+                pPlayer2->collision(*it, data.ds, int(data.type));
+            }
         }
     } 
 }
+
 
 void CollisionManager::verifyEnemyObstacle() {
     CollisionData data;
     for(int i = 0; i < lIs.size(); i++) {
         for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
-            data  = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
-            if(data.collided == true) {
-
-                lIs[i]->collision(*it, data.ds, int(data.type));
-                (*it)->collision(lIs[i], data.ds, int(data.type));
-                
+            if(pPlayer1 && pPlayer1->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
+                if(data.collided == true) {
+                    lIs[i]->collision(*it, data.ds, int(data.type));
+                    (*it)->collision(lIs[i], data.ds, int(data.type));
+                }
+            }
+            if(pPlayer2 && pPlayer2->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(*it));
+                if(data.collided == true) {
+                    lIs[i]->collision(*it, data.ds, int(data.type));
+                    (*it)->collision(lIs[i], data.ds, int(data.type));
+                }
             }
         }
     }
 }
 
-void CollisionManager::verifyProjecObstacle() {
+
+void CollisionManager::verifyProjectObstacle() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
         for(list<Entities::Obstacles::Obstacle*>::iterator itl = lOs.begin(); itl != lOs.end(); ++itl) {
-            data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(*itl));
-            if(data.collided == true) {
-                cout<<"collded"<<endl;
-                (*its)->collision(*itl, data.ds, int(data.type));
-                //(*itl)->collision(*its, data.ds, int(data.type));
-                
+            if(pPlayer1 && pPlayer1->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(*itl));
+                if(data.collided == true) {
+                    cout<<"collded"<<endl;
+                    (*its)->collision(*itl, data.ds, int(data.type));
+                    //(*itl)->collision(*its, data.ds, int(data.type));
+                }
+            }
+            if(pPlayer2 && pPlayer2->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(*itl));
+                if(data.collided == true) {
+                    cout<<"collded"<<endl;
+                    (*its)->collision(*itl, data.ds, int(data.type));
+                    //(*itl)->collision(*its, data.ds, int(data.type));
+                }
             }
         }
     }
 }
 
-void CollisionManager::verifyProjecEnemies() {
+
+void CollisionManager::verifyProjectEnemies() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
         for(int i = 0; i < lIs.size(); i++) {
-            data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(lIs[i]));
-            if(data.collided == true) {
-                cout<<"collded"<<endl;
-                (*its)->collision(lIs[i], data.ds, int(data.type));
-                //(*itl)->collision(*its, data.ds, int(data.type));
-                
+            if(pPlayer1 && pPlayer1->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(lIs[i]));
+                if(data.collided == true) {
+                    cout<<"collded"<<endl;
+                    (*its)->collision(lIs[i], data.ds, int(data.type));
+                    //(*itl)->collision(*its, data.ds, int(data.type));
+                    
+                }
+            }
+            if(pPlayer2 && pPlayer2->getIsAlive()) { 
+                data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*>(lIs[i]));
+                if(data.collided == true) {
+                    cout<<"collded"<<endl;
+                    (*its)->collision(lIs[i], data.ds, int(data.type));
+                    //(*itl)->collision(*its, data.ds, int(data.type));
+                    
+                }
             }
         }
     }
 }
+
+
 void CollisionManager::verifyProjectPlayers() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
-        data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*> (pPlayer));            if(data.collided == true) {
-            cout<<"collded"<<endl;
-            (*its)->collision(pPlayer, data.ds, int(data.type));
-            //(*itl)->collision(*its, data.ds, int(data.type));
-                
+        if(pPlayer1 && pPlayer1->getIsAlive()) { 
+            data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*> (pPlayer1));            
+            if(data.collided == true) {
+                cout<<"collded"<<endl;
+                (*its)->collision(pPlayer1, data.ds, int(data.type));
+                //(*itl)->collision(*its, data.ds, int(data.type));      
+            }
+        }
+        if(pPlayer2 && pPlayer2->getIsAlive()) { 
+            data  = collisionDetection(static_cast<Entities::Entity*>(*its), static_cast<Entities::Entity*> (pPlayer2));            
+            if(data.collided == true) {
+                cout<<"collded"<<endl;
+                (*its)->collision(pPlayer2, data.ds, int(data.type));
+                //(*itl)->collision(*its, data.ds, int(data.type));  
+            }
         }
     }
 }
+
 
 void CollisionManager::run() {
     verifyPlayerEnemy();
     verifyPlayerObstacle();
     verifyEnemyObstacle();
-    verifyProjecObstacle();
-    verifyProjecEnemies();
+    verifyProjectObstacle();
+    verifyProjectEnemies();
     verifyProjectPlayers();
 }
+
 
 }
