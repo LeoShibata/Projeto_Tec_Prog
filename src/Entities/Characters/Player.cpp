@@ -1,5 +1,5 @@
 #include "Entities/Characters/Player.hpp"
-#include "Stages/stage.hpp"
+#include "Stages/Stage.hpp"
 #include <iostream>
 
 using namespace std;
@@ -83,7 +83,7 @@ void Player::shoot() {
     }
     
     if(shootingTimer.getElapsedTime().asSeconds() > shootingCooldown) {
-        float speed = 3;
+        float speed = 1;
         shootingTimer.restart();
         
         if(isMovingLeft) {

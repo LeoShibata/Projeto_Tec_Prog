@@ -1,6 +1,6 @@
 #include "Entities/Characters/Enemies/Death.hpp"
 #include "Entities/Characters/Player.hpp"
-#include "Stages/stage.hpp"
+#include "Stages/Stage.hpp"
 #include <cmath>
 #include <cstdlib>
 
