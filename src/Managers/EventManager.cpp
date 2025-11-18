@@ -77,7 +77,15 @@ void EventManager::run() {
                 pPlayer2->shoot();
             }
         }
-        
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) { 
+                pState->addState(1);
+            }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) { 
+                pState->addState(2);
+            }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) { 
+                pState->removeState(1);
+            }
     }
 
     if(pPlayer1 != nullptr) {

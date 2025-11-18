@@ -18,7 +18,7 @@ Game::Game() :
     }
 
     cout <<" in game, created" << endl;
-    pState->addState(2);
+    pState->addState(1);
     
 
 }   
