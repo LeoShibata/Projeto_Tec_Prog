@@ -26,6 +26,20 @@ Graveyard::Graveyard() :
 Graveyard::~Graveyard() { }
 
 
+void Graveyard::createMudHand(sf::Vector2f pos) {
+    Entities::Obstacles::MudHand* pMudHand = new Entities::Obstacles::MudHand(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    obstacleList->addEntity(pMudHand);
+    pCollision->includeEntity(static_cast<Entities::Entity*>(pMudHand));
+}
+
+
+void Graveyard::createBat(sf::Vector2f pos) {
+    Entities::Characters::Bat* pBat = new Entities::Characters::Bat(sf::Vector2f(pos),sf::Vector2f(tileSize, tileSize), 10);
+    characterList->addEntity(pBat);
+    pCollision->includeEntity(pBat);
+}
+
+
 void Graveyard::createMap() {
     if(!bgTexture.loadFromFile("../assets/stages/Graveyard/MoonGraveyard.png")) {
         std::cout << "ERROR: Failed to load background texture for Graveyard" << std::endl;
@@ -89,10 +103,6 @@ void Graveyard::createMap() {
                     skeleton_positions.push_back({x_pos, y_pos});
                     break;
                 }
-                case(5) : {
-                    createDeath({x_pos, y_pos});
-                    break;
-                }
                 case(74) : {
                     createPlatform(sf::Vector2(x_pos, y_pos));
                     break;
@@ -112,13 +122,13 @@ void Graveyard::createMap() {
         }
     }
 
-    // Create spirits
-    int spirits_spawned = 0;
+    // Create bat
+    int bat_spawned = 0;
     for (int i = 0; i < bat_positions.size(); i++) {
-            if(spirits_spawned < max_bats) {
+            if(bat_spawned < max_bats) {
                 if ((rand() % 10) > 4) {// 60% chance
                 createBat(bat_positions[i]);
-                spirits_spawned++;
+                bat_spawned++;
             }
         }
     }

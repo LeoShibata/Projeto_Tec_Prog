@@ -25,6 +25,22 @@ Castle::Castle() :
 
 Castle::~Castle() { }
 
+
+void Castle::createSpike(sf::Vector2f pos) {
+    Entities::Obstacles::Spike* pSpike = new Entities::Obstacles::Spike(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    obstacleList->addEntity(pSpike);
+    pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
+}
+
+
+void Castle::createDeath(sf::Vector2f pos) {
+    Entities::Characters::Death* pDeath = new Entities::Characters::Death(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
+    pDeath->setStage(static_cast<Stage*>(this));
+    characterList->addEntity(pDeath);
+    pCollision->includeEntity(pDeath);
+}
+
+
 void Castle::createMap() {
     if(!bgTexture.loadFromFile("../assets/stages/Castle/Castle.png")) {
         std::cout << "ERROR: Failed to load background texture for Graveyard" << std::endl;
@@ -78,10 +94,6 @@ void Castle::createMap() {
                     createPlayer2(sf::Vector2(x_pos, y_pos));
                     break;
                 }
-                case(3) : {
-                    bat_positions.push_back({x_pos, y_pos});
-                    break;
-                }
                 case(4) : {
                     skeleton_positions.push_back({x_pos, y_pos});
                     break;
@@ -109,17 +121,6 @@ void Castle::createMap() {
         }
     }
 
-   // Create spirits
-    int spirits_spawned = 0;
-    for(int i = 0; i < bat_positions.size(); i++) {
-            if(spirits_spawned < max_bats) {
-                if ((rand() % 10) > 4) {// 60% chance
-                createBat(bat_positions[i]);
-                spirits_spawned++;
-            }
-        }
-    }
-
     // Create Skeletons
     int skeletons_spawned = 0;
     for (int i = 0; i < skeleton_positions.size(); i++) {
@@ -131,5 +132,6 @@ void Castle::createMap() {
         }
     }
 }
+
 
 }

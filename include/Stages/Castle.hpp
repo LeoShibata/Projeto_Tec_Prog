@@ -14,6 +14,8 @@ namespace Stages {
 
         protected:
             void createMap() override;
+            void createSpike(sf::Vector2f pos);
+            void createDeath(sf::Vector2f pos);
         
         public: 
             Castle();

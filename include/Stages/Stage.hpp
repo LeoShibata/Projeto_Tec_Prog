@@ -60,13 +60,8 @@ namespace Stages {
             void createPlayer2(sf::Vector2f pos);
             void createFloor(sf::Vector2f pos);
             void createPlatform(sf::Vector2f pos);
-            void createSpike(sf::Vector2f pos);
-            void createMudHand(sf::Vector2f pos);
-            void createBat(sf::Vector2f pos);    
-            void createSkeleton(sf::Vector2f pos);
-            void createDeath(sf::Vector2f pos);
-            //virtual void createEnemies() = 0;
-            //virtual void createObstacles () = 0;
+            void createSkeleton(sf::Vector2f pos);    
+            
             virtual void createMap() = 0;
 
         public:

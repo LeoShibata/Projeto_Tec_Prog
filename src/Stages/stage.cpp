@@ -76,18 +76,6 @@ void Stage::createPlatform(sf::Vector2f pos) {
     pCollision->includeEntity(static_cast<Entities::Entity*>(pPlat));
 }
 
-void Stage::createSpike(sf::Vector2f pos) {
-    Entities::Obstacles::Spike* pSpike = new Entities::Obstacles::Spike(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
-    obstacleList->addEntity(pSpike);
-    pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
-}
-
-void Stage::createMudHand(sf::Vector2f pos) {
-    Entities::Obstacles::MudHand* pMudHand = new Entities::Obstacles::MudHand(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
-    obstacleList->addEntity(pMudHand);
-    pCollision->includeEntity(static_cast<Entities::Entity*>(pMudHand));
-}
-
 
 // ----------------- Projectile -----------------
 void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot){
@@ -98,25 +86,11 @@ void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float 
 
 
 // ----------------- Enemies -----------------
-void Stage::createBat(sf::Vector2f pos) {
-    Entities::Characters::Bat* pBat = new Entities::Characters::Bat(sf::Vector2f(pos),sf::Vector2f(tileSize, tileSize), 10);
-    characterList->addEntity(pBat);
-    pCollision->includeEntity(pBat);
-}
-
 void Stage::createSkeleton(sf::Vector2f pos) {
     Entities::Characters::Skeleton* pSkeleton = new Entities::Characters::Skeleton(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
     characterList->addEntity(pSkeleton);
     pCollision->includeEntity(pSkeleton);
 }
-
-void Stage::createDeath(sf::Vector2f pos) {
-    Entities::Characters::Death* pDeath = new Entities::Characters::Death(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 10);
-    pDeath->setStage(static_cast<Stage*>(this));
-    characterList->addEntity(pDeath);
-    pCollision->includeEntity(pDeath);
-}
-
 
 void Stage::draw(sf::RenderWindow* window) {
     window->draw(background);

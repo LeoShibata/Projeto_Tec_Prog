@@ -14,6 +14,8 @@ namespace Stages {
 
         protected:
             void createMap() override;
+            void createMudHand(sf::Vector2f pos);
+            void createBat(sf::Vector2f pos);
         
         public: 
             Graveyard();
