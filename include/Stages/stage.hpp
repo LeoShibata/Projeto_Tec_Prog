@@ -42,6 +42,9 @@ namespace Stages {
             Managers::CollisionManager* pCollision;
             Managers::GraphicManager* pGraphic;
 
+            Entities::Characters::Player* pPlayer1;
+            Entities::Characters::Player* pPlayer2;
+
             List::EntityList* characterList;
             List::EntityList* obstacleList;
             List::EntityList* projectileList;
@@ -49,8 +52,10 @@ namespace Stages {
             const int max_obstacles;
             static const int tileSize = 32;
 
+            
         protected:
-            void createPlayer(sf::Vector2f pos);
+            void createPlayer1(sf::Vector2f pos);
+            void createPlayer2(sf::Vector2f pos);
             void createFloor(sf::Vector2f pos);
             void createPlatform(sf::Vector2f pos);
             void createSpike(sf::Vector2f pos);
@@ -64,7 +69,7 @@ namespace Stages {
 
         public:
             Stage();
-            virtual~Stage();
+            virtual ~Stage();
             void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot);
 
             void draw(sf::RenderWindow* window);

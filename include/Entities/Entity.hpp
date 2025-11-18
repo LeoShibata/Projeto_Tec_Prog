@@ -22,10 +22,11 @@ namespace Entities {
             sf::Vector2f velocity;
             float speed_mod;
             bool isAlive;
+
         protected:
             void setSpeedmod(float spd);
             
-            public:
+        public:
             Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
             

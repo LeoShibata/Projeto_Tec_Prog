@@ -2,40 +2,30 @@
 #define SKELETON_HPP
 
 #include "Entities/Characters/Enemies/Enemies.hpp"
-#include "SFML/System/Clock.hpp"
-
-#include <cmath>
 
 namespace Entities::Characters {
     class Skeleton : public Enemies {
         private: 
             float soul; // Mudar atributo
-
-            sf::Clock collisionTimer;
-            float collisionCooldown;
-            bool isStunned;
-
-            static constexpr float DETECTION_RADIUS = 250.f;
-            static constexpr float DETECTION_RADIUS_SQ = DETECTION_RADIUS * DETECTION_RADIUS;
         
+
         private:
             void initialize();
-            void attack();
-            sf::FloatRect getAttackHitbox() const;
+
+            void attack() override;
+            sf::FloatRect getAttackHitbox() const override;
+            void updateAnimation() override;
+
+        protected:
+            void performMovement(Player* pTarget, float distance_to_player_sq) override; // sobrescreve passos do template method
 
         public:
             Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade);
             ~Skeleton();
 
-            void movementPattern(); // Implementar 
-            void followPlayer(sf::Vector2f playerPos);
-            void updateAnimation();
-
             void move() override;
-            void update() override;
             void execute() override;
-            void collision(Entities::Entity* other, float ds, int collisionType);    
-
+            void collision(Entities::Entity* other, float ds, int collisionType) override;    
     };
 }
 

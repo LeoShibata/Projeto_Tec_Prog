@@ -4,6 +4,7 @@
 #include "Entities/Entity.hpp"
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Animation/Animator.hpp"
 
 namespace Entities {
 
@@ -14,12 +15,15 @@ class Projectile : public Entity{
         //maybe a fancy math
         float maxtime;
         float distance;
-        bool isEraseble;
+        bool isErasable; // CORRIGIR NOME
         float dt;
         int whoShot;
         //maybe add stage pointer
+        
+        
     private:
         void removeProjectile();
+        
     public:
         Projectile(sf::Vector2f size, int damage, float speed, float maxrange, sf::Vector2f position, int whoShot);
         ~Projectile();

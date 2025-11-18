@@ -28,7 +28,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
         if(ds < 0) { 
             pPlayer->setOnGround(true);
         }
-        cout <<ds << " colisao  obstaculo vertical" <<endl;
+        //cout <<ds << " colisao  obstaculo vertical" <<endl;
         pPlayer->adjustPosition(sf::Vector2f(0.f, ds));
         pPlayer->setVelocity(sf::Vector2f(pPlayer->getVelocity().x, 0.f));
     }

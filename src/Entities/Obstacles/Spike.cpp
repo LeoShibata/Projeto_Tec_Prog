@@ -3,14 +3,19 @@
 
 namespace Entities::Obstacles {
 
+
 Spike::Spike(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
 {
-    body.setFillColor(sf::Color::White);
     // typeId = IDs::Spike;
+    texture = pGraphic->loadFileTexture("../assets/obstacles/spikes/spikes.png");
+    body.setTexture(&texture);
+    body.setFillColor(sf::Color::White);
 }
 
+
 Spike::~Spike() { }
+
 
 void Spike::handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) {
     pPlayer->takeDamage(1);
@@ -37,6 +42,7 @@ void Spike::handleCollision(Entities::Characters::Player* pPlayer, float ds, int
     }
 }
 
+
 void Spike::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
     pEnemy->takeDamage(1);
     ds *= -1;
@@ -56,5 +62,6 @@ void Spike::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int
         pEnemy->setVelocity(sf::Vector2f(pEnemy->getVelocity().x, 0.f));
     }
 }
+
 
 }

@@ -71,7 +71,11 @@ void Castle::createMap() {
             // factory logic
             switch(tileId) {
                 case(1) : {
-                    createPlayer(sf::Vector2(x_pos, y_pos));
+                    createPlayer1(sf::Vector2(x_pos, y_pos));
+                    break;
+                }
+                case(2) : {
+                    createPlayer2(sf::Vector2(x_pos, y_pos));
                     break;
                 }
                 case(3) : {
