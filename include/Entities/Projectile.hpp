@@ -20,6 +20,7 @@ class Projectile : public Entity{
         int whoShot;
         //maybe add stage pointer
         
+        
     private:
         void removeProjectile();
         

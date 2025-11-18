@@ -64,7 +64,7 @@ void GraphicManager::setPlayer2(Entities::Characters::Player* player) {
 }
 
 
-sf::Texture GraphicManager::loadFileTexture(const char* pathtexture){
+sf::Texture GraphicManager::loadFileTexture(const char* pathtexture) {
     sf::Texture texture;
     if(!texture.loadFromFile(pathtexture)){
         std::cout << "ERROR, didnt found texture path, graphickManager - " << pathtexture << std::endl;
@@ -109,7 +109,7 @@ void GraphicManager::clearWindow() {
 }
 
 
-void GraphicManager::resetClock(){
+void GraphicManager::resetClock() {
     time = clock.getElapsedTime().asSeconds(); //to get as second, time = clock.restart()
     clock.restart();
 }

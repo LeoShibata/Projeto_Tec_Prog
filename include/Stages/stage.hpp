@@ -69,7 +69,7 @@ namespace Stages {
 
         public:
             Stage();
-            virtual~Stage();
+            virtual ~Stage();
             void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot);
 
             void draw(sf::RenderWindow* window);

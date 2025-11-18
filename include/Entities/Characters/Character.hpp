@@ -50,11 +50,11 @@ namespace Entities::Characters {
             int getHealth() const;
             bool getIsAlive() const;
             virtual void takeDamage(int damage);
+            
+            void execute() override;
 
             virtual void move() = 0;
             virtual void update() = 0;
-            
-            void execute() override;
     };
 }
 
