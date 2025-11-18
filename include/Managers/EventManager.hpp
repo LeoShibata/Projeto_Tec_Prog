@@ -5,9 +5,12 @@
 #include "Entities/Characters/Player.hpp"
 
 namespace Managers {
+    class StateManager;
+    
     class EventManager {
         private:
             Managers::GraphicManager* pGraphic;
+            Managers::StateManager* pState;
             Entities::Characters::Player* pPlayer1;
             Entities::Characters::Player* pPlayer2;
             static EventManager* pEvent;

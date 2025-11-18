@@ -8,6 +8,7 @@ using json = nlohmann::json;
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
     pEvent(Managers::EventManager::getEventManager()),
+    pState(Managers::StateManager::getStateManager()),
     castle(nullptr),
     graveyard(nullptr)
 {   
@@ -16,8 +17,10 @@ Game::Game() :
         exit(1);
     }
 
-    castle = new Stages::Castle();
-    // graveyard = new Stages::Graveyard();
+    cout <<" in game, created" << endl;
+    pState->addState(1);
+    
+
 }   
 
 Game::~Game() {
@@ -29,20 +32,31 @@ Game::~Game() {
         delete castle;
         castle = nullptr;
     }
+    if(pState){
+        delete pState;
+        pState = nullptr;
+    }
 }
 
 void Game::run() {
     while (pGraphic->isWindowOpen()) {
         pEvent->run();
 
-        if(castle) {
+        pState->execute();
+        /*if(castle) {
             castle->execute();
         }
+        if(graveyard){
+            graveyard->execute();
+        }
+
         
-        pGraphic->clearWindow(); 
         if(castle) {
             castle->draw(pGraphic->getWindow());
         } 
+        if(graveyard)
+            graveyard->draw(pGraphic->getWindow());*/
+        //pGraphic->clearWindow(); 
         pGraphic->showElements(); 
     }
 }   

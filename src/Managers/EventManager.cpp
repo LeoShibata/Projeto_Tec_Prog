@@ -1,4 +1,5 @@
 #include "Managers/EventManager.hpp"
+#include "Managers/StateManager.hpp"
 
 namespace Managers {
 
@@ -8,6 +9,7 @@ EventManager* EventManager::pEvent = nullptr;
 
 EventManager::EventManager() {
     pGraphic = GraphicManager::getGraphicManager();
+    pState = StateManager::getStateManager();
     pPlayer1 = nullptr;
     pPlayer2 = nullptr;
 }
@@ -75,6 +77,15 @@ void EventManager::run() {
                 pPlayer2->shoot();
             }
         }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) { 
+                pState->addState(1);
+            }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) { 
+                pState->addState(2);
+            }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) { 
+                pState->removeState(1);
+            }
     }
 
     if(pPlayer1 != nullptr) {

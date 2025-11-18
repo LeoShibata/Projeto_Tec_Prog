@@ -34,6 +34,7 @@
 class Player;
 namespace Stages {
     class Stage : public Being {
+        
         protected:
             sf::RectangleShape background;
             sf::Texture bgTexture;
@@ -62,7 +63,6 @@ namespace Stages {
             void createBat(sf::Vector2f pos);    
             void createSkeleton(sf::Vector2f pos);
             void createDeath(sf::Vector2f pos);
-
             //virtual void createEnemies() = 0;
             //virtual void createObstacles () = 0;
             virtual void createMap() = 0;

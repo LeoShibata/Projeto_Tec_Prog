@@ -1,5 +1,6 @@
 #include "Stages/Stage.hpp"
 #include "Entities/Characters/Player.hpp"
+#include <iostream>
 
 using json = nlohmann::json;
 using namespace std;
@@ -119,6 +120,8 @@ void Stage::draw(sf::RenderWindow* window) {
 
 
 void Stage::execute() {
+    cout << "called the stage execute" << endl;
+    
     List::EntityList* chars = characterList;
     for(int i = 0; i < chars->getSize(); i++) {
         if((*chars)[i]->getIsAlive()) {

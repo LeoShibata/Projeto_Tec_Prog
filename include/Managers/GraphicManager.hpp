@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
-#
+//#include "../Managers/StateManager.hpp"
 
 namespace Entities::Characters {
     class Player; // para evitar include circular
@@ -18,6 +18,7 @@ namespace Managers {
             sf::Clock clock;
             sf::RenderWindow* window;
             static GraphicManager* pGraphic;
+            //States::StateManager* pStateManager;
             Entities::Characters::Player* pPlayer1;
             Entities::Characters::Player* pPlayer2;
 
@@ -41,6 +42,7 @@ namespace Managers {
             void clearWindow();
             void resetClock();
             const float getTime() const;
+            
     };
 }
 
