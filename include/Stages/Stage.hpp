@@ -21,6 +21,7 @@
 #include "Entities/Obstacles/Floor.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Obstacles/Spike.hpp"
+#include "Entities/Obstacles/MudHand.hpp"
 #include "utils/json.hpp"
 
 #include <cstdlib>
@@ -60,6 +61,7 @@ namespace Stages {
             void createFloor(sf::Vector2f pos);
             void createPlatform(sf::Vector2f pos);
             void createSpike(sf::Vector2f pos);
+            void createMudHand(sf::Vector2f pos);
             void createBat(sf::Vector2f pos);    
             void createSkeleton(sf::Vector2f pos);
             void createDeath(sf::Vector2f pos);

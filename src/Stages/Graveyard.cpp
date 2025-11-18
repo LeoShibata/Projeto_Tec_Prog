@@ -9,7 +9,7 @@ namespace Stages {
 Graveyard::Graveyard() : 
     Stage(), 
     max_skeletons(20),
-    max_spikes(20)
+    max_mudhand(20)
 {
     try {
         srand(time(0));
@@ -55,7 +55,7 @@ void Graveyard::createMap() {
 
     vector<sf::Vector2f> bat_positions; //Random spirits vector;
     vector<sf::Vector2f> skeleton_positions; 
-    vector<sf::Vector2f> spikes_positions; 
+    vector<sf::Vector2f> mudhand_positions; 
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
     for(int i = 0; i < height; ++i) {
@@ -102,7 +102,7 @@ void Graveyard::createMap() {
                     break;
                 }
                 case(76) : {
-                    spikes_positions.push_back(sf::Vector2(x_pos, y_pos));
+                    mudhand_positions.push_back(sf::Vector2(x_pos, y_pos));
                     break;
                 }
 
@@ -134,12 +134,12 @@ void Graveyard::createMap() {
         }
     }
     
-    int spikes_spawned = 0;
-    for (int i = 0; i < spikes_positions.size(); i++) {
-            if(spikes_spawned < max_spikes) {
+    int mudhand_spawned = 0;
+    for (int i = 0; i < mudhand_positions.size(); i++) {
+            if(mudhand_spawned < max_mudhand) {
                 if ((rand() % 10) > 4) {
-                createSpike(spikes_positions[i]);
-                spikes_spawned++;
+                createMudHand(mudhand_positions[i]);
+                mudhand_spawned++;
             }
         }
     }

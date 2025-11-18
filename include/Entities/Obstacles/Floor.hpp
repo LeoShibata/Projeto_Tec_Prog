@@ -13,7 +13,7 @@ namespace Entities::Obstacles {
             ~Floor();
 
             void handleCollision(Entities::Characters::Player* pPlayer,float ds, int collisionType);
-            void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) ;
+            void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType);
     };
 }
 

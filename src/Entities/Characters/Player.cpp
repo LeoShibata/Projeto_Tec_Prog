@@ -29,12 +29,9 @@ void Player::initialize() {
 
 
 Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerID) :
-    Character(position, size, 100.f),
-    jumpSpeed(450.f),
-    pStage(nullptr),
-    isShooting(false),
-    shootingCooldown(0.63f),
-    playerID(playerID)
+    Character(position, size, 100.f), playerID(playerID), jumpSpeed(450.f),
+    pStage(nullptr), isShooting(false), shootingCooldown(0.63f),
+    isSlowed(false), slowDuration(0.f)  
 {    
     initialize();
     typeId = IDs::player;
@@ -57,6 +54,13 @@ void Player::jump() {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
+}
+
+
+void Player::applySlow(float duration) {
+    isSlowed = true;
+    slowDuration = duration;
+    slowTimer.restart();
 }
 
 
@@ -161,6 +165,10 @@ void Player::update() {
         return;
     }
 
+    if(isSlowed && slowTimer.getElapsedTime().asSeconds() > slowDuration) {
+        isSlowed = false;
+    }
+
     if(isAttacking && attackTimer.getElapsedTime().asSeconds() > attackDuration) {
         isAttacking = false;
     }
@@ -170,10 +178,15 @@ void Player::update() {
     }
 
     if(canMove && !isAttacking) { // permite movimento se o jogador não estiver atacando 
+        float currentSpeed = speed_mod;
+        if(isSlowed) {
+            currentSpeed *= 0.5f;
+        }
+
         if(isMovingLeft) {
-            velocity.x = -speed_mod;
+            velocity.x = -currentSpeed;
         } else {
-            velocity.x = speed_mod;
+            velocity.x = currentSpeed;
         }
     } else {
         velocity.x = 0.f;

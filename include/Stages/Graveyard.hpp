@@ -10,7 +10,7 @@ namespace Stages {
     class Graveyard : public Stage {
         protected:
             const int max_skeletons;
-            const int max_spikes;
+            const int max_mudhand;
 
         protected:
             void createMap() override;

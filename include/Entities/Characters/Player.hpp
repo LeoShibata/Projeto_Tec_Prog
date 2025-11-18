@@ -13,10 +13,15 @@ namespace Entities::Characters {
             int playerID;
             float jump_h; // verificar esse atributo
             float jumpSpeed;
-            float shootingCooldown;
-            bool isShooting;
             Stages::Stage* pStage;
+            
+            bool isShooting;
+            float shootingCooldown;
             sf::Clock shootingTimer;
+
+            bool isSlowed;
+            float slowDuration;
+            sf::Clock slowTimer;
 
             
         private:
@@ -27,6 +32,7 @@ namespace Entities::Characters {
             virtual ~Player();
             
             void jump();
+            void applySlow(float duration);
             void attack();
             bool getIsAttacking() const;
             sf::FloatRect getAttackHitbox() const;

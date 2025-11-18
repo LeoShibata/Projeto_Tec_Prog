@@ -82,6 +82,12 @@ void Stage::createSpike(sf::Vector2f pos) {
     pCollision->includeEntity(static_cast<Entities::Entity*>(pSpike));
 }
 
+void Stage::createMudHand(sf::Vector2f pos) {
+    Entities::Obstacles::MudHand* pMudHand = new Entities::Obstacles::MudHand(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    obstacleList->addEntity(pMudHand);
+    pCollision->includeEntity(static_cast<Entities::Entity*>(pMudHand));
+}
+
 
 // ----------------- Projectile -----------------
 void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot){
