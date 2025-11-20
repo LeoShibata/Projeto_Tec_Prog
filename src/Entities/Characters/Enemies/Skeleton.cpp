@@ -28,7 +28,7 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 
     // inicialização de atributos de enemies    
     isStunned = false;
-    attackDamage = 10;  
+    attackDamage = 80;  
     detectionRadiusSq = 250.f * 250.f;
     collisionCooldown = 0.3f;
     attackDamageStart = 0.25f;

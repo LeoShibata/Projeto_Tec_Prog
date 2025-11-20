@@ -66,7 +66,7 @@ void Enemies::checkPlayerAttack() {
         sf::FloatRect myHitBox = body.getGlobalBounds();
 
         if(playerAttackBox.intersects(myHitBox)) {
-            takeDamage(300);
+            takeDamage(90);
             damageTimer.restart();
             return;
         }
@@ -77,7 +77,7 @@ void Enemies::checkPlayerAttack() {
         sf::FloatRect myHitBox = body.getGlobalBounds();
 
         if(playerAttackBox.intersects(myHitBox)) {
-            takeDamage(300);
+            takeDamage(90);
             damageTimer.restart();
             return;
         }
