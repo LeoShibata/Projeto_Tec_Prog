@@ -10,7 +10,8 @@ namespace Stages {
 
 Castle::Castle() : 
     Stage(), 
-    max_skeletons(20)
+    max_skeletons(20),
+    max_spikes(20)
 {
     try {
         srand(time(0));
@@ -67,7 +68,7 @@ void Castle::createMap() {
 
     float tileSize = 32.f;
     int qtd = 0;
-    vector<sf::Vector2f> bat_positions; //Random spirits vector;
+    vector<sf::Vector2f> spikes_positions; //Random spirits vector;
     vector<sf::Vector2f> skeleton_positions;  //Random entities vector;
 
     std::vector<std::vector<int>> matrix(height, std::vector<int>(width));
@@ -107,7 +108,7 @@ void Castle::createMap() {
                     break;
                 }
                 case(75) : {
-                    createSpike(sf::Vector2(x_pos, y_pos));
+                    spikes_positions.push_back({x_pos, y_pos});
                     break;
                 }
                 case(76) : {
@@ -128,6 +129,16 @@ void Castle::createMap() {
                 if ((rand() % 10) > 4) {
                 createSkeleton(skeleton_positions[i]);
                 skeletons_spawned++;
+            }
+        }
+    }
+
+    int spikes_spawned = 0;
+    for (int i = 0; i < spikes_positions.size(); i++) {
+            if(spikes_spawned < max_spikes) {
+                if ((rand() % 10) > 4) {
+                createSpike(spikes_positions[i]);
+                spikes_spawned++;
             }
         }
     }

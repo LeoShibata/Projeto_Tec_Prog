@@ -6,8 +6,9 @@
 namespace Entities::Characters {
     class Skeleton : public Enemies {
         private: 
-            float soul; // Mudar atributo
-        
+            bool canIncreasedDamage; // Mudar atributo
+            bool hasIncreasedDamage; // Mudar atributo
+    
 
         private:
             void initialize();

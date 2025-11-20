@@ -5,7 +5,18 @@
 
 namespace Entities::Obstacles {
     class Spike : public Obstacle {
-        // criar atributo específico
+        private: 
+            int damage; // espinhos com dano diferente
+           
+            Animation::Animator animation;
+            sf::Clock clock;
+
+            bool isActive;
+            float activationDistanceSq;
+
+
+        private:
+            void initialize();
 
         public:
             Spike(sf::Vector2f position, sf::Vector2f size);
@@ -13,6 +24,8 @@ namespace Entities::Obstacles {
 
             void handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType);
             void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType);
+
+            void execute() override;
     };
 }
 

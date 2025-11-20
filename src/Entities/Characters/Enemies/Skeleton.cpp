@@ -18,13 +18,15 @@ void Skeleton::initialize() {
 
 
 Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
-    Enemies(position, size, maldade),
-    soul(0.7f)
+    Enemies(position, size, maldade)
 {   
     initialize();
+    health = 500;
     speed_mod = 100.f;
+    this->canIncreasedDamage = (rand() % 100) < 30;
+    this->hasIncreasedDamage = false;
 
-    // inicialização de atributos de enemies
+    // inicialização de atributos de enemies    
     isStunned = false;
     attackDamage = 10;  
     detectionRadiusSq = 250.f * 250.f;
@@ -165,6 +167,14 @@ void Skeleton::updateAnimation() {
 
 void Skeleton::execute() { 
     update();
+
+    if(this->canIncreasedDamage && !this->hasIncreasedDamage && this->health <= 200) {
+        hasIncreasedDamage = true;
+        attackDamage += 50;
+        attackCooldown = 1.f;
+        body.setFillColor(sf::Color::Red);
+    }
+
     checkPlayerAttack();
     updateAnimation();
     if(!isDying) {

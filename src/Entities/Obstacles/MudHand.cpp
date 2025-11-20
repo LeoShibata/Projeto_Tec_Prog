@@ -12,7 +12,7 @@ void MudHand::initialize() {
 
 MudHand::MudHand(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f), dt(0.f), animation(&body),
-    damageAmount(5), slowDuration(1.5f)
+    damageAmount(1), slowDuration(1.5f)
 {
     initialize();
     body.setFillColor(sf::Color(199, 145, 112)); // cor marrom
@@ -41,4 +41,9 @@ void MudHand::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, i
 }
 
 
+void MudHand::execute() {
+    update();
+}
+
+    
 }

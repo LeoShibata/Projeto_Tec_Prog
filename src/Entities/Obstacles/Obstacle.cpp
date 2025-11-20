@@ -3,6 +3,11 @@
 
 namespace Entities::Obstacles {
 
+
+Characters::Player* Obstacle::pPlayer1 = nullptr;
+Characters::Player* Obstacle::pPlayer2 = nullptr;
+
+
 Obstacle::Obstacle(sf::Vector2f position, sf::Vector2f size, float speed) :
     Entity(position, size, speed)
 { 
@@ -10,13 +15,22 @@ Obstacle::Obstacle(sf::Vector2f position, sf::Vector2f size, float speed) :
     typeId = IDs::obstacle;
 }
 
+
 Obstacle::~Obstacle() { }
+
 
 void Obstacle::update() { }
 
-void Obstacle::execute() { 
-    update();
+
+void Obstacle::setPlayer1(Characters::Player* pPlayer) {
+    pPlayer1 = pPlayer;
 }
+
+
+void Obstacle::setPlayer2(Characters::Player* pPlayer) {
+    pPlayer2 = pPlayer;
+}
+
 
 void Obstacle::collision(Entity* other, float ds, int collisionType) {
     switch (other->getTypeId()) {
@@ -35,5 +49,6 @@ void Obstacle::collision(Entity* other, float ds, int collisionType) {
             break;
     }
 }
+
 
 }

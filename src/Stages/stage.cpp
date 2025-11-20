@@ -15,6 +15,7 @@ Stage::Stage() :
     pCollision(nullptr), pPlayer1(nullptr), pPlayer2(nullptr),
     characterList(new List::EntityList()),
     obstacleList(new List::EntityList()),
+    structureList(new List::EntityList()),
     projectileList(new List::EntityList()),
     max_bats(20), max_obstacles(12)
 { 
@@ -48,6 +49,7 @@ void Stage::createPlayer1(sf::Vector2f pos) {
     pCollision->setPlayer1(pPlayer1);
     pEvent->setPlayer1(pPlayer1);
     Entities::Characters::Enemies::setPlayer1(pPlayer1);
+    Entities::Obstacles::Obstacle::setPlayer1(pPlayer1);
     pGraphic->setPlayer1(pPlayer1);
 }
 
@@ -59,14 +61,15 @@ void Stage::createPlayer2(sf::Vector2f pos) {
     pCollision->setPlayer2(pPlayer2);
     pEvent->setPlayer2(pPlayer2);
     Entities::Characters::Enemies::setPlayer2(pPlayer2);
+    Entities::Obstacles::Obstacle::setPlayer2(pPlayer2);
     pGraphic->setPlayer2(pPlayer2);
 }
 
 
 // ----------------- Obstacles -----------------
 void Stage::createFloor(sf::Vector2f pos) {
-    Entities::Obstacles::Floor* pFloor = new Entities::Obstacles::Floor(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
-    obstacleList->addEntity(pFloor);
+    Entities::Floor* pFloor = new Entities::Floor(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
+    structureList->addEntity(pFloor);
     pCollision->includeEntity(static_cast<Entities::Entity*>(pFloor));
 }
 
@@ -96,11 +99,12 @@ void Stage::draw(sf::RenderWindow* window) {
     window->draw(background);
     characterList->drawAll(window);
     obstacleList->drawAll(window);
+    structureList->drawAll(window);
 }
 
 
 void Stage::execute() {
-    cout << "called the stage execute" << endl;
+    // cout << "called the stage execute" << endl;
     
     List::EntityList* chars = characterList;
     for(int i = 0; i < chars->getSize(); i++) {
@@ -109,6 +113,7 @@ void Stage::execute() {
         }
     }
 
+    structureList->executeAll();
     obstacleList->executeAll();
 
     for(int i = chars->getSize() - 1; i  >= 0; i--) {

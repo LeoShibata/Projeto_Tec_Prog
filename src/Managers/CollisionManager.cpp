@@ -35,6 +35,9 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
         case(Entities::IDs::enemy) :
             lIs.push_back(static_cast<Entities::Characters::Enemies*> (ent1));
             break;
+        case(Entities::IDs::floor) : 
+            lFs.push_back(static_cast<Entities::Floor*>(ent1));
+            break;
         case(Entities::IDs::obstacle) :
             lOs.push_back(static_cast<Entities::Obstacles::Obstacle*> (ent1));
             break;
@@ -53,7 +56,7 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
         case(Entities::IDs::empty) :
             //try catch
             break;
-        case (Entities::IDs::player) :
+        case(Entities::IDs::player) :
             if(static_cast<Entities::Entity*>(pPlayer1) == ent1) {
                 pPlayer1 = NULL;
             }
@@ -61,10 +64,13 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
                 pPlayer2 = NULL;
             }
             break;
-        case (Entities::IDs::enemy) :
+        case(Entities::IDs::enemy) :
             lIs.erase(std::remove(lIs.begin(), lIs.end(), static_cast<Entities::Characters::Enemies*> (ent1)), lIs.end());
             break;
-        case (Entities::IDs::obstacle) :
+        case(Entities::IDs::floor) :
+            lFs.erase(std::remove(lFs.begin(), lFs.end(), static_cast<Entities::Floor*>(ent1)), lFs.end());
+            break;
+        case(Entities::IDs::obstacle) :
             lOs.erase(std::remove(lOs.begin(), lOs.end(), static_cast<Entities::Obstacles::Obstacle*> (ent1)), lOs.end());
             break;
         case(Entities::IDs::projectile) :
@@ -77,8 +83,6 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
 
 
 const CollisionManager::CollisionData CollisionManager::collisionDetection(Entities::Entity* ent1, Entities::Entity* ent2) {
-
-   
     sf::Vector2f pos1 = ent1->getPos();
     sf::Vector2f pos2 = ent2->getPos();
 
@@ -133,7 +137,46 @@ void CollisionManager::verifyPlayerEnemy() {
     }
 }
 
+// -------------- Floor --------------
+void CollisionManager::verifyPlayerFloor() {
+    CollisionData data;
+    list<Entities::Floor*>::iterator it;
+    for(it = lFs.begin(); it != lFs.end(); ++it) {
+        Entities::Floor* pFloor = *it; 
+        if(pPlayer1 && pPlayer1->getIsAlive()) { 
+            data = collisionDetection(static_cast<Entities::Entity*>(pFloor), static_cast<Entities::Entity*>(pPlayer1));
+            if(data.collided) {
+                pFloor->collision(pPlayer1, data.ds, int(data.type));
+            }
+        }
+        if(pPlayer2 && pPlayer2->getIsAlive()) { 
+            data = collisionDetection(static_cast<Entities::Entity*>(pFloor), static_cast<Entities::Entity*>(pPlayer2));
+            if(data.collided) {
+                pFloor->collision(pPlayer2, data.ds, int(data.type));
+            }
+        }
+    } 
+}
 
+
+void CollisionManager::verifyEnemyFloor() {
+    CollisionData data;
+    for(int i = 0; i < lIs.size(); i++) {
+        list<Entities::Floor*>::iterator it;
+        for(it = lFs.begin(); it != lFs.end(); ++it) {
+            Entities::Floor* pFloor = *it;
+            if(lIs[i]->getIsAlive()) { 
+                data = collisionDetection(static_cast<Entities::Entity*>(lIs[i]), static_cast<Entities::Entity*>(pFloor));
+                if(data.collided) {
+                    pFloor->collision(lIs[i], data.ds, int(data.type));
+                }
+            }
+        }
+    }
+}
+
+
+// -------------- Obstacle --------------
 void CollisionManager::verifyPlayerObstacle() {
     CollisionData data;
     for(list<Entities::Obstacles::Obstacle*>::iterator it = lOs.begin(); it != lOs.end(); ++it) {
@@ -255,6 +298,8 @@ void CollisionManager::verifyProjectPlayers() {
 
 void CollisionManager::run() {
     verifyPlayerEnemy();
+    verifyPlayerFloor();
+    verifyEnemyFloor();     
     verifyPlayerObstacle();
     verifyEnemyObstacle();
     verifyProjectObstacle();

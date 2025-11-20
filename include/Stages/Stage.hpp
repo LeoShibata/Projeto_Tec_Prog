@@ -18,7 +18,7 @@
 #include "Entities/Characters/Enemies/Death.hpp"
 
 #include "Entities/Obstacles/Obstacle.hpp"
-#include "Entities/Obstacles/Floor.hpp"
+#include "Entities/Floor.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Obstacles/Spike.hpp"
 #include "Entities/Obstacles/MudHand.hpp"
@@ -50,6 +50,8 @@ namespace Stages {
             List::EntityList* characterList;
             List::EntityList* obstacleList;
             List::EntityList* projectileList;
+            List::EntityList* structureList;
+            
             const int max_bats;
             const int max_obstacles;
             static const int tileSize = 32;

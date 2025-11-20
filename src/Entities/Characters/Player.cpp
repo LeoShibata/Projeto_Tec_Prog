@@ -35,7 +35,7 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerI
 {    
     initialize();
     typeId = IDs::player;
-    health = 1000;
+    health = 600;
     speed_mod = 250.f;
 
     attackDuration = 0.3f;
@@ -220,7 +220,7 @@ void Player::setStage(Stages::Stage* pStage){
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
-            // takeDamage(1); // jogador toma esse dano ao tocar em inimigo
+            takeDamage(1); // jogador toma esse dano ao tocar em inimigo
             break;      
         }
         case(Entities::IDs::floor) : {

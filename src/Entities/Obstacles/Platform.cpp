@@ -1,7 +1,10 @@
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Characters/Player.hpp"
+
 using namespace std;
+
 namespace Entities::Obstacles {
+
 
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
     Obstacle(position, size, 0.f)
@@ -10,7 +13,9 @@ Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
     // typeId = IDs::platform;
 }
 
+
 Platform::~Platform() { }
+
 
 void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) {
     // Colisão horizontal (Parede)
@@ -34,6 +39,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
     }
 }
 
+
 void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
     ds *= -1;
     if(collisionType == 1) { 
@@ -52,5 +58,13 @@ void Platform::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, 
         
     }
 
-    }
 }
+
+
+void Platform::execute() {
+    update();
+}
+
+
+}
+

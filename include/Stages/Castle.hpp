@@ -11,6 +11,7 @@ namespace Stages {
     class Castle : public Stage {
         protected:
             const int max_skeletons;
+            const int max_spikes;
 
         protected:
             void createMap() override;

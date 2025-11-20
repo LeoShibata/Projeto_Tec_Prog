@@ -27,6 +27,8 @@ namespace Entities::Obstacles {
 
             void handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) override;
             void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) override;
+
+            void execute() override;
     };
 }
 
