@@ -51,6 +51,14 @@ void Castle::createMap() {
     background.setSize(sf::Vector2f(bgTexture.getSize().x, bgTexture.getSize().y));
     background.setPosition(0.f, 0.f);
 
+    if(!bgTexture2.loadFromFile("../assets/stages/Graveyard/Background_0.png")) {
+        std::cout << "ERROR: Failed to load background 3 texture for Graveyard" << std::endl;
+        exit(1);
+    }
+    background2.setTexture(&bgTexture2);
+    background2.setSize(sf::Vector2f(bgTexture2.getSize().x, bgTexture2.getSize().y));
+    background2.setPosition(0.f, 0.f);
+
     const char* path = "../assets/stages/Castle/Castle";
 
     ifstream f(path); // get archive

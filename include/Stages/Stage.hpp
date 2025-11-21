@@ -38,6 +38,10 @@ namespace Stages {
         protected:
             sf::RectangleShape background;
             sf::Texture bgTexture;
+            sf::RectangleShape background2;
+            sf::Texture bgTexture2;
+            sf::RectangleShape background3;
+            sf::Texture bgTexture3;
 
             Managers::EventManager* pEvent; 
             Managers::CollisionManager* pCollision;

@@ -99,6 +99,19 @@ void Stage::createSkeleton(sf::Vector2f pos) {
 
 
 void Stage::draw(sf::RenderWindow* window) {
+    sf::View currentView = window->getView();
+
+    background2.setPosition(
+        currentView.getCenter().x - currentView.getSize().x / 2,
+        currentView.getCenter().y - currentView.getSize().y / 2
+    );
+    background3.setPosition(
+        currentView.getCenter().x - currentView.getSize().x / 2,
+        currentView.getCenter().y - currentView.getSize().y / 2
+    );
+
+    window->draw(background2);
+    window->draw(background3);
     window->draw(background);
     characterList->drawAll(window);
     obstacleList->drawAll(window);

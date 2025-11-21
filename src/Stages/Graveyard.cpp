@@ -48,6 +48,23 @@ void Graveyard::createMap() {
     background.setTexture(&bgTexture);
     background.setSize(sf::Vector2f(bgTexture.getSize().x, bgTexture.getSize().y));
     background.setPosition(0.f, 0.f);
+
+    if(!bgTexture2.loadFromFile("../assets/stages/Graveyard/Background_0.png")) {
+        std::cout << "ERROR: Failed to load background 2 texture for Graveyard" << std::endl;
+        exit(1);
+    }
+    background2.setTexture(&bgTexture2);
+    background2.setSize(sf::Vector2f(bgTexture2.getSize().x, bgTexture2.getSize().y));
+    background2.setPosition(0.f, 0.f);
+   
+    if(!bgTexture3.loadFromFile("../assets/stages/Graveyard/Background_1.png")) {
+        std::cout << "ERROR: Failed to load background 3 texture for Graveyard" << std::endl;
+        exit(1);
+    }
+    background3.setTexture(&bgTexture3);
+    background3.setSize(sf::Vector2f(bgTexture3.getSize().x, bgTexture3.getSize().y));
+    background3.setPosition(0.f, 0.f);
+
    
     const char* path = "../assets/stages/Graveyard/MoonGraveyard";
     
