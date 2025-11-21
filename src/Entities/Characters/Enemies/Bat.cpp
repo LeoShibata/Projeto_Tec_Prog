@@ -21,6 +21,7 @@ Bat::Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade) :
     soul(0.05f)
 {
     initialize();
+    health = 200;
     speed_mod = 3.f;
 
     // inicialização de atributos de enemies    

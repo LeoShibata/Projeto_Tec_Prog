@@ -7,7 +7,6 @@
 namespace Entities::Characters {
     class Character : public Entity {
         public: 
-            static const float GRAVITY;
             bool isDying;
 
 
@@ -16,12 +15,8 @@ namespace Entities::Characters {
             bool isAlive;
             Animation::Animator animation;
             
-            sf::Clock clock;
-            float dt;
-            
             bool canMove;
             bool isMovingLeft;
-            bool onGround;
             bool isMoving;
             
             sf::Clock attackTimer;

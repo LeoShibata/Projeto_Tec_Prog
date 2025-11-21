@@ -137,25 +137,18 @@ void Death::performMovement(Player* pTarget, float distance_to_player_sq) {
 
 
 void Death::move() { 
-    dt = clock.getElapsedTime().asSeconds();
-    clock.restart();
-
-    if(!onGround) {
-        velocity.y += GRAVITY * dt;
-    }
-
-    float ds_x = velocity.x * dt;
-    float ds_y = velocity.y * dt;
-
-    body.move(ds_x, ds_y);
+    updateDt();
+    applyGravity();
+    body.move(velocity * dt);
 }
 
 
-void Death::shoot(){
-    float speed =10;
-    if(isMovingLeft)
+void Death::shoot() {
+    float speed = 200;
+    if(isMovingLeft) {
         speed *= -1;
-    pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 100, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
+    }
+    pStage->createProjectile(sf::Vector2f(10,10), 10, speed, 600, body.getPosition(), getTypeId(), false);
 }
 
 

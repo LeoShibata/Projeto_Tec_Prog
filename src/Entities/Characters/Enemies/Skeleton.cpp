@@ -28,7 +28,7 @@ Skeleton::Skeleton(const sf::Vector2f position, const sf::Vector2f size, int mal
 
     // inicialização de atributos de enemies    
     isStunned = false;
-    attackDamage = 10;  
+    attackDamage = 80;  
     detectionRadiusSq = 250.f * 250.f;
     collisionCooldown = 0.3f;
     attackDamageStart = 0.25f;
@@ -136,17 +136,9 @@ void Skeleton::performMovement(Player* pTarget, float distance_to_player_sq) {
 
 
 void Skeleton::move() { 
-    dt = clock.getElapsedTime().asSeconds();
-    clock.restart();
-
-    if(!onGround) {
-        velocity.y += GRAVITY * dt;
-    }
-
-    float ds_x = velocity.x * dt;
-    float ds_y = velocity.y * dt;
-
-    body.move(ds_x, ds_y);
+    updateDt();
+    applyGravity();
+    body.move(velocity * dt);
 }
 
 

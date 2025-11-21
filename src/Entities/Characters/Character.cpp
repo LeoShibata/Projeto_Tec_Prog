@@ -2,14 +2,11 @@
 
 #include <iostream>
 
-const float Entities::Characters::Character::GRAVITY = 981.f;
-
 namespace Entities::Characters {
 
 Character::Character(const sf::Vector2f position, const sf::Vector2f size, const float speed) :
     Entity(position, size, speed), canMove(false), isMovingLeft(false), isMoving(false), 
-    dt(0.f), onGround(false), animation(&body),
-    health(1000), isAlive(true), isDying(false),
+    animation(&body), health(1000), isAlive(true), isDying(false),
     isAttacking(false), attackCooldown(1.f), attackDuration(1.f), 
     damageCooldown(1.f), damageAnimationDuration(0.3f), dieAnimationDuration(1.f)
 {
@@ -21,7 +18,6 @@ Character::~Character() { }
 
 
 void Character::adjustPosition(sf::Vector2f ds) {
-    dt= clock.getElapsedTime().asSeconds();
     body.move(ds);
 }
 
