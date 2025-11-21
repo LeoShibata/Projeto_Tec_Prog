@@ -56,6 +56,8 @@ namespace Managers {
             void verifyEnemyObstacle();
 
             void verifyProjectObstacle();
+            void verifyProjectFloor();
+            
             void verifyProjectEnemies();
             void verifyProjectPlayers();
             //NEED BETTER POSITION, or player kill himself void verifyProjecPlayers();

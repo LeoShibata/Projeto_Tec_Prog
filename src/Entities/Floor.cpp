@@ -10,6 +10,7 @@ Floor::Floor(sf::Vector2f position, sf::Vector2f size) :
 {
     typeId = IDs::floor;
     body.setFillColor(sf::Color::Transparent);
+    onGround = true;
 }
 
 
@@ -53,7 +54,12 @@ void Floor::collision(Entity* other, float ds, int collisionType) {
 }
 
 
-void Floor::update() { }
+void Floor::update() { 
+    updateDt();
+    applyGravity();
+    body.move(velocity * dt);
+}
+
 
 void Floor::execute() { 
     update(); // objeto estático

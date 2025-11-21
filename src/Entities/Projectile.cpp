@@ -4,13 +4,10 @@
 using namespace Entities;
 using namespace std;
 
-Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot) : 
-    Entity(position, size, speed), 
-    isErasable(false), 
-    dt(0), damage(ddamage),
-    maxrange(maxrange),
-    distance(0),
-    whoShot(whoShot)
+Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity) : 
+    Entity(position, size, speed), isErasable(false),
+    damage(ddamage), maxrange(maxrange), distance(0),
+    whoShot(whoShot), useGravity(useGravity)
 {
     typeId = IDs::projectile;
     initialize();
@@ -33,10 +30,10 @@ Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxran
 }
 
 
-Projectile::~Projectile(){}
+Projectile::~Projectile() { }
 
 
-void Projectile::removeProjectile(){
+void Projectile::removeProjectile() {
     isAlive = false;
     velocity.x = 0;
     
@@ -44,12 +41,12 @@ void Projectile::removeProjectile(){
 }
 
 
-void Projectile::initialize(){
+void Projectile::initialize() {
     //animation
 }
 
 
-void Projectile::damageEntity(Entity* other){
+void Projectile::damageEntity(Entity* other) {
     if (whoShot == 1) {
         cout<< "player atirou" << endl;
     
@@ -62,6 +59,7 @@ void Projectile::damageEntity(Entity* other){
             case IDs::player :
                 break;
             case IDs::obstacle :
+            case IDs::floor : 
                 removeProjectile();
                 break;
             default:
@@ -85,7 +83,7 @@ void Projectile::damageEntity(Entity* other){
 }
 
 
-void Projectile::collision(Entity* other, float over, int collisionType){
+void Projectile::collision(Entity* other, float over, int collisionType) {
     //this other is who got shot 
     //since it should be a boss thing, to damage player,
     //but we want to make the player shoot also, so, need more work
@@ -97,15 +95,32 @@ void Projectile::collision(Entity* other, float over, int collisionType){
 }
 
 
-void Projectile::update(){
-    distance = abs(velocity.x)+ distance;
-    if (distance > maxrange)
+void Projectile::update() {
+    updateDt();
+
+    if(this->useGravity) {
+        applyGravity();
+    }
+
+    float ds_x = velocity.x * dt;
+    float ds_y = velocity.y * dt;
+
+    // atualiza dist e verifca range
+    distance += std::abs(ds_x);
+    if(distance > maxrange) {
         removeProjectile();
-    body.move(velocity);
+    }
+
+    body.move(ds_x, ds_y);
+
+    // distance = abs(velocity.x)+ distance;
+    // if (distance > maxrange)
+    //     removeProjectile();
+    // body.move(velocity);
 }
 
 
-void Projectile::execute(){
+void Projectile::execute() {
     update();
     //animation after
 }

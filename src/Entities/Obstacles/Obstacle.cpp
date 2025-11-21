@@ -19,7 +19,13 @@ Obstacle::Obstacle(sf::Vector2f position, sf::Vector2f size, float speed) :
 Obstacle::~Obstacle() { }
 
 
-void Obstacle::update() { }
+void Obstacle::update() {
+    updateDt();
+    applyGravity();
+    float ds_x = velocity.x * dt;
+    float ds_y = velocity.y * dt; 
+    body.move(ds_x, ds_y);
+}
 
 
 void Obstacle::setPlayer1(Characters::Player* pPlayer) {

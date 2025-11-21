@@ -23,6 +23,13 @@ namespace Entities {
             float speed_mod;
             bool isAlive;
 
+            sf::Clock clock;
+            float dt;
+
+            bool onGround;
+            static const float GRAVITY;
+
+
         protected:
             void setSpeedmod(float spd);
             
@@ -30,9 +37,13 @@ namespace Entities {
             Entity(sf::Vector2f position, sf::Vector2f size, float speed);
             virtual ~Entity();
             
-            float getSpeedmod();
-            sf::Vector2f getVelocity();
+            void applyGravity();
+            void updateDt();
             void setVelocity(sf::Vector2f vel);
+            sf::Vector2f getVelocity();
+            float getSpeedmod();
+            void setOnGround(bool ground);
+            bool getOnGround() const;
             virtual IDs::IDs getTypeId() const;
             virtual bool getIsAlive() const;
             

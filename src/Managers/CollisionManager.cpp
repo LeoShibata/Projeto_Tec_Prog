@@ -137,6 +137,7 @@ void CollisionManager::verifyPlayerEnemy() {
     }
 }
 
+
 // -------------- Floor --------------
 void CollisionManager::verifyPlayerFloor() {
     CollisionData data;
@@ -221,6 +222,7 @@ void CollisionManager::verifyEnemyObstacle() {
 }
 
 
+// -------------- Projectile --------------
 void CollisionManager::verifyProjectObstacle() {
     CollisionData data;
     for(set<Entities::Projectile*>::iterator its = lPs.begin(); its != lPs.end(); ++its) {
@@ -240,6 +242,23 @@ void CollisionManager::verifyProjectObstacle() {
                     (*its)->collision(*itl, data.ds, int(data.type));
                     //(*itl)->collision(*its, data.ds, int(data.type));
                 }
+            }
+        }
+    }
+}
+
+
+void CollisionManager::verifyProjectFloor() {
+    CollisionData data;
+    for(std::set<Entities::Projectile*>::iterator itP = lPs.begin(); itP != lPs.end(); ++itP) {
+        Entities::Projectile* pProjectile = *itP;
+        std::list<Entities::Floor*>::iterator itF;
+        for(itF = lFs.begin(); itF != lFs.end(); ++itF) {
+            Entities::Floor* pFloor = *itF;
+            data = collisionDetection(static_cast<Entities::Entity*>(pProjectile), static_cast<Entities::Entity*>(pFloor));
+            if(data.collided) {
+                pProjectile->collision(static_cast<Entities::Entity*>(pFloor), data.ds, int(data.type));
+                break; 
             }
         }
     }
@@ -303,6 +322,7 @@ void CollisionManager::run() {
     verifyPlayerObstacle();
     verifyEnemyObstacle();
     verifyProjectObstacle();
+    verifyProjectFloor();
     verifyProjectEnemies();
     verifyProjectPlayers();
 }

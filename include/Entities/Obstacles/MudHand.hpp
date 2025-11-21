@@ -8,8 +8,6 @@
 namespace Entities::Obstacles {
     class MudHand : public Obstacle {
         private:
-            sf::Clock clock;
-            float dt;
             Animation::Animator animation;
             int damageAmount;
             float slowDuration;

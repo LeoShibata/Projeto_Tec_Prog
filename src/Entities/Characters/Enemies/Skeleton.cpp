@@ -136,17 +136,9 @@ void Skeleton::performMovement(Player* pTarget, float distance_to_player_sq) {
 
 
 void Skeleton::move() { 
-    dt = clock.getElapsedTime().asSeconds();
-    clock.restart();
-
-    if(!onGround) {
-        velocity.y += GRAVITY * dt;
-    }
-
-    float ds_x = velocity.x * dt;
-    float ds_y = velocity.y * dt;
-
-    body.move(ds_x, ds_y);
+    updateDt();
+    applyGravity();
+    body.move(velocity * dt);
 }
 
 

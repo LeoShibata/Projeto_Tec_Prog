@@ -35,7 +35,6 @@
 class Player;
 namespace Stages {
     class Stage : public Being {
-        
         protected:
             sf::RectangleShape background;
             sf::Texture bgTexture;
@@ -69,7 +68,7 @@ namespace Stages {
         public:
             Stage();
             virtual ~Stage();
-            void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot);
+            void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity);
 
             void draw(sf::RenderWindow* window);
             void execute() override;

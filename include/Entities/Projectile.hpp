@@ -16,16 +16,17 @@ class Projectile : public Entity{
         float maxtime;
         float distance;
         bool isErasable; // CORRIGIR NOME
-        float dt;
         int whoShot;
         //maybe add stage pointer
+        
+        bool useGravity;
         
         
     private:
         void removeProjectile();
         
     public:
-        Projectile(sf::Vector2f size, int damage, float speed, float maxrange, sf::Vector2f position, int whoShot);
+        Projectile(sf::Vector2f size, int damage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity = true);
         ~Projectile();
         virtual void collision(Entity* other, float over, int collisionType);
         virtual void update();

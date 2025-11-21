@@ -87,13 +87,13 @@ void Player::shoot() {
     }
     
     if(shootingTimer.getElapsedTime().asSeconds() > shootingCooldown) {
-        float speed = 1;
+        float speed = 850;
         shootingTimer.restart();
         
         if(isMovingLeft) {
             speed *= -1;
         }
-        pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 200, sf::Vector2f(body.getPosition().x, body.getPosition().y), getTypeId());
+        pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 400, body.getPosition(), getTypeId(), true);
         isShooting = true; //for animation
     }
 }
@@ -143,19 +143,10 @@ void Player::updateAnimation() {
 }
 
 
-
-void Player::move(){
-    dt = clock.getElapsedTime().asSeconds();
-    clock.restart();
-
-    if(!onGround) {
-        velocity.y += GRAVITY * dt;
-    }
-
-    float ds_x = velocity.x * dt;
-    float ds_y = velocity.y * dt;
-    
-    body.move(ds_x, ds_y);
+void Player::move() {
+    updateDt();
+    applyGravity();
+    body.move(velocity * dt);
 }
 
 

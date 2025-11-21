@@ -53,6 +53,7 @@ void Stage::createPlayer1(sf::Vector2f pos) {
     pGraphic->setPlayer1(pPlayer1);
 }
 
+
 void Stage::createPlayer2(sf::Vector2f pos) {
     pPlayer2 = new Entities::Characters::Player(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize), 2);
     pPlayer2->setStage(static_cast<Stage*>(this));// please work
@@ -73,6 +74,7 @@ void Stage::createFloor(sf::Vector2f pos) {
     pCollision->includeEntity(static_cast<Entities::Entity*>(pFloor));
 }
 
+
 void Stage::createPlatform(sf::Vector2f pos) {
     Entities::Obstacles::Platform* pPlat = new Entities::Obstacles::Platform(sf::Vector2f(pos), sf::Vector2f(tileSize, tileSize));
     obstacleList->addEntity(pPlat);
@@ -81,8 +83,8 @@ void Stage::createPlatform(sf::Vector2f pos) {
 
 
 // ----------------- Projectile -----------------
-void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot){
-    Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position, whoShot);
+void Stage::createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity){
+    Entities::Projectile* pProjectile = new Entities::Projectile(size, ddamage, speed, maxrange, position, whoShot, useGravity);
     characterList->addEntity(pProjectile);
     pCollision->includeEntity(pProjectile);
 }
@@ -94,6 +96,7 @@ void Stage::createSkeleton(sf::Vector2f pos) {
     characterList->addEntity(pSkeleton);
     pCollision->includeEntity(pSkeleton);
 }
+
 
 void Stage::draw(sf::RenderWindow* window) {
     window->draw(background);

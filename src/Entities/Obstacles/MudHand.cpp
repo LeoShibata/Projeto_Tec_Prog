@@ -11,7 +11,7 @@ void MudHand::initialize() {
 
 
 MudHand::MudHand(sf::Vector2f position, sf::Vector2f size) :
-    Obstacle(position, size, 0.f), dt(0.f), animation(&body),
+    Obstacle(position, size, 0.f), animation(&body),
     damageAmount(1), slowDuration(1.5f)
 {
     initialize();
@@ -24,8 +24,8 @@ MudHand::~MudHand() { }
 
 
 void MudHand::update() {
-    dt = clock.getElapsedTime().asSeconds();
-    clock.restart();
+    updateDt();
+    applyGravity();
     animation.update(false, "IDLE");
 }
 
