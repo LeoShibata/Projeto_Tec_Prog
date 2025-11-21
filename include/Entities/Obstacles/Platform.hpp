@@ -5,7 +5,8 @@
 #include <iostream>
 namespace Entities::Obstacles {
     class Platform : public Obstacle {
-        // criar atributo específico
+
+        float anti_gravity;
 
         public:
             Platform(sf::Vector2f position, sf::Vector2f size);

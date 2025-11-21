@@ -18,7 +18,7 @@ Game::Game() :
     }
 
     cout <<" in game, created" << endl;
-    pState->addState(1);
+    pState->addState(3);
     
 
 }   
@@ -40,9 +40,12 @@ Game::~Game() {
 
 void Game::run() {
     while (pGraphic->isWindowOpen()) {
+        pGraphic->clearWindow(); 
+
         pEvent->run();
 
         pState->execute();
+
         /*if(castle) {
             castle->execute();
         }
@@ -57,6 +60,7 @@ void Game::run() {
         if(graveyard)
             graveyard->draw(pGraphic->getWindow());*/
         //pGraphic->clearWindow(); 
+
         pGraphic->showElements(); 
     }
 }   

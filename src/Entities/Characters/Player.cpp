@@ -148,6 +148,9 @@ void Player::move(){
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
 
+    if (dt > 0.1f) {
+        dt = 0.1f;
+    }
     if(!onGround) {
         velocity.y += GRAVITY * dt;
     }

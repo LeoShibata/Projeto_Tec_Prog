@@ -21,10 +21,10 @@ namespace States {
     class State{
     private:
         bool remove;
-        Managers::StateManager* pStateManager;//doing context paper, state interface
         StateType stateType;
     protected:
         Managers::GraphicManager* pGraphic;
+        Managers::StateManager* pStateManager;//doing context paper, state interface
 
     public:
         State(); //ID system, 

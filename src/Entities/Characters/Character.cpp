@@ -21,7 +21,18 @@ Character::~Character() { }
 
 
 void Character::adjustPosition(sf::Vector2f ds) {
+    
     dt= clock.getElapsedTime().asSeconds();
+    clock.restart();
+
+    // --- ADD THIS FIX ---
+    // If the time exceeds a safe threshold (e.g., 0.1 seconds), clamp it.
+    // This prevents physics from breaking after a pause or lag spike.
+    float max_frame_time = 0.1f;
+    
+    if (dt > max_frame_time) {
+        dt = max_frame_time;
+    }
     body.move(ds);
 }
 

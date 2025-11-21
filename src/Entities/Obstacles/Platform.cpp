@@ -4,7 +4,7 @@ using namespace std;
 namespace Entities::Obstacles {
 
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
-    Obstacle(position, size, 0.f)
+    Obstacle(position, size, 0.f), anti_gravity(5.f)
 {
     body.setFillColor(sf::Color::Transparent);
     // typeId = IDs::platform;
@@ -17,6 +17,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
     if(collisionType == 1) {
         // Lógica para descobrir se empurra para esquerda ou direita
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
+        
         // pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
 
         if(pPlayer->getOnGround()) {
@@ -26,6 +27,8 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
 
         // pousou no chão
         if(ds < 0) { 
+            pPlayer->setVelocity(sf::Vector2f(pPlayer->getVelocity().x, pPlayer->getVelocity().y*anti_gravity));
+
             pPlayer->setOnGround(true);
         }
         //cout <<ds << " colisao  obstaculo vertical" <<endl;

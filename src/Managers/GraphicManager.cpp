@@ -111,8 +111,13 @@ void GraphicManager::clearWindow() {
 
 
 void GraphicManager::resetClock() {
-    time = clock.getElapsedTime().asSeconds(); //to get as second, time = clock.restart()
+    time = clock.getElapsedTime().asSeconds(); 
     clock.restart();
+    float max_frame_time = 0.1f;
+    
+    if (time > max_frame_time) {
+        time = max_frame_time;
+    }
 }
 
 

@@ -44,7 +44,12 @@ void StateManager::addState(const int idStateType){
     States::State* newState = nullptr;
     if(idStateType == 1 || idStateType == 2){
         newState = static_cast<States::State*>(new States::StatePlaying(idStateType));
+    }else if (idStateType == 3){
+        newState = static_cast<States::State*>(new States::StateMenu());
+    }else if (idStateType == 4){
+        newState = static_cast<States::State*>(new States::StatePause());
     }
+    
     cout <<" added state: STATEMANAGER" << endl;
 
     stateStack.push(newState);

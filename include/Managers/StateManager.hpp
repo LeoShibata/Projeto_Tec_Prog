@@ -2,6 +2,8 @@
 #define CONTEXT_HPP
 #include "../Managers/GraphicManager.hpp"
 #include "States/StatePlaying.hpp"
+#include "States/StateMenu.hpp"
+#include "States/StatePause.hpp"
 
 #include <stack>
 #include <iostream>
