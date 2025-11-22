@@ -5,8 +5,7 @@
 using namespace std;
 
 namespace Entities::Characters {
-
-
+    
 void Player::initialize() { 
     if(playerID == 1) {
         animation.addAnimation("../assets/player/player1/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3, 4));
@@ -23,6 +22,7 @@ void Player::initialize() {
         animation.addAnimation("../assets/player/player2/Jump.png", "JUMP", 2, 0.15f, sf::Vector2f(7, 5));
         animation.addAnimation("../assets/player/player2/Take Hit - white silhouette.png", "HURT", 4, 0.08f, sf::Vector2f(7, 5));
         animation.addAnimation("../assets/player/player2/Attack1.png", "ATTACK", 4, 0.1f, sf::Vector2f(7, 5));
+        animation.addAnimation("../assets/player/player2/Death.png", "DEATH", 6, 0.15f, sf::Vector2f(7, 5));
         body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y + 25)/2.5f));
     }
 }
@@ -37,6 +37,7 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerI
     typeId = IDs::player;
     health = 600;
     speed_mod = 250.f;
+    isTakingDamage = false;
 
     attackDuration = 0.3f;
     attackCooldown = 0.f;
@@ -120,11 +121,16 @@ sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conform
 
 
 void Player::updateAnimation() {
+    if(isDying) {
+        animation.update(isMovingLeft, "DEATH");  
+        return;
+    } 
+
     if(!isAlive) {
         return;
     }
     
-    if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
+    if(isTakingDamage) {
         animation.update(isMovingLeft, "HURT");
     } else if(isAttacking) {
         animation.update(isMovingLeft, "ATTACK");  
@@ -134,12 +140,18 @@ void Player::updateAnimation() {
         animation.update(isMovingLeft, "WALKING");
     } else if(isShooting){
         if(playerID == 1) {
-        velocity.x = 0;
-        animation.update(!(isMovingLeft), "SHOT");
-    }
+            velocity.x = 0;
+            animation.update(isMovingLeft, "SHOT");
+        }
     } else {
         animation.update(isMovingLeft, "IDLE");
     }
+}
+
+
+void Player::takeDamage(int damage) {
+    Character::takeDamage(damage);
+    isTakingDamage = true;
 }
 
 
@@ -151,6 +163,12 @@ void Player::move() {
 
 
 void Player::update() {
+    if(isTakingDamage) {
+        if(damageTimer.getElapsedTime().asSeconds() > damageAnimationDuration) {
+            isTakingDamage = false;
+        }
+    }
+
     if(isDying) {
         velocity.x = 0.f;
         if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
@@ -234,6 +252,5 @@ void Player::collision(Entities::Entity* other, float ds, int collisionType) {
             break;
     }
 }
-
 
 }

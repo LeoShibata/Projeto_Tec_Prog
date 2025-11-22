@@ -13,6 +13,7 @@ namespace Entities::Characters {
             int playerID;
             float jump_h; // verificar esse atributo
             float jumpSpeed;
+            bool isTakingDamage;
             Stages::Stage* pStage;
             
             bool isShooting;
@@ -23,7 +24,7 @@ namespace Entities::Characters {
             float slowDuration;
             sf::Clock slowTimer;
 
-            
+
         private:
             void initialize();
 
@@ -37,13 +38,14 @@ namespace Entities::Characters {
             bool getIsAttacking() const;
             sf::FloatRect getAttackHitbox() const;
             void updateAnimation();
-
+            void collision(Entities::Entity* other, float ds, int collisionType);
+            void setStage(Stages::Stage* pStage);
             void shoot();
+
+            void takeDamage(int damage) override;
             void move() override;
             void update() override;
             void execute() override;
-            void collision(Entities::Entity* other, float ds, int collisionType);
-            void setStage(Stages::Stage* pStage);
     };
 }
 
