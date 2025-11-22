@@ -151,6 +151,14 @@ void Player::move() {
 
 
 void Player::update() {
+    if(isDying) {
+        velocity.x = 0.f;
+        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
+            isAlive = false;
+        }   
+        return;
+    }
+
     if(!isAlive) {
         velocity.x = 0.f;
         return;
