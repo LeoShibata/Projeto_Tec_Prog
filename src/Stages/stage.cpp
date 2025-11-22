@@ -144,7 +144,9 @@ void Stage::execute() {
                 delete ent;
                 ent = nullptr;
             }
+            
         }
+
     }
 
     pCollision->run();

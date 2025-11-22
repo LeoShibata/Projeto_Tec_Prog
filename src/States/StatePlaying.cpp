@@ -1,14 +1,28 @@
 #include "States/StatePlaying.hpp"
 
-using namespace States;
+// here i decide to put a connection with stage by pointer instead of heritance
+// thats because i really wanted to try and play with passing pointers using singleton, and
+// practicing how to evit reclusive include and bidirectional connections.
+// And in this, there will not be a figure or id to use, i don't think the methods in my Being super class would translate
+// well in here, of course it would make it easier to use my graphicManager, but that is basically the only thing i would use
+// from that class, instead, in menu i will create shapes and sprites, will draw and need get some ids, so here
+// it will continue with pointer, while in menu its going be via heritance;
 
-StatePlaying::StatePlaying(int idStage): 
-idStage(idStage),
-stages(){
+namespace States {
+
+int StatePlaying::playersCount = 1;
+
+StatePlaying::StatePlaying(int idStage) : 
+    idStage(idStage),
+    stages()
+{
     createStage();
-
 }
+
+
 StatePlaying::~StatePlaying(){
+    State::pGraphic->clearWindow();
+
     while (!(stages.empty()))
     {
         delete(stages.front());
@@ -17,7 +31,9 @@ StatePlaying::~StatePlaying(){
     }
     
 }
-void StatePlaying::createStage(){
+
+
+void StatePlaying::createStage() {
     if(idStage == 1){
         Stages::Stage* newStage = static_cast<Stages::Stage*>(new Stages::Graveyard());
         stages.push(newStage);
@@ -28,17 +44,19 @@ void StatePlaying::createStage(){
         // cout <<" added newstage" << endl;
     }
 }
-void StatePlaying::loadStage(){
 
-}
-void StatePlaying::execute(){
+
+void StatePlaying::loadStage() { }
+
+
+void StatePlaying::execute() {
     // cout <<" executed state" << stages.front() <<endl;
     if(stages.empty()) {
         // cout << "No stages available!" << endl;
         return;
     }
     stages.front()->execute();
-    pGraphic->clearWindow(); 
-
     stages.front()->draw(pGraphic->getWindow());
+}
+
 }

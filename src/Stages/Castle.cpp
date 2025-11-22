@@ -24,6 +24,7 @@ Castle::Castle() :
     }
 }
 
+
 Castle::~Castle() { }
 
 
@@ -151,6 +152,5 @@ void Castle::createMap() {
         }
     }
 }
-
 
 }

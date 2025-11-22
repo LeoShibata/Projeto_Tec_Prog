@@ -8,27 +8,26 @@
 #include <queue>
 
 namespace States {
-
     class StatePlaying: public State{
-    private:
-        queue<Stages::Stage*> stages;
-        int idStage;
-    public:
-        StatePlaying(int idStage); //ID system, 
-        ~StatePlaying();
-        void createStage();
-        void loadStage();
-        void execute();
-        //void draw();
-        //getAtualStage
+        public:
+            static int playersCount;
+            
+        private:
+            queue<Stages::Stage*> stages;
+            int idStage;
 
-        
+            
+        public:
+            StatePlaying(int idStage); //ID system, 
+            ~StatePlaying();
+            void createStage();
+            void loadStage();
+            void execute();
+            //void draw();
+            //getAtualStage
+
+            
     };
-
 }
-
-
-
-
 
 #endif

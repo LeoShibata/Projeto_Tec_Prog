@@ -5,8 +5,8 @@
 #include <iostream>
 namespace Entities::Obstacles {
     class Platform : public Obstacle {
-        // private:
-        //     float friction;
+        private:
+            float anti_gravity;
 
 
         public:

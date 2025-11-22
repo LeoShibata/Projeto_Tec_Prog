@@ -86,6 +86,9 @@ void EventManager::run() {
         if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) { 
                 pState->removeState(1);
             }
+        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) { 
+                pState->addState(3);
+            }
     }
 
     if(pPlayer1 != nullptr) {
