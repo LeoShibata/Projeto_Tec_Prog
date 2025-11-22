@@ -3,23 +3,28 @@
 
 #include "Being.hpp"
 #include "States/State.hpp"
+#include "Entities/Button.hpp"
 
-#include <iostream>
+#include <vector>
 
 namespace States {
     class StatePause : public State {
         private:
-            int id;
             sf::Font font;
-            sf::Text text; 
+            sf::Text titleText; 
+            sf::RectangleShape background;
+
+            std::vector<Entities::Button*> buttons;
+            int currentOption;
+            sf::Clock inputClock;
             
             
         public:
             StatePause();
             ~StatePause();
-            //void keyPressed(const sf::Keyboard);
             
             void execute();
+            void draw() override;
         };
 }
 

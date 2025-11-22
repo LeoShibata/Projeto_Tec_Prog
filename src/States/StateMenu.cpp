@@ -47,8 +47,7 @@ StateMenu::~StateMenu() {
 }
 
 void StateMenu::execute(){
-    sf::View defaultView = pGraphic->getWindow()->getDefaultView();
-    pGraphic->getWindow()->setView(defaultView);
+    resetView();
     
     pGraphic->getWindow()->draw(background);
     pGraphic->getWindow()->draw(titleText);

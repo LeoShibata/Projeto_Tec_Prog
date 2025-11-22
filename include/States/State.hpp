@@ -28,10 +28,13 @@ namespace States {
             bool remove;
             StateType stateType;
 
-            
         protected:
             Managers::GraphicManager* pGraphic;
-            Managers::StateManager* pStateManager;//doing context paper, state interface
+            Managers::StateManager* pStateManager; // doing context paper, state interface
+
+            
+        protected:
+            void resetView();
 
         public:
             State(); //ID system, 

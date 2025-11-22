@@ -31,6 +31,11 @@ void Entity::applyGravity() {
 void Entity::updateDt() {
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
+    
+    // limita dt para não quebrar a física
+    if(dt > 0.02f) { 
+        dt = 0.1f;
+    }
 }
 
 

@@ -38,8 +38,7 @@ StageSelectState::~StageSelectState() { }
 
 
 void StageSelectState::execute() { 
-    sf::View defaultView = pGraphic->getWindow()->getDefaultView();
-    pGraphic->getWindow()->setView(defaultView);
+    resetView();
     
     pGraphic->getWindow()->draw(titleText);
     

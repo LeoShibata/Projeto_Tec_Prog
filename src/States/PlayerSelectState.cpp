@@ -43,8 +43,7 @@ void PlayerSelectState::draw() { }
 
 
 void PlayerSelectState::execute() {
-    sf::View defaultView = pGraphic->getWindow()->getDefaultView();
-    pGraphic->getWindow()->setView(defaultView);
+    resetView();
     
     sf::RenderWindow* window = pGraphic->getWindow();
     window->draw(instructionText);

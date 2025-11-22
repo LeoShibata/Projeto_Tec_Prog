@@ -16,6 +16,12 @@ State::State() :
 State::~State() { }
 
 
+void State::resetView() { // reseta camera para menus (camera acompanha o personagem)
+    sf::View defaultView = pGraphic->getWindow()->getDefaultView();
+    pGraphic->getWindow()->setView(defaultView);
+}
+
+
 void State::draw() {
     
 }
