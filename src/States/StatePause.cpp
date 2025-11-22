@@ -87,8 +87,6 @@ void StatePause::execute(){
                 pStateManager->removeState(); // Remove o Pause, volta pro Jogo
             } 
             else if (currentOption == 1) { // QUIT TO MENU
-                // A pilha está assim: [Menu, Jogo, Pause(topo)]
-                // Precisamos remover o Pause (1) e o Jogo (1) = 2 estados
                 pStateManager->removeState(2); 
             }
             inputClock.restart();
