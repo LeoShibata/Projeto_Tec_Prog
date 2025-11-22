@@ -6,6 +6,7 @@
 #include "States/StageSelectState.hpp"
 #include "States/StatePlaying.hpp"
 #include "States/StatePause.hpp"
+#include "States/GameOverState.hpp"
 
 using namespace std;
 
@@ -73,6 +74,9 @@ void StateManager::addState(const int idStateType) {
             break;
         case 5: 
             newState = new States::StageSelectState();
+            break;
+        case 6: 
+            newState = new States::GameOverState();
             break;
         
         default:

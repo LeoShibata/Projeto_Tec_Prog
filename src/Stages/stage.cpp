@@ -1,5 +1,7 @@
 #include "Stages/Stage.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Managers/StateManager.hpp"
+
 #include <iostream>
 
 using json = nlohmann::json;
@@ -137,7 +139,8 @@ void Stage::execute() {
 
         if(!ent->getIsAlive()) {
             if(ent->getTypeId() == Entities::IDs::player) {
-                // adicionar tela de game over
+                // para tela de gameover
+                Managers::StateManager::getStateManager()->addState(6);
             } else {
                 pCollision->removeEntity(ent);
                 chars->removeEntity(i);
