@@ -3,6 +3,7 @@
 
 #include "States/State.hpp"
 #include "Entities/Button.hpp"
+#include "Managers/LeaderboardManager.hpp"
 
 #include <vector>
 
@@ -16,6 +17,12 @@ namespace States {
             std::vector<Entities::Button*> buttons;
             int currentOption;
             sf::Clock inputClock;
+
+            std::string playerName;
+            sf::Text nameText;
+            Managers::LeaderboardManager leaderboard;
+            bool nameEntered;
+            int finalScore;
 
         public:
             GameOverState();

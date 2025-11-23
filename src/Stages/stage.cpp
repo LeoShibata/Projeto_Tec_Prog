@@ -264,8 +264,8 @@ void Stage::loadGame() {
                 if(pid == 1 && pPlayer1) {
                     pPlayer1->loadCharacterState(element);
                     pPlayer1->setPos(sf::Vector2f(x, y));
-                    if(element.contains("score")) {
-                        pPlayer1->addScore(element["score"]);
+                    if(element.contains("score")) { // para verificar se a pontuação existe antes de carregar
+                        pPlayer1->addScore(element["score"]); 
                     }
                 } else if (pid == 2 && pPlayer2) {
                     pPlayer2->loadCharacterState(element);
@@ -278,10 +278,16 @@ void Stage::loadGame() {
                     if(pid == 1) { 
                         createPlayer1(sf::Vector2f(x, y)); 
                         pPlayer1->loadCharacterState(element);
+                        if(element.contains("score")) { 
+                            pPlayer1->addScore(element["score"]); 
+                        }
                     }
                     else { 
                         createPlayer2(sf::Vector2f(x, y));
                         pPlayer2->loadCharacterState(element);
+                        if(element.contains("score")) {
+                            pPlayer2->addScore(element["score"]);
+                        }
                     }
                 }
             }

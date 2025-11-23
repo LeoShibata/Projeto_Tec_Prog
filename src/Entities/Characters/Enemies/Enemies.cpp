@@ -85,9 +85,17 @@ void Enemies::checkPlayerAttack() {
 }
 
 
-
 void Enemies::update() {
     if(isDying) {
+        if(isAlive) { // animação ainda rodando
+            if(pPlayer1) {
+                pPlayer1->addScore(100);
+            }
+            if(pPlayer2) {
+                pPlayer2->addScore(100);
+            }
+        }
+
         velocity = sf::Vector2f(0.f, 0.f);
         if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
             isAlive = false;
