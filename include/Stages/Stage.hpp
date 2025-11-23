@@ -11,17 +11,20 @@
 #include "List/EntityList.hpp"
 
 #include "Entities/Entity.hpp"
+#include "Entities/HealthBar.hpp"
 #include "Entities/Projectile.hpp"
+#include "Entities/Floor.hpp"
+
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Enemies/Bat.hpp"
 #include "Entities/Characters/Enemies/Skeleton.hpp"
 #include "Entities/Characters/Enemies/Death.hpp"
 
 #include "Entities/Obstacles/Obstacle.hpp"
-#include "Entities/Floor.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Obstacles/Spike.hpp"
 #include "Entities/Obstacles/MudHand.hpp"
+
 #include "utils/json.hpp"
 
 #include <cstdlib>
@@ -54,6 +57,9 @@ namespace Stages {
             List::EntityList* obstacleList;
             List::EntityList* projectileList;
             List::EntityList* structureList;
+
+            Entities::HealthBar* hpBar1;
+            Entities::HealthBar* hpBar2;
             
             const int max_bats;
             const int max_obstacles;

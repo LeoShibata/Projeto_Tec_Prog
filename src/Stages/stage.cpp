@@ -19,6 +19,8 @@ Stage::Stage() :
     obstacleList(new List::EntityList()),
     structureList(new List::EntityList()),
     projectileList(new List::EntityList()),
+    hpBar1(nullptr),
+    hpBar2(nullptr),
     max_bats(20), max_obstacles(12)
 { 
     pCollision = new Managers::CollisionManager();
@@ -39,6 +41,12 @@ Stage::~Stage() {
         delete obstacleList;
         obstacleList = nullptr;
     }
+    if(hpBar1) {
+        delete hpBar1;
+    }
+    if(hpBar2) {
+        delete hpBar2;
+    }
 }
 
 
@@ -53,6 +61,8 @@ void Stage::createPlayer1(sf::Vector2f pos) {
     Entities::Characters::Enemies::setPlayer1(pPlayer1);
     Entities::Obstacles::Obstacle::setPlayer1(pPlayer1);
     pGraphic->setPlayer1(pPlayer1);
+
+    hpBar1 = new Entities::HealthBar(sf::Vector2f(20.f, 20.f), sf::Vector2f(200.f, 20.f), sf::Color::Red, pPlayer1);
 }
 
 
@@ -66,6 +76,8 @@ void Stage::createPlayer2(sf::Vector2f pos) {
     Entities::Characters::Enemies::setPlayer2(pPlayer2);
     Entities::Obstacles::Obstacle::setPlayer2(pPlayer2);
     pGraphic->setPlayer2(pPlayer2);
+
+    hpBar2 = new Entities::HealthBar(sf::Vector2f(1060.f, 20.f), sf::Vector2f(200.f, 20.f), sf::Color::Blue, pPlayer2);
 }
 
 
@@ -118,6 +130,17 @@ void Stage::draw(sf::RenderWindow* window) {
     characterList->drawAll(window);
     obstacleList->drawAll(window);
     structureList->drawAll(window);
+
+    // desenha a barra de vida
+    window->setView(window->getDefaultView());
+    if(hpBar1 && pPlayer1 && pPlayer1->getIsAlive()) {
+        hpBar1->draw(window);
+    }
+    if(hpBar2 && pPlayer2 && pPlayer2->getIsAlive()) {
+        hpBar2->draw(window);
+    }
+
+    window->setView(currentView); // restaura a view do jogo
 }
 
 
@@ -134,13 +157,21 @@ void Stage::execute() {
     structureList->executeAll();
     obstacleList->executeAll();
 
+    if(hpBar1) {
+        hpBar1->update();
+    }
+    if(hpBar2) {
+        hpBar2->update();
+    }
+
     for(int i = chars->getSize() - 1; i  >= 0; i--) {
         Entities::Entity* ent = (*chars)[i];
 
         if(!ent->getIsAlive()) {
             if(ent->getTypeId() == Entities::IDs::player) {
                 // para tela de gameover
-                Managers::StateManager::getStateManager()->addState(6);
+                // Managers::StateManager::getStateManager()->addState(6);
+                // para dois jogadores não funciona
             } else {
                 pCollision->removeEntity(ent);
                 chars->removeEntity(i);
@@ -153,6 +184,14 @@ void Stage::execute() {
     }
 
     pCollision->run();
+
+    bool p1Dead = (pPlayer1 && !pPlayer1->getIsAlive());
+    bool p2Dead = (pPlayer2 && !pPlayer2->getIsAlive());
+    bool p2Exists = (pPlayer2 != nullptr);
+
+    if(p1Dead && (p2Exists || p2Dead)) {
+        Managers::StateManager::getStateManager()->addState(6);
+    }
 }
 
 

@@ -8,11 +8,10 @@
 namespace Entities::Obstacles {
     class MudHand : public Obstacle {
         private:
-            Animation::Animator animation;
-            int damageAmount;
             float slowDuration;
+            Animation::Animator animation;
             sf::Texture texture;
-
+            
 
         private:
             void initialize();
