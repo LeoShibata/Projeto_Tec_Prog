@@ -11,7 +11,6 @@ namespace Entities::Characters {
     class Player : public Character {
         private:
             int playerID;
-            float jump_h; // verificar esse atributo
             float jumpSpeed;
             bool isTakingDamage;
             Stages::Stage* pStage;

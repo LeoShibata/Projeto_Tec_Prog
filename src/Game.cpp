@@ -4,6 +4,7 @@
 
     
 using json = nlohmann::json;
+using namespace std;
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),

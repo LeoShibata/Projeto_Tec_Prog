@@ -7,6 +7,7 @@
 #include "Entities/Characters/Enemies/Bat.hpp"
 
 using json = nlohmann::json;
+using namespace std;
 
 namespace Stages {
 

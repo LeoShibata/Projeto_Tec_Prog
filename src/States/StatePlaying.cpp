@@ -1,4 +1,5 @@
 #include "States/StatePlaying.hpp"
+#include "Managers/StateManager.hpp"
 
 // here i decide to put a connection with stage by pointer instead of heritance
 // thats because i really wanted to try and play with passing pointers using singleton, and
@@ -20,10 +21,10 @@ StatePlaying::StatePlaying(int idStage) :
 }
 
 
-StatePlaying::~StatePlaying(){
+StatePlaying::~StatePlaying() {
     State::pGraphic->clearWindow();
 
-    while (!(stages.empty()))
+    while(!(stages.empty()))
     {
         delete(stages.front());
         stages.front() = nullptr;
@@ -34,14 +35,12 @@ StatePlaying::~StatePlaying(){
 
 
 void StatePlaying::createStage() {
-    if(idStage == 1){
+    if(idStage == 1) {
         Stages::Stage* newStage = static_cast<Stages::Stage*>(new Stages::Graveyard());
         stages.push(newStage);
-        // cout <<" added newstage" << endl;
-    }else{
+    } else {
         Stages::Stage* newStage = static_cast<Stages::Stage*>(new Stages::Castle());
         stages.push(newStage);
-        // cout <<" added newstage" << endl;
     }
 }
 
@@ -50,13 +49,16 @@ void StatePlaying::loadStage() { }
 
 
 void StatePlaying::execute() {
-    // cout <<" executed state" << stages.front() <<endl;
     if(stages.empty()) {
-        // cout << "No stages available!" << endl;
         return;
     }
     stages.front()->execute();
     stages.front()->draw(pGraphic->getWindow());
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && inputClock.getElapsedTime().asSeconds() > 0.2f) {
+        pStateManager->addState(3); // add pause (ID 3)
+        inputClock.restart();
+    }
 }
 
 }

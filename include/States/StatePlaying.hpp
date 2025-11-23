@@ -13,8 +13,10 @@ namespace States {
             static int playersCount;
             
         private:
-            queue<Stages::Stage*> stages;
+            std::queue<Stages::Stage*> stages;
             int idStage;
+
+            sf::Clock inputClock;
 
             
         public:
@@ -25,8 +27,6 @@ namespace States {
             void execute();
             //void draw();
             //getAtualStage
-
-            
     };
 }
 

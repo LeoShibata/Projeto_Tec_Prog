@@ -55,6 +55,7 @@ States::State* StateManager::getAtualState() {
 
 
 void StateManager::addState(const int idStateType) {
+    std::cout << "[DEBUG] Adicionando Estado ID: " << idStateType << std::endl;
     States::State* newState = nullptr;
     switch(idStateType) {
         case 0:
@@ -101,7 +102,7 @@ void StateManager::addState(const int idStateType) {
 
 void StateManager::removeState(const int qtd) {
     int i = 0;
-    while(!(stateStack.empty()) && (i < qtd)){
+    while(!stateStack.empty() && (i < qtd)){
         States::State* auxState = stateStack.top();
         if(auxState != nullptr){
             delete (auxState);
@@ -111,7 +112,7 @@ void StateManager::removeState(const int qtd) {
         i++;
     }
 
-    if (stateStack.empty()){
+    if(stateStack.empty()){
         Managers::GraphicManager* pGraphic = pGraphic->getGraphicManager();
         pGraphic->closeWindow();
     }
@@ -119,12 +120,13 @@ void StateManager::removeState(const int qtd) {
 
 
 void StateManager::removeState() {
-    if((stateStack.top() != nullptr) && !(stateStack.empty())){
-        delete (stateStack.top());
+    std::cout << "[DEBUG] Removendo Estado do topo." << std::endl;
+    if((!stateStack.empty() && stateStack.top() != nullptr)) {
+        delete(stateStack.top());
         stateStack.top() = nullptr;
         stateStack.pop();
     }
-    if (stateStack.empty()) {
+    if(stateStack.empty()) {
         Managers::GraphicManager* pGraphic = pGraphic->getGraphicManager();
         pGraphic->closeWindow();
     }

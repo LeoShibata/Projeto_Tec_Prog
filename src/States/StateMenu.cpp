@@ -83,6 +83,7 @@ void StateMenu::execute(){
                 pStateManager->addState(4);   // novo jogo: vai para seleção de players (ID 4)
             } else if (currentOption == 1) {
                 pStateManager->removeState(); // SAIR
+                return;
             }
             inputClock.restart();
         }

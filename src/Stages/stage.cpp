@@ -9,7 +9,6 @@ using namespace std;
 
 namespace Stages {
 
-
 Stage::Stage() : 
     Being(sf::Vector2f(0,0)),
     pEvent(Managers::EventManager::getEventManager()),
@@ -19,9 +18,9 @@ Stage::Stage() :
     obstacleList(new List::EntityList()),
     structureList(new List::EntityList()),
     projectileList(new List::EntityList()),
-    hpBar1(nullptr),
-    hpBar2(nullptr),
-    max_bats(20), max_obstacles(12)
+    hpBar1(nullptr), hpBar2(nullptr),
+    max_bats(20), max_obstacles(12), 
+    gameOver(false)
 { 
     pCollision = new Managers::CollisionManager();
     Entities::Characters::Enemies::clearPlayers(); // limpa jogadores estáticos de enemies
@@ -189,10 +188,10 @@ void Stage::execute() {
     bool p2Dead = (pPlayer2 && !pPlayer2->getIsAlive());
     bool p2Exists = (pPlayer2 != nullptr);
 
-    if(p1Dead && (p2Exists || p2Dead)) {
+    if(!gameOver && p1Dead && (!p2Exists || p2Dead)) {
+        gameOver = true;
         Managers::StateManager::getStateManager()->addState(6);
     }
 }
-
 
 }

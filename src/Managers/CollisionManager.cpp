@@ -1,8 +1,9 @@
 #include "Managers/CollisionManager.hpp"
 #include <Entities/Entity.hpp>
 
-namespace Managers {
+using namespace std;
 
+namespace Managers {
 
 CollisionManager::CollisionManager() : 
     pPlayer1(nullptr),
@@ -326,6 +327,5 @@ void CollisionManager::run() {
     verifyProjectEnemies();
     verifyProjectPlayers();
 }
-
 
 }

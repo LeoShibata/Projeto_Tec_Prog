@@ -65,6 +65,8 @@ namespace Stages {
             const int max_obstacles;
             static const int tileSize = 32;
 
+            bool gameOver; // para garantir que gameOver seja chamado apenas uma vez
+
             
         protected:
             void createPlayer1(sf::Vector2f pos);

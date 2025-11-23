@@ -2,7 +2,7 @@
 #include "States/StatePlaying.hpp"
 
 using json = nlohmann::json;
-
+using namespace std;
 
 namespace Stages {
 

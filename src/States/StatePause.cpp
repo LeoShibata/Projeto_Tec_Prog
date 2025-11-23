@@ -8,6 +8,8 @@ namespace States {
 
 StatePause::StatePause() {
     // fundo escuro semi-transparente
+    std::cout << "[DEBUG] StatePause Criado" << std::endl;
+
     sf::Vector2u windowSize = pGraphic->getWindow()->getSize();
     background.setSize(sf::Vector2f(windowSize.x, windowSize.y));
     background.setFillColor(sf::Color(0, 0, 0, 150));
@@ -38,6 +40,7 @@ StatePause::StatePause() {
 
 
 StatePause::~StatePause() { 
+    std::cout << "[DEBUG] StatePause Destruido" << std::endl;
     for(int i = 0; i < buttons.size(); i++) {
         Entities::Button* btn = buttons[i];
         delete btn;
@@ -85,9 +88,11 @@ void StatePause::execute(){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             if(currentOption == 0) { // RESUME
                 pStateManager->removeState(); // Remove o Pause, volta pro Jogo
+                return;
             } 
             else if (currentOption == 1) { // QUIT TO MENU
                 pStateManager->removeState(2); 
+                return;
             }
             inputClock.restart();
         }

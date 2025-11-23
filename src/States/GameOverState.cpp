@@ -81,6 +81,7 @@ void GameOverState::execute() {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             if(currentOption == 0) { 
                 pStateManager->removeState(2); 
+                return;
             } 
             else if (currentOption == 1) { 
                 pGraphic->closeWindow();

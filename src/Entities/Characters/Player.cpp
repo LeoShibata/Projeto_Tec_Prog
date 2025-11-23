@@ -162,6 +162,9 @@ void Player::updateAnimation() {
 
 
 void Player::takeDamage(int damage) {
+    if(!isAlive) {
+        return;
+    }
     Character::takeDamage(damage);
     isTakingDamage = true;
 }
