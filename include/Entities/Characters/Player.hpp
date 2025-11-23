@@ -12,6 +12,7 @@ namespace Entities::Characters {
         private:
             int playerID;
             float jumpSpeed;
+            float currentDamageMultiplier;
             bool isTakingDamage;
             Stages::Stage* pStage;
             
@@ -32,6 +33,7 @@ namespace Entities::Characters {
             virtual ~Player();
             
             void jump();
+            void setDamageMultiplier(float mult);
             void applySlow(float duration);
             void attack();
             bool getIsAttacking() const;

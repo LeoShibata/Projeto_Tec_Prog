@@ -5,17 +5,21 @@ using namespace std;
 
 namespace Entities::Obstacles {
 
-
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
-    Obstacle(position, size, 0.f), anti_gravity(5.f)
+    Obstacle(position, size, 0.f), damageMultiplier(2.f)
 {
-    // typeId = IDs::platform;
+    typeId = IDs::platform;
     body.setFillColor(sf::Color::Transparent);
     onGround = true;
 }
 
 
 Platform::~Platform() { }
+
+
+const float Platform::getDamageMultiplier() const {
+    return damageMultiplier;
+}
 
 
 void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) {
@@ -33,9 +37,8 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
 
         // pousou no chão
         if(ds < 0) { 
-            pPlayer->setVelocity(sf::Vector2f(pPlayer->getVelocity().x, pPlayer->getVelocity().y*anti_gravity));
-
             pPlayer->setOnGround(true);
+            pPlayer->setDamageMultiplier(this->damageMultiplier);
         }
         //cout <<ds << " colisao  obstaculo vertical" <<endl;
         pPlayer->adjustPosition(sf::Vector2f(0.f, ds));
@@ -69,6 +72,5 @@ void Platform::execute() {
     update();
 }
 
-
-}
+} // namespace Entities 
 

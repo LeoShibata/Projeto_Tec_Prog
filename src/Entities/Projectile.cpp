@@ -1,8 +1,11 @@
 #include "Entities/Projectile.hpp"
+#include "Entities/Obstacles/Platform.hpp"
+
 #include <iostream>
 
-using namespace Entities;
 using namespace std;
+
+namespace Entities {
 
 Projectile::Projectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity) : 
     Entity(position, size, speed), isErasable(false),
@@ -48,8 +51,8 @@ void Projectile::initialize() {
 
 void Projectile::damageEntity(Entity* other) {
     if (whoShot == 1) {
-        cout<< "player atirou" << endl;
-    
+        // cout<< "player atirou" << endl;
+        
         switch (other->getTypeId())
         {
             case IDs::enemy :
@@ -67,17 +70,17 @@ void Projectile::damageEntity(Entity* other) {
                 removeProjectile();
             }
     } else {
-        switch (other->getTypeId())
-        {
-        case IDs::player :
-            static_cast<Entities::Characters::Player*> (other)->takeDamage(damage);
-            removeProjectile();
-            break;
-        case IDs::enemy :
-            break;
-        default:
-            removeProjectile();
-            break;
+        switch (other->getTypeId()) {
+            case IDs::player :
+                static_cast<Entities::Characters::Player*> (other)->takeDamage(damage);
+                removeProjectile();
+                break;
+            case IDs::enemy :
+                break;
+
+            default:
+                removeProjectile();
+                break;
         }
     }
 }
@@ -124,3 +127,5 @@ void Projectile::execute() {
     update();
     //animation after
 }
+
+} // namespace Entities 

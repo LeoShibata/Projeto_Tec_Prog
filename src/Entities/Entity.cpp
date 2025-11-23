@@ -33,8 +33,8 @@ void Entity::updateDt() {
     clock.restart();
     
     // limita dt para não quebrar a física
-    if(dt > 0.02f) { 
-        dt = 0.1f;
+    if(dt > 0.05f) { 
+        dt = 0.05f;
     }
 }
 

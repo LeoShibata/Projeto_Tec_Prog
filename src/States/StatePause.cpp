@@ -66,7 +66,7 @@ void StatePause::execute(){
 
     draw();
 
-    if(inputClock.getElapsedTime().asSeconds() > 0.2f) {
+    if(inputClock.getElapsedTime().asSeconds() > 0.5f) {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             buttons[currentOption]->select(false);
             currentOption--;

@@ -28,6 +28,11 @@ Stage::Stage() :
 
 
 Stage::~Stage() {
+    if(pGraphic) {
+        pGraphic->setPlayer1(nullptr);   
+        pGraphic->setPlayer2(nullptr);   
+    }
+
     if(pCollision) {
         delete pCollision;
         pCollision = nullptr;

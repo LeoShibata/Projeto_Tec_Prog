@@ -31,12 +31,13 @@ void Player::initialize() {
 Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerID) :
     Character(position, size, 100.f), playerID(playerID), jumpSpeed(450.f),
     pStage(nullptr), isShooting(false), shootingCooldown(0.45f),
-    isSlowed(false), slowDuration(0.f)  
+    isSlowed(false), slowDuration(0.f) 
 {    
     initialize();
     typeId = IDs::player;
     health = 600;
     speed_mod = 250.f;
+    currentDamageMultiplier = 1.f;
     isTakingDamage = false;
 
     attackDuration = 0.3f;
@@ -55,6 +56,11 @@ void Player::jump() {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
+}
+
+
+void Player::setDamageMultiplier(float mult) {
+    currentDamageMultiplier = mult;
 }
 
 
@@ -94,7 +100,10 @@ void Player::shoot() {
         if(isMovingLeft) {
             speed *= -1;
         }
-        pStage->createProjectile(sf::Vector2f(10, 10), 10, speed, 400, body.getPosition(), getTypeId(), true);
+
+        int finalDamage = static_cast<int>(100 * currentDamageMultiplier);
+        pStage->createProjectile(sf::Vector2f(10, 10), finalDamage, speed, 400, body.getPosition(), getTypeId(), true);
+
         isShooting = true; //for animation
     }
 }
@@ -178,6 +187,8 @@ void Player::move() {
 
 
 void Player::update() {
+    currentDamageMultiplier = 1.0f; // reseta o buff
+
     if(isTakingDamage) {
         if(damageTimer.getElapsedTime().asSeconds() > damageAnimationDuration) {
             isTakingDamage = false;
