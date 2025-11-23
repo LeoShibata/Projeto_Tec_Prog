@@ -33,7 +33,9 @@ namespace Entities::Characters {
             
             void move() override;
             void execute() override;
-            void collision(Entities::Entity* other, float ds, int collisionType) override;    
+            void collision(Entities::Entity* other, float ds, int collisionType) override;
+            
+            nlohmann::json save() override;
     };
 }
 

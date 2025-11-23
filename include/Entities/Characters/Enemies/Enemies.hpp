@@ -54,7 +54,7 @@ namespace Entities::Characters {
             virtual void checkPlayerAttack();
             
             virtual void update() override;
-            
+
             virtual void move() = 0;
             virtual void execute() = 0;
         };

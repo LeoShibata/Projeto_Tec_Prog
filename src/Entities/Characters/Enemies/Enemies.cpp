@@ -155,6 +155,5 @@ void Enemies::update() {
     }
 }
 
-
 }
 

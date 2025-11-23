@@ -12,20 +12,28 @@
 namespace States {
 
 int StatePlaying::playersCount = 1;
+Stages::Stage* StatePlaying::pCurrentStage = nullptr;
 
 StatePlaying::StatePlaying(int idStage) : 
     idStage(idStage),
     stages()
 {
     createStage();
+
+    if(!stages.empty()) {
+        pCurrentStage = stages.front();
+    }
 }
 
 
 StatePlaying::~StatePlaying() {
+    if(pCurrentStage == stages.front()) {
+        pCurrentStage = nullptr;
+    }
+
     State::pGraphic->clearWindow();
 
-    while(!(stages.empty()))
-    {
+    while(!(stages.empty())) {
         delete(stages.front());
         stages.front() = nullptr;
         stages.pop();

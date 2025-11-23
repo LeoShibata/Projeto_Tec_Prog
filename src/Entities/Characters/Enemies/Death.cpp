@@ -194,4 +194,14 @@ void Death::collision(Entities::Entity* other, float ds, int collisionType) {
 }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Death::save() {
+    nlohmann::json j = saveCharacterState();
+    j["type"] = "death";
+    return j;
+}
+
+// -------------------------------------------------------
+
 }

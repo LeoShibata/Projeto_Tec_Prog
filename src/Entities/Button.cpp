@@ -43,4 +43,15 @@ void Button::update() { }
 void Button::collision(Entity* other, float over, int collisionType) { }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Button::save() {
+    nlohmann::json j;
+    j["type"] = "button";
+    return j; // apenas para satisfazer o compilador
+}
+
+// -------------------------------------------------------
+
+
 }

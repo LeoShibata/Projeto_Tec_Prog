@@ -24,6 +24,8 @@ namespace Entities::Characters {
             float slowDuration;
             sf::Clock slowTimer;
 
+            int score;
+
 
         private:
             void initialize();
@@ -41,12 +43,17 @@ namespace Entities::Characters {
             void updateAnimation();
             void collision(Entities::Entity* other, float ds, int collisionType);
             void setStage(Stages::Stage* pStage);
-            void shoot();
+            void shoot();   
+
+            void addScore(int points);
+            int getScore() const;
 
             void takeDamage(int damage) override;
             void move() override;
             void update() override;
             void execute() override;
+
+            nlohmann::json save() override;
     };
 }
 

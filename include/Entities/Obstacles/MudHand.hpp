@@ -26,6 +26,8 @@ namespace Entities::Obstacles {
             void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) override;
 
             void execute() override;
+
+            nlohmann::json save() override;
     };
 }
 

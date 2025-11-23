@@ -199,4 +199,172 @@ void Stage::execute() {
     }
 }
 
+
+// ---------------- Métodos de Salvamento ----------------
+
+void Stage::saveGame() {
+    nlohmann::json j;
+
+    if(pPlayer1) {
+        j["entities"].push_back(pPlayer1->save());
+    }
+    if(pPlayer2) {
+        j["entities"].push_back(pPlayer2->save());
+    }
+    
+    // salva inimigos e outros da characterList 
+    for(int i = 0; i < characterList->getSize(); i++) {
+        Entities::Entity* ent = (*characterList)[i];
+        
+        // evita salvar projéteis ou players novamente
+        if(ent->getTypeId() != Entities::IDs::player && ent->getTypeId() != Entities::IDs::projectile) {
+            j["entities"].push_back(ent->save());
+        }
+    }
+
+    // salvar obstaculos
+    for(int i = 0; i < obstacleList->getSize(); i++) {
+        j["entities"].push_back((*obstacleList)[i]->save());
+    }
+
+    // escrever no arquivo 
+    std::ofstream o("savegame.json");
+    o << std::setw(4) << j << std::endl;
+    std::cout << "Game Saved Successfully" << std::endl;
+}
+
+
+void Stage::loadGame() {
+    std::ifstream i("savegame.json");
+    if(!i.is_open()) {
+        std::cout << "WARNING: Savegame not found or error opening." << std::endl;
+        return;
+    }
+
+    nlohmann::json j;
+    i >> j;
+    i.close(); 
+
+    // Limpar o mapa atual
+    clearEntity();
+
+    nlohmann::json& entitiesList = j["entities"]; 
+    for(size_t i = 0; i < entitiesList.size(); i++) {
+        nlohmann::json& element = entitiesList[i]; 
+
+        std::string type = element["type"];
+        float x = element["x"];
+        float y = element["y"];
+        
+        try {
+            if(type == "player") {
+                int pid = element["playerId"]; // para saber se é do jogador 1 ou 2 
+
+                // Se os players já existem, apenas atualizar estado
+                if(pid == 1 && pPlayer1) {
+                    pPlayer1->loadCharacterState(element);
+                    pPlayer1->setPos(sf::Vector2f(x, y));
+                    if(element.contains("score")) {
+                        pPlayer1->addScore(element["score"]);
+                    }
+                } else if (pid == 2 && pPlayer2) {
+                    pPlayer2->loadCharacterState(element);
+                    pPlayer2->setPos(sf::Vector2f(x, y));
+                    if(element.contains("score")) {
+                        pPlayer2->addScore(element["score"]);
+                    }
+                } else {
+                    // Se não existem
+                    if(pid == 1) { 
+                        createPlayer1(sf::Vector2f(x, y)); 
+                        pPlayer1->loadCharacterState(element);
+                    }
+                    else { 
+                        createPlayer2(sf::Vector2f(x, y));
+                        pPlayer2->loadCharacterState(element);
+                    }
+                }
+            }
+            else if(type == "skeleton") {
+                Entities::Characters::Skeleton* s = new Entities::Characters::Skeleton(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize), 10);
+                s->loadCharacterState(element);
+                s->setPlayer1(pPlayer1); 
+                if(pPlayer2) {
+                    s->setPlayer2(pPlayer2);
+                }
+                characterList->addEntity(s);
+                pCollision->includeEntity(s);
+            }
+            else if(type == "bat") {
+                Entities::Characters::Bat* b = new Entities::Characters::Bat(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize), 10);
+                b->loadCharacterState(element);
+                b->setPlayer1(pPlayer1);
+                characterList->addEntity(b);
+                pCollision->includeEntity(b);
+            }
+            else if(type == "death") {
+                Entities::Characters::Death* d = new Entities::Characters::Death(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize), 10);
+                d->loadCharacterState(element);
+                d->setStage(this); 
+                d->setPlayer1(pPlayer1);
+                characterList->addEntity(d);
+                pCollision->includeEntity(d);
+            }
+            else if(type == "platform") {
+                Entities::Obstacles::Platform* p = new Entities::Obstacles::Platform(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize));
+                obstacleList->addEntity(p);
+                pCollision->includeEntity(p);
+            }
+            else if(type == "spike") {
+                Entities::Obstacles::Spike* s = new Entities::Obstacles::Spike(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize));
+                obstacleList->addEntity(s);
+                pCollision->includeEntity(s);
+            }
+            else if(type == "mudhand") {
+                Entities::Obstacles::MudHand* m = new Entities::Obstacles::MudHand(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize));                
+                obstacleList->addEntity(m);
+                pCollision->includeEntity(m);
+            }
+        } catch (const std::exception& e) {
+            std::cout << "Error loading entity of type: " << type << ": " << e.what() << std::endl;
+        }
+    }
+    
+    std::cout << "Game Successfully Loaded!" << std::endl;
+}
+
+
+void Stage::clearEntity() {
+    if (characterList) {
+        for (int i = characterList->getSize() - 1; i >= 0; i--) {
+            Entities::Entity* ent = (*characterList)[i];
+            if (ent) {
+                // Não é deletado os players aqui pois o loadGame cuida de recriar eles ou atualizar estado
+                if (ent->getTypeId() == Entities::IDs::player) {
+                    continue; 
+                }
+                
+                pCollision->removeEntity(ent);
+                characterList->removeEntity(i);
+
+                delete ent; 
+            }
+        }
+    }
+
+    // Limpa obstáculos
+    if (obstacleList) {
+        for (int i = obstacleList->getSize() - 1; i >= 0; i--) {
+            Entities::Entity* ent = (*obstacleList)[i];
+            if (ent) {
+                pCollision->removeEntity(ent);
+                obstacleList->removeEntity(i);
+                delete ent;
+            }
+        }
+    }
+}
+// -------------------------------------------------------
+
+
 }

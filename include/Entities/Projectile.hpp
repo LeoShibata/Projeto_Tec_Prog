@@ -36,6 +36,8 @@ class Projectile : public Entity{
         //for now, the projectile will damage everything;
         void updateAnimation();
         void initialize();
+
+        nlohmann::json save() override;
 };
 
 }

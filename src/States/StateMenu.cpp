@@ -1,4 +1,5 @@
 #include "States/StateMenu.hpp"
+#include "States/StatePlaying.hpp"
 #include "Managers/StateManager.hpp"
 #include "Managers/GraphicManager.hpp" // Make sure to include this
 
@@ -30,7 +31,8 @@ StateMenu::StateMenu() :
     }
 
     buttons.push_back(new Entities::Button(sf::Vector2f(550, 300), "New Game"));
-    buttons.push_back(new Entities::Button(sf::Vector2f(550, 400), "Exit"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 400), "Load Game"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 500), "Exit"));
 
     if(!buttons.empty()) {
         buttons[0]->select(true);
@@ -79,10 +81,16 @@ void StateMenu::execute(){
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-            if(currentOption == 0) {
-                pStateManager->addState(4);   // novo jogo: vai para seleção de players (ID 4)
-            } else if (currentOption == 1) {
-                pStateManager->removeState(); // SAIR
+            if(currentOption == 0) { // NEW GAME
+                pStateManager->addState(4);   // vai para seleção de players (ID 4)
+            } else if(currentOption == 1) { // LOAD GAME
+                pStateManager->addState(1); 
+
+                if(States::StatePlaying::pCurrentStage) {
+                    States::StatePlaying::pCurrentStage->loadGame();
+                }
+            } else if (currentOption == 2) { // EXIT
+                pStateManager->removeState(); 
                 return;
             }
             inputClock.restart();

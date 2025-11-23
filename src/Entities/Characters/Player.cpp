@@ -45,6 +45,8 @@ Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerI
 
     damageCooldown = 1.f;
     damageAnimationDuration = 0.2f;
+
+    score = 0;
 }
 
 
@@ -170,6 +172,21 @@ void Player::updateAnimation() {
 }
 
 
+// ---------------- Métodos para Pontuação ----------------
+
+void Player::addScore(int points) {
+    score += points;
+    cout << "Score atual: " << score << endl;
+}
+
+
+int Player::getScore() const {
+    return score;
+}
+
+// --------------------------------------------------------
+
+
 void Player::takeDamage(int damage) {
     if(!isAlive) {
         return;
@@ -279,5 +296,19 @@ void Player::collision(Entities::Entity* other, float ds, int collisionType) {
             break;
     }
 }
+
+
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Player::save() {
+    nlohmann::json j = saveCharacterState();
+    j["type"] = "player";
+    j["playerId"] = playerID;
+    j["currentDamageMultiplier"] = currentDamageMultiplier;
+    j["score"] = score;
+    return j;
+}
+
+// -------------------------------------------------------
 
 }

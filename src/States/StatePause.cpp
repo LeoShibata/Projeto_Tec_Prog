@@ -1,4 +1,5 @@
 #include "States/StatePause.hpp"
+#include "States/StatePlaying.hpp"
 #include "Managers/StateManager.hpp"
 #include "Managers/GraphicManager.hpp" 
 
@@ -31,7 +32,8 @@ StatePause::StatePause() {
 
     // cria botões 
     buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x / 2.f, 350), "Resume"));
-    buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x / 2.f, 450), "Quit to Menu"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x / 2.f, 450), "Save Game"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x / 2.f, 550), "Quit to Menu"));
 
     if(!buttons.empty()) {
         buttons[0]->select(true);
@@ -63,7 +65,6 @@ void StatePause::draw() {
 void StatePause::execute(){
     // centraliza camera
     resetView();
-
     draw();
 
     if(inputClock.getElapsedTime().asSeconds() > 0.5f) {
@@ -80,7 +81,9 @@ void StatePause::execute(){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             buttons[currentOption]->select(false);
             currentOption++;
-            if(currentOption >= buttons.size()) currentOption = 0;
+            if(currentOption >= buttons.size()) {
+                currentOption = 0;
+            }
             buttons[currentOption]->select(true);
             inputClock.restart();
         }
@@ -90,7 +93,14 @@ void StatePause::execute(){
                 pStateManager->removeState(); // Remove o Pause, volta pro Jogo
                 return;
             } 
-            else if (currentOption == 1) { // QUIT TO MENU
+            else if (currentOption == 1) { // SAVE GAME
+                if(States::StatePlaying::pCurrentStage) {
+                    States::StatePlaying::pCurrentStage->saveGame();
+                } else {
+                    cout << "ERROR: No stage found to save" << endl;
+                }
+            }
+            else if (currentOption == 2) { // QUIT TO MENU
                 pStateManager->removeState(2); 
                 return;
             }

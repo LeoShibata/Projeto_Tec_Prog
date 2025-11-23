@@ -67,7 +67,10 @@ namespace Stages {
 
             bool gameOver; // para garantir que gameOver seja chamado apenas uma vez
 
-            
+        
+        private:
+            void clearEntity(); // auxiliar para limpar o mapa antes de carregar
+
         protected:
             void createPlayer1(sf::Vector2f pos);
             void createPlayer2(sf::Vector2f pos);
@@ -83,8 +86,11 @@ namespace Stages {
             void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity);
 
             void draw(sf::RenderWindow* window);
+
+            void saveGame();
+            void loadGame();
+
             void execute() override;
-            
     };
 }
 

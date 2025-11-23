@@ -25,6 +25,8 @@ namespace Entities {
             void execute() override;
             void update() override;
             void collision(Entity* other, float over, int collisionType) override;
+
+            nlohmann::json save() override;
     };
 }
 

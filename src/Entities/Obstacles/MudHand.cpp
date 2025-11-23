@@ -43,5 +43,15 @@ void MudHand::execute() {
     update();
 }
 
-    
+
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json MudHand::save() {
+    nlohmann::json j = saveEntityState();
+    j["type"] = "mudhand";
+    return j;
+}
+
+// -------------------------------------------------------
+
 }

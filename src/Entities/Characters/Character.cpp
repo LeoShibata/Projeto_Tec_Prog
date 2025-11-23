@@ -94,4 +94,23 @@ void Character::execute() {
 }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Character::saveCharacterState() const {
+    nlohmann::json j = saveEntityState();
+    j["health"] = health;
+    j["isAlive"] = isAlive;
+    j["isMovingLeft"] = isMovingLeft;
+    return j;
+}
+
+void Character::loadCharacterState(const nlohmann::json& j) {
+    loadEntityState(j); // carrega posição
+    health = j["health"];
+    isAlive = j["isAlive"];
+    isMovingLeft = j["isMovingLeft"];
+}
+
+// -------------------------------------------------------
+
 }
