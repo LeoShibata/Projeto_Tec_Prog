@@ -158,8 +158,7 @@ void GameOverState::execute() {
                 inputClock.restart();
             }
         }
-    
-        }
+    }
 }
 
 }

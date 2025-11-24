@@ -20,7 +20,7 @@ StateMenu::StateMenu() :
         titleText.setFont(font);
         titleText.setString("MOONLIGHT"); // Nome do jogo
         titleText.setCharacterSize(120);
-        titleText.setFillColor(sf::Color::Blue); // Cor de destaque
+        titleText.setFillColor(sf::Color::White); // Cor de destaque
         titleText.setOutlineColor(sf::Color::Black);
         titleText.setOutlineThickness(5);
         
