@@ -51,8 +51,8 @@ void EventManager::run() {
     {
         if(event.type == sf::Event::Closed)
             pGraphic->closeWindow();
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-            pGraphic->closeWindow();
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+        //     pGraphic->closeWindow();
 
         if(pPlayer1 != nullptr) {
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {

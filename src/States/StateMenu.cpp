@@ -51,6 +51,10 @@ StateMenu::~StateMenu() {
 
 void StateMenu::execute(){
     resetView();
+
+    if(inputClock.getElapsedTime().asSeconds() > 1.f) {
+        inputClock.restart();
+    }
     
     pGraphic->getWindow()->draw(background);
     pGraphic->getWindow()->draw(titleText);
@@ -98,6 +102,10 @@ void StateMenu::execute(){
             }
             inputClock.restart();
         }
+
+        // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        //     pGraphic->closeWindow();
+        // }
     }
 }
 

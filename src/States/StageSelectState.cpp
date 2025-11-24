@@ -77,6 +77,10 @@ void StageSelectState::execute() {
             pStateManager->removeState();
             pStateManager->addState(idFase);
         }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            pStateManager->removeState();
+            inputClock.restart();
+        }
     }
 }
 

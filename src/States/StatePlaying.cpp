@@ -64,7 +64,9 @@ void StatePlaying::execute() {
     stages.front()->execute();
     stages.front()->draw(pGraphic->getWindow());
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && inputClock.getElapsedTime().asSeconds() > 0.5f) {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && 
+        inputClock.getElapsedTime().asSeconds() > 0.5f) 
+    {
         pStateManager->addState(3); // add pause (ID 3)
         inputClock.restart();
     }

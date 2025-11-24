@@ -82,6 +82,10 @@ void PlayerSelectState::execute() {
             pStateManager->removeState(); // para botao voltar    
             pStateManager->addState(5); // vai para seleção de fase
         }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            pStateManager->removeState();
+            inputClock.restart();
+        }
     }
 }
 
