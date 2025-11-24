@@ -13,7 +13,7 @@ endif()
 configure_file(config.h.in config.h)
 
 # Find SFML package
-find_package(SFML 2.5
+find_package(SFML 2.6
   COMPONENTS
     system window graphics network audio REQUIRED)
 

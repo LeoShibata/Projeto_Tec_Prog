@@ -90,14 +90,8 @@ void StateMenu::execute(){
                 pStateManager->addState(4);   
             } 
             else if(currentOption == 1) { // LOAD GAME
-                // 1. Create StatePlaying (It defaults to Stage 1 internally)
                 pStateManager->addState(1); 
-                
-                // 2. Get the StatePlaying instance
-                // We cast the current state to StatePlaying to access 'loadStage'
                 States::StatePlaying* playingState = static_cast<States::StatePlaying*>(pStateManager->getAtualState());
-                
-                // 3. Tell it to check the file and swap maps if necessary
                 if(playingState) {
                     playingState->loadStage(); 
                 }                

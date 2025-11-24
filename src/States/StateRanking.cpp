@@ -31,7 +31,6 @@ StateRanking::StateRanking() :
         scoreTexts.push_back(t);
     }
     
-    // Adicionar uma instrução para voltar!!!!!!!!!!!!
     sf::Text back;
     back.setFont(font);
     back.setString("Press ESC to return");
