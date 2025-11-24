@@ -9,7 +9,6 @@ namespace Entities::Characters {
         public: 
             bool isDying;
 
-
         protected:
             int health;
             bool isAlive;

@@ -12,13 +12,10 @@ class Projectile : public Entity{
     private:
         float maxrange;
         int damage;
-        //maybe a fancy math
         float maxtime;
         float distance;
-        bool isErasable; // CORRIGIR NOME
+        bool isErasable; 
         int whoShot;
-        //maybe add stage pointer
-        
         bool useGravity;
         
         

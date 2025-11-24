@@ -23,8 +23,8 @@ namespace States {
             StatePause();
             ~StatePause();
             
-            void execute();
             void draw() override;
+            void execute();
         };
 }
 

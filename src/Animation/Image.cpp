@@ -32,14 +32,14 @@ void Image::update(const bool isRight, const float delayTime) {
 
     if(animationTime >= frameTime) {
         animationTime -= frameTime;
-        atualImage++;
-        if(atualImage >= imagecounter) {
-            atualImage = 0;
+        currentImage++;
+        if(currentImage >= imagecounter) {
+            currentImage = 0;
         }
     }
 
-    int row = atualImage / numCols;
-    int col = atualImage % numCols;
+    int row = currentImage / numCols;
+    int col = currentImage % numCols;
 
     size.top = row * abs(size.height);
 
@@ -53,7 +53,7 @@ void Image::update(const bool isRight, const float delayTime) {
 }
 
 void Image::reset() {
-    atualImage = 0;
+    currentImage = 0;
     animationTime = 0;
 }
 

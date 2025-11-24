@@ -21,8 +21,8 @@ namespace States {
             StageSelectState();
             ~StageSelectState();
 
-            void execute() override;
             void draw() override;
+            void execute() override;
     };
 }
 

@@ -9,8 +9,8 @@
 namespace States {
     class StateRanking : public State {
         private:
-            sf::Text titleText;
             sf::Font font;
+            sf::Text titleText;
             sf::RectangleShape background;
             Managers::LeaderboardManager leaderboard;
             std::vector<sf::Text> scoreTexts;

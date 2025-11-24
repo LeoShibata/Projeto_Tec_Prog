@@ -39,13 +39,12 @@ namespace States {
         public:
             State(); //ID system, 
             virtual ~State();
-            virtual void execute() = 0;
             virtual void draw();
             void setRemove(const bool remove);
             const bool getRemove() const;
             
+            virtual void execute() = 0;
     };
-
 }
 
 #endif

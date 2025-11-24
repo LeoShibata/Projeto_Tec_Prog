@@ -36,6 +36,7 @@
 #include <list>
 
 class Player;
+
 namespace Stages {
     class Stage : public Being {
         protected:

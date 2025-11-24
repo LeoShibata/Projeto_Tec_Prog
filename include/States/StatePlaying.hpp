@@ -20,14 +20,12 @@ namespace States {
 
             
         public:
-            StatePlaying(int idStage); //ID system, 
+            StatePlaying(int idStage); //ID system
             ~StatePlaying();
             
             void createStage();
             void loadStage();
             void execute();
-            //void draw();
-            //getAtualStage
     };
 }
 
