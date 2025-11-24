@@ -9,15 +9,17 @@ StageSelectState::StageSelectState() :
     currentOption(0)
 {
     sf::Vector2u windowSize = pGraphic->getWindow()->getSize();
+    background.setSize(sf::Vector2f(windowSize.x, windowSize.y));
+    background.setFillColor(sf::Color(20, 20, 20));
     
     if(font.loadFromFile("../assets/fonts/OldeEnglish.ttf")) {
         titleText.setFont(font);
         titleText.setString("Choose Stage: ");
-        titleText.setCharacterSize(40);
+        titleText.setCharacterSize(60);
         titleText.setFillColor(sf::Color::White);
         sf::FloatRect rect = titleText.getLocalBounds();
         titleText.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
-        titleText.setPosition(windowSize.x/2.0f, 150);
+        titleText.setPosition(windowSize.x / 2.0f, 150);
     }
     
     if(!font.loadFromFile("../assets/fonts/OldeEnglish.ttf")) {
@@ -25,8 +27,8 @@ StageSelectState::StageSelectState() :
         exit(1);
     }
 
-    buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x/2.0f, 300), "Stage 1 - Graveyard"));
-    buttons.push_back(new Entities::Button(sf::Vector2f(windowSize.x/2.0f, 400), "Stage 2 - Castle"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 300), "Stage 1 - Graveyard"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 400), "Stage 2 - Castle"));
 
     if(!buttons.empty()) {
         buttons[0]->select(true);
@@ -37,10 +39,15 @@ StageSelectState::StageSelectState() :
 StageSelectState::~StageSelectState() { }
 
 
+void StageSelectState::draw() {
+    pGraphic->getWindow()->draw(background);
+    pGraphic->getWindow()->draw(titleText);
+}
+
+
 void StageSelectState::execute() { 
     resetView();
-    
-    pGraphic->getWindow()->draw(titleText);
+    draw();
     
     for(int i = 0; i < buttons.size(); i++) {
         Entities::Button* btn = buttons[i];
@@ -83,8 +90,5 @@ void StageSelectState::execute() {
         }
     }
 }
-
-
-void StageSelectState::draw() { }
 
 }

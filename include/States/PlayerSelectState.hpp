@@ -8,11 +8,12 @@
 namespace States {
     class PlayerSelectState : public State {    
         private:
+            sf::Font font;
+            sf::Text instructionText;
+            sf::RectangleShape background;
             std::vector<Entities::Button*> buttons;
             int currentOption;
             sf::Clock inputClock;
-            sf::Text instructionText;
-            sf::Font font;
 
             
         public:

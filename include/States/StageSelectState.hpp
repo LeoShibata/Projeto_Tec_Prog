@@ -10,11 +10,12 @@
 namespace States {
     class StageSelectState : public State {
         private:
+            sf::Font font;
+            sf::Text titleText;
+            sf::RectangleShape background;
             std::vector<Entities::Button*> buttons;
             int currentOption;
             sf::Clock inputClock;
-            sf::Text titleText;
-            sf::Font font;
         
         
         public:

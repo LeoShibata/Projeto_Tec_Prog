@@ -17,7 +17,7 @@ StatePause::StatePause() :
 
     sf::Vector2u windowSize = pGraphic->getWindow()->getSize();
     background.setSize(sf::Vector2f(windowSize.x, windowSize.y));
-    background.setFillColor(sf::Color(0, 0, 0, 150));
+    background.setFillColor(sf::Color(20, 20, 20));
 
     // carrega fonte e título
     if (!font.loadFromFile("../assets/fonts/OldeEnglish.ttf")) {
