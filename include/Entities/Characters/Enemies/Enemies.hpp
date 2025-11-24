@@ -30,6 +30,8 @@ namespace Entities::Characters {
             float attackDamageEnd;   // Tempo para a hitbox desativar
             bool hasAppliedDamage;
 
+            bool pointsGiven; // para corrigir pontuação
+
 
         private:
             void initialize();

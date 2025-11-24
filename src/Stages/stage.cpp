@@ -148,6 +148,16 @@ void Stage::draw(sf::RenderWindow* window) {
 }
 
 
+Entities::Characters::Player* Stage::getPlayer1() {
+    return pPlayer1;
+}
+
+
+Entities::Characters::Player* Stage::getPlayer2() {
+    return pPlayer2;
+}
+
+
 void Stage::execute() {
     // cout << "called the stage execute" << endl;
     

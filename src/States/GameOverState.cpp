@@ -3,6 +3,7 @@
 #include "States/StatePlaying.hpp"
 #include "Managers/StateManager.hpp"
 #include "Managers/GraphicManager.hpp"
+#include "Stages/Stage.hpp"
 
 namespace States {
 
@@ -51,17 +52,18 @@ GameOverState::GameOverState() :
     }
 
     
-    // Tenta recuperar o score do Player 1 da fase atual
     if(States::StatePlaying::pCurrentStage) {
-        // NOTA: Para isso funcionar 100%, você precisaria de um método publico getPlayer1() em Stage.hpp
-        // Como pPlayer1 é protected, isso aqui é um exemplo. Se não tiver o getter, use um valor fixo para teste.
+        auto p1 = States::StatePlaying::pCurrentStage->getPlayer1();
+        auto p2 = States::StatePlaying::pCurrentStage->getPlayer2();
         
-        // Exemplo se houver getter:
-        // auto p1 = States::StatePlaying::pCurrentStage->getPlayer1();
-        // if(p1) finalScore = p1->getScore();
+        if(p1) {
+            finalScore += p1->getScore();
+        }
+        if(p2) {
+            finalScore += p2->getScore();
+        }
         
-        // Por enquanto, gerando um aleatório para testar o ranking se não tiver getter implementado:
-        finalScore = rand() % 1000; 
+        // std::cout << "Final Score retrieved: " << finalScore << std::endl;
     }
 }
 

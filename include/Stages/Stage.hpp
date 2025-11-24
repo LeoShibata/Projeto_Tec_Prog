@@ -91,6 +91,9 @@ namespace Stages {
             void saveGame();
             void loadGame();
 
+            Entities::Characters::Player* getPlayer1();
+            Entities::Characters::Player* getPlayer2();
+
             void execute() override;
     };
 }

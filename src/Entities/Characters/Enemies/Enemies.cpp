@@ -16,7 +16,8 @@ void Enemies::initialize() { }
 Enemies::Enemies(const sf::Vector2f position, const sf::Vector2f size, int maldade):    
     Character(position, size, 10.f), nivel_maldade(maldade),
     isStunned(false), detectionRadiusSq(250.f * 250.f),
-    collisionCooldown(0.f), attackDamage(0)
+    collisionCooldown(0.f), attackDamage(0),
+    pointsGiven(false)
 {
     initialize();
     typeId = IDs::enemy;
@@ -87,13 +88,14 @@ void Enemies::checkPlayerAttack() {
 
 void Enemies::update() {
     if(isDying) {
-        if(isAlive) { // animação ainda rodando
+        if(!pointsGiven) { 
             if(pPlayer1) {
                 pPlayer1->addScore(100);
             }
             if(pPlayer2) {
                 pPlayer2->addScore(100);
             }
+            pointsGiven = true;
         }
 
         velocity = sf::Vector2f(0.f, 0.f);
