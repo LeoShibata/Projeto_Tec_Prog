@@ -10,14 +10,19 @@ namespace Stages {
 namespace Entities::Characters {
     class Death : public Enemies {
         private: 
-            float soul; // Mudar atributo
+            float shootCooldown;
+            sf::Clock shootTimer;
             Stages::Stage* pStage;
+
+            float regenCooldown;
+            sf::Clock regenTimer;
         
 
         private:
             void initialize();
 
             void attack() override;
+            void regenerate();
             sf::FloatRect getAttackHitbox() const override;
             void updateAnimation() override;
 

@@ -19,20 +19,21 @@ StateMenu::StateMenu() :
     if(font.loadFromFile("../assets/fonts/OldeEnglish.ttf")) {
         titleText.setFont(font);
         titleText.setString("MOONLIGHT"); // Nome do jogo
-        titleText.setCharacterSize(80);
-        titleText.setFillColor(sf::Color::Red); // Cor de destaque
+        titleText.setCharacterSize(120);
+        titleText.setFillColor(sf::Color::Blue); // Cor de destaque
         titleText.setOutlineColor(sf::Color::Black);
-        titleText.setOutlineThickness(3);
+        titleText.setOutlineThickness(5);
         
         // Centralizar
         sf::FloatRect textRect = titleText.getLocalBounds();
         titleText.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
-        titleText.setPosition(sf::Vector2f(windowSize.x / 2.0f, 100.0f)); // Mais no topo
+        titleText.setPosition(sf::Vector2f(windowSize.x / 2.0f, 140.0f)); // Mais no topo
     }
 
-    buttons.push_back(new Entities::Button(sf::Vector2f(550, 300), "New Game"));
-    buttons.push_back(new Entities::Button(sf::Vector2f(550, 400), "Load Game"));
-    buttons.push_back(new Entities::Button(sf::Vector2f(550, 500), "Exit"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 250), "New Game"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 350), "Load Game"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 450), "Leaderboard"));
+    buttons.push_back(new Entities::Button(sf::Vector2f(550, 550), "Exit"));
 
     if(!buttons.empty()) {
         buttons[0]->select(true);
@@ -85,11 +86,13 @@ void StateMenu::execute(){
                 pStateManager->addState(4);   // vai para seleção de players (ID 4)
             } else if(currentOption == 1) { // LOAD GAME
                 pStateManager->addState(1); 
-
                 if(States::StatePlaying::pCurrentStage) {
                     States::StatePlaying::pCurrentStage->loadGame();
                 }
-            } else if (currentOption == 2) { // EXIT
+            } else if (currentOption == 2) { // LEADERBOARD
+                pStateManager->addState(7); 
+                return;
+            } else if (currentOption == 3) { // EXIT
                 pStateManager->removeState(); 
                 return;
             }

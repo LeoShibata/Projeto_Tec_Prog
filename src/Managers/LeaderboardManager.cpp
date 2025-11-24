@@ -1,7 +1,6 @@
 #include "Managers/LeaderboardManager.hpp"
 
-namespace Managers
-{
+namespace Managers {
 
 LeaderboardManager::LeaderboardManager() {
     load();
@@ -42,25 +41,38 @@ void LeaderboardManager::save() {
     }
 
     std::ofstream o(filePath);
-    o << std::setw(4) << std::endl;
+    o << std::setw(4) << j << std::endl;
+    o.close();
 }
+
 
 void LeaderboardManager::load() {
     std::ifstream i(filePath);
 
     if(i.is_open()) {
-        nlohmann::json j;
-        i >> j;
-        scores.clear();
-
-        for(size_t k = 0; k < j.size(); k++) {
-            nlohmann::json& element = j[k];
-
-            std::string name = element["name"];
-            int score = element["score"];
-
-            scores.push_back({name, score});
+        if(i.peek() == std::ifstream::traits_type::eof()) { // verifica se está vazio antes de tentar ler
+            return;
         }
+
+        try {
+            nlohmann::json j;
+            i >> j;
+
+            scores.clear();
+
+            for(size_t k = 0; k < j.size(); k++) {
+                nlohmann::json& element = j[k];
+
+                std::string name = element["name"];
+                int score = element["score"];
+
+                scores.push_back({name, score});
+            }
+        }
+        catch(const nlohmann::json::parse_error& e) {
+            std::cerr << "ERROR: Failed to read ranking.json" << e.what() << std::endl;
+        }
+
         i.close();
     }
 }

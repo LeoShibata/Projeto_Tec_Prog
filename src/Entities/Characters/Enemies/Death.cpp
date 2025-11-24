@@ -18,7 +18,8 @@ void Death::initialize(){
 
 Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) : 
     Enemies(position, size, maldade),
-    soul(0.7f)
+    shootCooldown(3.f),
+    regenCooldown(2.f) // regen vida a cada 2s
 {   
     health = 1000;
     initialize();
@@ -34,8 +35,11 @@ Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) 
 
     damageAnimationDuration = 0.2f; // duração da animação hurt
     dieAnimationDuration = 2.7f; // duração da animação die
+
     damageTimer.restart();
     attackTimer.restart();
+    shootTimer.restart();
+    regenTimer.restart();
     
     isAttacking = false;
     attackCooldown = 2.f; // tempo de espera entre os ataques
@@ -43,6 +47,7 @@ Death::Death(const sf::Vector2f position, const sf::Vector2f size, int maldade) 
     attackRangeSq = 60.f * 60.f ; // distancia que começa a atacar
     
     hasAppliedDamage = false;
+
    
     if (rand() % 2 == 0) {
         startMovingLeft(); 
@@ -64,6 +69,21 @@ void Death::attack() {
     attackTimer.restart();
     stopMoving();
     hasAppliedDamage = false;
+}
+
+
+void Death::regenerate() {
+    if(!isAlive || isDying) {
+        return;
+    }
+    
+    if(health < 1000 && regenTimer.getElapsedTime().asSeconds() > regenCooldown) {
+        health += 5;
+        if(health > 1000) {
+            health = 1000;
+        }
+        regenTimer.restart();
+    }
 }
 
 
@@ -109,6 +129,7 @@ void Death::performMovement(Player* pTarget, float distance_to_player_sq) {
             shoot();
             startMovingRight();
         } else if(direction_x < -dead_zone) {
+            shoot();
             startMovingLeft();
         } else {
             stopMoving();
@@ -144,11 +165,14 @@ void Death::move() {
 
 
 void Death::shoot() {
-    float speed = 200;
-    if(isMovingLeft) {
-        speed *= -1;
+    if(pStage && shootTimer.getElapsedTime().asSeconds() > shootCooldown) {
+        float speed = 200;
+        if(isMovingLeft) {
+            speed *= -1;
+        }
+        pStage->createProjectile(sf::Vector2f(20, 5), 20, speed, 600, body.getPosition(), getTypeId(), false);
+        shootTimer.restart();
     }
-    pStage->createProjectile(sf::Vector2f(10,10), 10, speed, 600, body.getPosition(), getTypeId(), false);
 }
 
 
@@ -170,6 +194,7 @@ void Death::setStage(Stages::Stage* pStage){
 
 void Death::execute() { 
     update();
+    regenerate();
     checkPlayerAttack();
     updateAnimation();
     if(!isDying) {

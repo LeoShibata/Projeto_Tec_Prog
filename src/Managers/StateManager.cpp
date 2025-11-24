@@ -7,17 +7,16 @@
 #include "States/StatePlaying.hpp"
 #include "States/StatePause.hpp"
 #include "States/GameOverState.hpp"
+#include "States/StateRanking.hpp"
 
 using namespace std;
 
 namespace Managers {
 
-StateManager* StateManager::pStateManager=nullptr;
+StateManager* StateManager::pStateManager = nullptr;
 
 
-StateManager::StateManager() {
-
-}
+StateManager::StateManager() { }
 
 
 StateManager::~StateManager() {
@@ -40,22 +39,19 @@ StateManager* StateManager::getStateManager() {
 void StateManager::execute() {
     if(!(stateStack.empty())){
         stateStack.top()->execute();
-    }else{
-        cout << "Stack is alraedy empty. EXECUTE" << endl;
     }
 }
 
 
 States::State* StateManager::getAtualState() {
-    if(!(stateStack.empty()))
+    if(!(stateStack.empty())) {
         return stateStack.top();
-    cout << "stack is already empty. GET ATUAL STATE" << endl;
+    }
     return nullptr;
 }
 
 
 void StateManager::addState(const int idStateType) {
-    std::cout << "[DEBUG] Adicionando Estado ID: " << idStateType << std::endl;
     States::State* newState = nullptr;
     switch(idStateType) {
         case 0:
@@ -79,20 +75,13 @@ void StateManager::addState(const int idStateType) {
         case 6: 
             newState = new States::GameOverState();
             break;
+        case 7:
+            newState = new States::StateRanking(); 
+            break;
         
         default:
             break;  
     }
-
-    // if(idStateType == 1 || idStateType == 2){
-    //     newState = static_cast<States::State*>(new States::StatePlaying(idStateType));
-    // }else if (idStateType == 3){
-    //     newState = static_cast<States::State*>(new States::StateMenu());
-    // }else if (idStateType == 4){
-    //     newState = static_cast<States::State*>(new States::StatePause());
-    // }
-    
-    // cout <<" added state: STATEMANAGER" << endl;
 
     if(newState) {
         stateStack.push(newState);
@@ -104,8 +93,8 @@ void StateManager::removeState(const int qtd) {
     int i = 0;
     while(!stateStack.empty() && (i < qtd)){
         States::State* auxState = stateStack.top();
-        if(auxState != nullptr){
-            delete (auxState);
+        if(auxState != nullptr) {
+            delete(auxState);
             auxState = nullptr;
         }
         stateStack.pop();
@@ -120,7 +109,6 @@ void StateManager::removeState(const int qtd) {
 
 
 void StateManager::removeState() {
-    std::cout << "[DEBUG] Removendo Estado do topo." << std::endl;
     if((!stateStack.empty() && stateStack.top() != nullptr)) {
         delete(stateStack.top());
         stateStack.top() = nullptr;
@@ -134,20 +122,20 @@ void StateManager::removeState() {
 
 
 States::State* StateManager::getSpecificState(const int idRemove) {
-    stack<States::State*> auxStateStack = stateStack; 
+    // stack<States::State*> auxStateStack = stateStack; 
     
-    int i = 0;
-    if(!(auxStateStack.empty())){
-        while(i < idRemove){
-            stateStack.pop();
-            i++;
-        }
-        if(!(auxStateStack.empty()))
-            return auxStateStack.top();
-        cout << "deleted too much states" << endl;
-    }else{
-        cout << "stateStack is empty. GET SPECIFIC STATE" << endl;
-    }
+    // int i = 0;
+    // if(!(auxStateStack.empty())){
+    //     while(i < idRemove){
+    //         stateStack.pop();
+    //         i++;
+    //     }
+    //     if(!(auxStateStack.empty()))
+    //         return auxStateStack.top();
+    //     cout << "deleted too much states" << endl;
+    // }else{
+    //     cout << "stateStack is empty. GET SPECIFIC STATE" << endl;
+    // }
 
     return nullptr;
 }
