@@ -14,7 +14,6 @@
 #include <iostream>
 #include <set>
 
-using namespace std;
 namespace Managers {
     class CollisionManager {
         //inspired by ASCENT https://github.com/0x4D4453/ASCENT/blob/main/include/Manager/Collision/CollisionManager.h
@@ -29,10 +28,10 @@ namespace Managers {
         };
 
         private:
-            vector<Entities::Characters::Enemies*> lIs;
-            list<Entities::Obstacles::Obstacle*> lOs;
-            list<Entities::Floor*> lFs;
-            set<Entities::Projectile*> lPs;
+            std::vector<Entities::Characters::Enemies*> lIs;
+            std::list<Entities::Obstacles::Obstacle*> lOs;
+            std::list<Entities::Floor*> lFs;
+            std::set<Entities::Projectile*> lPs;
             Entities::Characters::Player* pPlayer1;
             Entities::Characters::Player* pPlayer2;
 

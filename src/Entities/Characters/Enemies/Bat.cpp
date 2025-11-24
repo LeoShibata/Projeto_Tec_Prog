@@ -163,4 +163,14 @@ void Bat::collision(Entities::Entity* other, float ds, int collisionType) {
 }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Bat::save() {
+    nlohmann::json j = saveCharacterState();
+    j["type"] = "bat";
+    return j;
+}
+
+// -------------------------------------------------------
+
 }

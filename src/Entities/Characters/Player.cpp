@@ -5,8 +5,7 @@
 using namespace std;
 
 namespace Entities::Characters {
-
-
+    
 void Player::initialize() { 
     if(playerID == 1) {
         animation.addAnimation("../assets/player/player1/walking.png", "WALKING", 24, 0.05f, sf::Vector2f(3, 4));
@@ -14,7 +13,7 @@ void Player::initialize() {
         animation.addAnimation("../assets/player/player1/jump.png", "JUMP", 19, 0.05f, sf::Vector2f(3, 4));
         animation.addAnimation("../assets/player/player1/hurt2.png", "HURT", 7, 0.05f, sf::Vector2f(3, 4));
         animation.addAnimation("../assets/player/player1/attack.png", "ATTACK", 26, 0.05f, sf::Vector2f(3, 4));
-        animation.addAnimation("../assets/player/player1/bowAttack.png", "SHOT", 9, 0.07f, sf::Vector2f(3, 4));
+        animation.addAnimation("../assets/player/player1/bowAttack.png", "SHOOT", 9, 0.05f, sf::Vector2f(8, 6), 3, 3);
         body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y + 5)/2.5f));
     } else {
         // body.setFillColor(sf::Color::Red);
@@ -23,6 +22,7 @@ void Player::initialize() {
         animation.addAnimation("../assets/player/player2/Jump.png", "JUMP", 2, 0.15f, sf::Vector2f(7, 5));
         animation.addAnimation("../assets/player/player2/Take Hit - white silhouette.png", "HURT", 4, 0.08f, sf::Vector2f(7, 5));
         animation.addAnimation("../assets/player/player2/Attack1.png", "ATTACK", 4, 0.1f, sf::Vector2f(7, 5));
+        animation.addAnimation("../assets/player/player2/Death.png", "DEATH", 6, 0.15f, sf::Vector2f(7, 5));
         body.setOrigin(sf::Vector2f(getSize().x/2.5f, (getSize().y + 25)/2.5f));
     }
 }
@@ -30,19 +30,23 @@ void Player::initialize() {
 
 Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerID) :
     Character(position, size, 100.f), playerID(playerID), jumpSpeed(450.f),
-    pStage(nullptr), isShooting(false), shootingCooldown(0.63f),
-    isSlowed(false), slowDuration(0.f)  
+    pStage(nullptr), isShooting(false), shootingCooldown(0.45f),
+    isSlowed(false), slowDuration(0.f) 
 {    
     initialize();
     typeId = IDs::player;
     health = 600;
     speed_mod = 250.f;
+    currentDamageMultiplier = 1.f;
+    isTakingDamage = false;
 
     attackDuration = 0.3f;
     attackCooldown = 0.f;
 
-    damageCooldown = 0.2f;
+    damageCooldown = 1.f;
     damageAnimationDuration = 0.2f;
+
+    score = 0;
 }
 
 
@@ -54,6 +58,11 @@ void Player::jump() {
         velocity.y = -jumpSpeed;
         onGround = false;
     }
+}
+
+
+void Player::setDamageMultiplier(float mult) {
+    currentDamageMultiplier = mult;
 }
 
 
@@ -87,13 +96,16 @@ void Player::shoot() {
     }
     
     if(shootingTimer.getElapsedTime().asSeconds() > shootingCooldown) {
-        float speed = 850;
+        float speed = 950;
         shootingTimer.restart();
         
         if(isMovingLeft) {
             speed *= -1;
         }
-        pStage->createProjectile(sf::Vector2f (10,10), 10, speed, 400, body.getPosition(), getTypeId(), true);
+
+        int finalDamage = static_cast<int>(100 * currentDamageMultiplier);
+        pStage->createProjectile(sf::Vector2f(10, 10), finalDamage, speed, 400, body.getPosition(), getTypeId(), true);
+
         isShooting = true; //for animation
     }
 }
@@ -120,26 +132,67 @@ sf::FloatRect Player::getAttackHitbox() const { // ajustar todos valores conform
 
 
 void Player::updateAnimation() {
+    sf::Vector2f defaultOrigin;
+    if (playerID == 1) {
+        defaultOrigin = sf::Vector2f(getSize().x / 2.5f, (getSize().y + 5) / 2.5f);
+    } else {
+        defaultOrigin = sf::Vector2f(getSize().x / 2.5f, (getSize().y + 25) / 2.5f);
+    }
+
+    if(isDying) {
+        body.setOrigin(defaultOrigin);
+        //animation.update(isMovingLeft, "DEATH");  
+        return;
+    } 
+
     if(!isAlive) {
         return;
     }
-    
-    if(damageTimer.getElapsedTime().asSeconds() < damageAnimationDuration) {
-        animation.update(isMovingLeft, "HURT");
-    } else if(isAttacking) {
-        animation.update(isMovingLeft, "ATTACK");  
-    } else if(!onGround) {
-        animation.update(isMovingLeft, "JUMP");
-    } else if(isMoving) {
-        animation.update(isMovingLeft, "WALKING");
-    } else if(isShooting){
+
+    if(isShooting) {
         if(playerID == 1) {
-        velocity.x = 0;
-        animation.update(!(isMovingLeft), "SHOT");
-    }
+            velocity.x = 0;
+            animation.update(isMovingLeft, "SHOOT");
+            body.setOrigin(defaultOrigin.x + 3.1f, defaultOrigin.y + 2.9f);
+        }
     } else {
-        animation.update(isMovingLeft, "IDLE");
+        body.setOrigin(defaultOrigin); // volta para a origem 
+        if(isTakingDamage) {
+            animation.update(isMovingLeft, "HURT");
+        } else if(isAttacking) {
+            animation.update(isMovingLeft, "ATTACK");  
+        } else if(!onGround) {
+            animation.update(isMovingLeft, "JUMP");
+        } else if(isMoving) {
+            animation.update(isMovingLeft, "WALKING");
+        } else {
+            animation.update(isMovingLeft, "IDLE");
+        }
     }
+}
+
+
+// ---------------- Métodos para Pontuação ----------------
+
+void Player::addScore(int points) {
+    score += points;
+    cout << "Score atual: " << score << endl;
+}
+
+
+int Player::getScore() const {
+    return score;
+}
+
+// --------------------------------------------------------
+
+
+void Player::takeDamage(int damage) {
+    if(!isAlive) {
+        return;
+    }
+    Character::takeDamage(damage);
+    isTakingDamage = true;
 }
 
 
@@ -151,6 +204,22 @@ void Player::move() {
 
 
 void Player::update() {
+    currentDamageMultiplier = 1.0f; // reseta o buff
+
+    if(isTakingDamage) {
+        if(damageTimer.getElapsedTime().asSeconds() > damageAnimationDuration) {
+            isTakingDamage = false;
+        }
+    }
+
+    if(isDying) {
+        velocity.x = 0.f;
+        if(dieTimer.getElapsedTime().asSeconds() > dieAnimationDuration) {
+            isAlive = false;
+        }   
+        return;
+    }
+
     if(!isAlive) {
         velocity.x = 0.f;
         return;
@@ -211,9 +280,10 @@ void Player::setStage(Stages::Stage* pStage){
 void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     switch(other->getTypeId()) {
         case(Entities::IDs::enemy) : {
-            takeDamage(1); // jogador toma esse dano ao tocar em inimigo
-            break;      
-        }
+            if (damageTimer.getElapsedTime().asSeconds() >= damageCooldown) {
+                takeDamage(1); 
+            }
+            break;        }
         case(Entities::IDs::floor) : {
             break;
         }
@@ -227,5 +297,18 @@ void Player::collision(Entities::Entity* other, float ds, int collisionType) {
     }
 }
 
+
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Player::save() {
+    nlohmann::json j = saveCharacterState();
+    j["type"] = "player";
+    j["playerId"] = playerID;
+    j["currentDamageMultiplier"] = currentDamageMultiplier;
+    j["score"] = score;
+    return j;
+}
+
+// -------------------------------------------------------
 
 }

@@ -1,10 +1,13 @@
 #include "Stages/Castle.hpp"
+#include "States/StatePlaying.hpp"
+
 
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Characters/Enemies/Bat.hpp"
 
 using json = nlohmann::json;
+using namespace std;
 
 namespace Stages {
 
@@ -23,6 +26,7 @@ Castle::Castle() :
         exit(1);
     }
 }
+
 
 Castle::~Castle() { }
 
@@ -100,7 +104,9 @@ void Castle::createMap() {
                     break;
                 }
                 case(2) : {
-                    createPlayer2(sf::Vector2(x_pos, y_pos));
+                    if(States::StatePlaying::playersCount == 2) {
+                        createPlayer2(sf::Vector2f(x_pos, y_pos));
+                    }
                     break;
                 }
                 case(4) : {
@@ -151,6 +157,5 @@ void Castle::createMap() {
         }
     }
 }
-
 
 }

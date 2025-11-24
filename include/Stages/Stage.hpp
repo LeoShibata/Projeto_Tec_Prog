@@ -11,17 +11,20 @@
 #include "List/EntityList.hpp"
 
 #include "Entities/Entity.hpp"
+#include "Entities/HealthBar.hpp"
 #include "Entities/Projectile.hpp"
+#include "Entities/Floor.hpp"
+
 #include "Entities/Characters/Enemies/Enemies.hpp"
 #include "Entities/Characters/Enemies/Bat.hpp"
 #include "Entities/Characters/Enemies/Skeleton.hpp"
 #include "Entities/Characters/Enemies/Death.hpp"
 
 #include "Entities/Obstacles/Obstacle.hpp"
-#include "Entities/Floor.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 #include "Entities/Obstacles/Spike.hpp"
 #include "Entities/Obstacles/MudHand.hpp"
+
 #include "utils/json.hpp"
 
 #include <cstdlib>
@@ -33,6 +36,7 @@
 #include <list>
 
 class Player;
+
 namespace Stages {
     class Stage : public Being {
         protected:
@@ -54,12 +58,20 @@ namespace Stages {
             List::EntityList* obstacleList;
             List::EntityList* projectileList;
             List::EntityList* structureList;
+
+            Entities::HealthBar* hpBar1;
+            Entities::HealthBar* hpBar2;
             
             const int max_bats;
             const int max_obstacles;
             static const int tileSize = 32;
 
-            
+            bool gameOver; // para garantir que gameOver seja chamado apenas uma vez
+
+        
+        private:
+            void clearEntity(); // auxiliar para limpar o mapa antes de carregar
+
         protected:
             void createPlayer1(sf::Vector2f pos);
             void createPlayer2(sf::Vector2f pos);
@@ -75,8 +87,14 @@ namespace Stages {
             void createProjectile(sf::Vector2f size, int ddamage, float speed, float maxrange, sf::Vector2f position, int whoShot, bool useGravity);
 
             void draw(sf::RenderWindow* window);
+
+            void saveGame();
+            void loadGame();
+
+            Entities::Characters::Player* getPlayer1();
+            Entities::Characters::Player* getPlayer2();
+
             void execute() override;
-            
     };
 }
 

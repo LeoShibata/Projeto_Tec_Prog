@@ -66,4 +66,14 @@ void Floor::execute() {
 }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Floor::save() {
+    nlohmann::json j = saveEntityState();
+    j["type"] = "floor";
+    return j;
+}
+
+// -------------------------------------------------------
+
 }

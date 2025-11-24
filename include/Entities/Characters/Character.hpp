@@ -9,7 +9,6 @@ namespace Entities::Characters {
         public: 
             bool isDying;
 
-
         protected:
             int health;
             bool isAlive;
@@ -31,6 +30,10 @@ namespace Entities::Characters {
             sf::Clock dieTimer;
             float dieAnimationDuration;
 
+
+        protected:
+            nlohmann::json saveCharacterState() const; // auxilia para salvar dados do personagem (vida, direção)
+
         public:
             Character(const sf::Vector2f position, const sf::Vector2f size, const float speed);
             virtual ~Character();
@@ -45,11 +48,14 @@ namespace Entities::Characters {
             int getHealth() const;
             bool getIsAlive() const;
             virtual void takeDamage(int damage);
+
+            void loadCharacterState(const nlohmann::json& j);
             
             void execute() override;
 
             virtual void move() = 0;
             virtual void update() = 0;
+            virtual nlohmann::json save() = 0;
     };
 }
 

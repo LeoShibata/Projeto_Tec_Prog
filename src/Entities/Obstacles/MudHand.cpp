@@ -11,8 +11,9 @@ void MudHand::initialize() {
 
 
 MudHand::MudHand(sf::Vector2f position, sf::Vector2f size) :
-    Obstacle(position, size, 0.f), animation(&body),
-    damageAmount(1), slowDuration(1.5f)
+    Obstacle(position, size, 0.f),
+    animation(&body), 
+    slowDuration(1.5f)
 {
     initialize();
     body.setFillColor(sf::Color(199, 145, 112)); // cor marrom
@@ -31,19 +32,26 @@ void MudHand::update() {
 
 
 void MudHand::handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) {
-    pPlayer->takeDamage(damageAmount);
     pPlayer->applySlow(slowDuration);
 }
 
 
-void MudHand::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) {
-    pEnemy->takeDamage(damageAmount);
-}
+void MudHand::handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) { }
 
 
 void MudHand::execute() {
     update();
 }
 
-    
+
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json MudHand::save() {
+    nlohmann::json j = saveEntityState();
+    j["type"] = "mudhand";
+    return j;
+}
+
+// -------------------------------------------------------
+
 }

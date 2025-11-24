@@ -96,23 +96,31 @@ void GraphicManager::closeWindow() {
 
 
 void GraphicManager::clearWindow() {
-    if(pPlayer1 && ! pPlayer2) {
-        view.setCenter(pPlayer1->getPos());
-    } else if (!pPlayer1 && pPlayer2) {
-        view.setCenter(pPlayer2->getPos());
-    } else if (pPlayer1 && pPlayer2) {
+    bool p1Alive = (pPlayer1 &&pPlayer1->getIsAlive());
+    bool p2Alive = (pPlayer2 && pPlayer2->getIsAlive());
+
+    if(p1Alive && p2Alive) {
         sf::Vector2f midPoint = (pPlayer1->getPos() + pPlayer2->getPos()) / 2.f;
         view.setCenter(midPoint);
-        // talvez adicionar mais coisas (zoom out)
+    } else if (p1Alive) {
+        view.setCenter(pPlayer1->getPos());
+    } else if (p2Alive) {
+        view.setCenter(pPlayer2->getPos());
     }
+
     window->setView(view);
     window->clear(sf::Color(100, 100, 100));
 }
 
 
 void GraphicManager::resetClock() {
-    time = clock.getElapsedTime().asSeconds(); //to get as second, time = clock.restart()
+    time = clock.getElapsedTime().asSeconds(); 
     clock.restart();
+    float max_frame_time = 0.1f;
+    
+    if (time > max_frame_time) {
+        time = max_frame_time;
+    }
 }
 
 

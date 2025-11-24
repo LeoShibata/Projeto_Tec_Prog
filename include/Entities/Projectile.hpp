@@ -12,13 +12,10 @@ class Projectile : public Entity{
     private:
         float maxrange;
         int damage;
-        //maybe a fancy math
         float maxtime;
         float distance;
-        bool isErasable; // CORRIGIR NOME
+        bool isErasable; 
         int whoShot;
-        //maybe add stage pointer
-        
         bool useGravity;
         
         
@@ -36,6 +33,8 @@ class Projectile : public Entity{
         //for now, the projectile will damage everything;
         void updateAnimation();
         void initialize();
+
+        nlohmann::json save() override;
 };
 
 }

@@ -5,18 +5,21 @@
 #include <iostream>
 namespace Entities::Obstacles {
     class Platform : public Obstacle {
-        // private:
-        //     float friction;
+        private:
+            float damageMultiplier;
 
 
         public:
             Platform(sf::Vector2f position, sf::Vector2f size);
             ~Platform();
 
+            const float getDamageMultiplier() const;
             void handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType);
             void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType);
 
-            void execute() override;    
+            void execute() override;   
+            
+            nlohmann::json save() override;
     };
 }
 

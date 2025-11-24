@@ -30,6 +30,8 @@ namespace Entities::Characters {
             float attackDamageEnd;   // Tempo para a hitbox desativar
             bool hasAppliedDamage;
 
+            bool pointsGiven; // para corrigir pontuação
+
 
         private:
             void initialize();
@@ -54,9 +56,10 @@ namespace Entities::Characters {
             virtual void checkPlayerAttack();
             
             virtual void update() override;
-            
+
             virtual void move() = 0;
             virtual void execute() = 0;
+            virtual nlohmann::json save() = 0;
         };
 }
 

@@ -29,8 +29,17 @@ void Animator::update(const bool isRight, std::string imageState) {
             imageMap[this->imageState]->reset(); //was image name in add Animation
         this->imageState = imageState;    
     }
-    float delayTime = clock.getElapsedTime().asSeconds();
-    clock.restart(); //timer that will be up behind the code
+    float delayTime = clock.getElapsedTime().asSeconds(); 
+    clock.restart();
+
+    // --- ADD THIS FIX ---
+    // If the time exceeds a safe threshold (e.g., 0.1 seconds), clamp it.
+    // This prevents physics from breaking after a pause or lag spike.
+    float max_frame_time = 0.1f;
+    
+    if (delayTime > max_frame_time) {
+        delayTime = max_frame_time;
+    }
     Image *image = imageMap[this->imageState]; //pass the image based on the state, to an aux var
     sf::Vector2f bodySize = body->getSize();
     sf::Vector2f scale = image->getScale(); //connection between image

@@ -5,11 +5,10 @@ using namespace std;
 
 namespace Entities::Obstacles {
 
-
 Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
-    Obstacle(position, size, 0.f)
+    Obstacle(position, size, 0.f), damageMultiplier(2.f)
 {
-    // typeId = IDs::platform;
+    typeId = IDs::platform;
     body.setFillColor(sf::Color::Transparent);
     onGround = true;
 }
@@ -18,11 +17,17 @@ Platform::Platform(sf::Vector2f position, sf::Vector2f size) :
 Platform::~Platform() { }
 
 
+const float Platform::getDamageMultiplier() const {
+    return damageMultiplier;
+}
+
+
 void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) {
     // Colisão horizontal (Parede)
     if(collisionType == 1) {
         // Lógica para descobrir se empurra para esquerda ou direita
         pPlayer->adjustPosition(sf::Vector2f(ds, 0.f));
+        
         // pPlayer->setVelocity(sf::Vector2f(0.f, pPlayer->getVelocity().y));
 
         if(pPlayer->getOnGround()) {
@@ -33,6 +38,7 @@ void Platform::handleCollision(Entities::Characters::Player* pPlayer, float ds, 
         // pousou no chão
         if(ds < 0) { 
             pPlayer->setOnGround(true);
+            pPlayer->setDamageMultiplier(this->damageMultiplier);
         }
         //cout <<ds << " colisao  obstaculo vertical" <<endl;
         pPlayer->adjustPosition(sf::Vector2f(0.f, ds));
@@ -67,5 +73,17 @@ void Platform::execute() {
 }
 
 
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Platform::save() {
+    nlohmann::json j = saveEntityState();
+    j["type"] = "platform";
+    j["width"] = getSize().x; 
+    j["height"] = getSize().y;
+    return j;
 }
+
+// -------------------------------------------------------
+
+} // namespace Entities 
 

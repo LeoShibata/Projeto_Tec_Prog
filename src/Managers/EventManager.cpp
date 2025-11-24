@@ -51,8 +51,8 @@ void EventManager::run() {
     {
         if(event.type == sf::Event::Closed)
             pGraphic->closeWindow();
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-            pGraphic->closeWindow();
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+        //     pGraphic->closeWindow();
 
         if(pPlayer1 != nullptr) {
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
@@ -73,19 +73,22 @@ void EventManager::run() {
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) { 
                 pPlayer2->attack();
             }            
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) { 
-                pPlayer2->shoot();
-            }
-        }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) { 
-                pState->addState(1);
-            }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) { 
-                pState->addState(2);
-            }
-        if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) { 
-                pState->removeState(1);
-            }
+            // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) { 
+            //     pPlayer2->shoot();
+            // }
+        }   
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) { 
+        //         pState->addState(1);
+        //     }
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) { 
+        //         pState->addState(2);
+        //     }
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) { 
+        //         pState->removeState(1);
+        //     }
+        // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) { 
+        //         pState->addState(3);
+        //     }
     }
 
     if(pPlayer1 != nullptr) {

@@ -1,8 +1,9 @@
 #include "Managers/CollisionManager.hpp"
 #include <Entities/Entity.hpp>
 
-namespace Managers {
+using namespace std;
 
+namespace Managers {
 
 CollisionManager::CollisionManager() : 
     pPlayer1(nullptr),
@@ -41,10 +42,14 @@ void CollisionManager::includeEntity(Entities::Entity* ent1) {
         case(Entities::IDs::obstacle) :
             lOs.push_back(static_cast<Entities::Obstacles::Obstacle*> (ent1));
             break;
+        case(Entities::IDs::platform) :
+            lOs.push_back(static_cast<Entities::Obstacles::Obstacle*> (ent1));
+            break;
         case(Entities::IDs::projectile) :
             lPs.insert(static_cast<Entities::Projectile*> (ent1));
             cout<<"added projectil" <<endl;
             break;
+
         default:
             break;
     }
@@ -73,9 +78,13 @@ void CollisionManager::removeEntity(Entities::Entity* ent1){
         case(Entities::IDs::obstacle) :
             lOs.erase(std::remove(lOs.begin(), lOs.end(), static_cast<Entities::Obstacles::Obstacle*> (ent1)), lOs.end());
             break;
+        case(Entities::IDs::platform) :
+            lOs.erase(std::remove(lOs.begin(), lOs.end(), static_cast<Entities::Obstacles::Obstacle*> (ent1)), lOs.end());
+            break;
         case(Entities::IDs::projectile) :
             lPs.erase(static_cast<Entities::Projectile*> (ent1));
             break;
+
         default:
             break;
     }
@@ -326,6 +335,5 @@ void CollisionManager::run() {
     verifyProjectEnemies();
     verifyProjectPlayers();
 }
-
 
 }

@@ -23,9 +23,10 @@ namespace Entities::Obstacles {
             
             void update() override;
             
-            virtual void execute() = 0;
             virtual void handleCollision(Entities::Characters::Player* pPlayer, float ds, int collisionType) = 0;
-            virtual void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) = 0; 
+            virtual void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) = 0;
+            virtual void execute() = 0;
+            virtual nlohmann::json save() = 0; 
     };
 }
 

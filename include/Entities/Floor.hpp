@@ -21,6 +21,8 @@ namespace Entities {
 
             void update() override;
             void execute() override;
+
+            nlohmann::json save() override;
     };
 }
 

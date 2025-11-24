@@ -1,7 +1,8 @@
 #include "Stages/Graveyard.hpp"
+#include "States/StatePlaying.hpp"
 
 using json = nlohmann::json;
-
+using namespace std;
 
 namespace Stages {
 
@@ -105,11 +106,13 @@ void Graveyard::createMap() {
             // factory logic
             switch(tileId) {
                 case(1) : {
-                    createPlayer1(sf::Vector2(x_pos, y_pos));
+                    createPlayer1(sf::Vector2f(x_pos, y_pos));
                     break;
                 }
                 case(2) : {
-                    createPlayer2(sf::Vector2(x_pos, y_pos));
+                    if(States::StatePlaying::playersCount == 2) {
+                        createPlayer2(sf::Vector2f(x_pos, y_pos));
+                    }
                     break;
                 }
                 case(3) : {
@@ -121,15 +124,15 @@ void Graveyard::createMap() {
                     break;
                 }
                 case(74) : {
-                    createPlatform(sf::Vector2(x_pos, y_pos));
+                    createPlatform(sf::Vector2f(x_pos, y_pos));
                     break;
                 }
                 case(75) : {
-                    createFloor(sf::Vector2(x_pos, y_pos));
+                    createFloor(sf::Vector2f(x_pos, y_pos));
                     break;
                 }
                 case(76) : {
-                    mudhand_positions.push_back(sf::Vector2(x_pos, y_pos));
+                    mudhand_positions.push_back(sf::Vector2f(x_pos, y_pos));
                     break;
                 }
 

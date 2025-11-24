@@ -11,8 +11,9 @@ namespace Entities::Characters {
     class Player : public Character {
         private:
             int playerID;
-            float jump_h; // verificar esse atributo
             float jumpSpeed;
+            float currentDamageMultiplier;
+            bool isTakingDamage;
             Stages::Stage* pStage;
             
             bool isShooting;
@@ -23,7 +24,9 @@ namespace Entities::Characters {
             float slowDuration;
             sf::Clock slowTimer;
 
-            
+            int score;
+
+
         private:
             void initialize();
 
@@ -32,18 +35,25 @@ namespace Entities::Characters {
             virtual ~Player();
             
             void jump();
+            void setDamageMultiplier(float mult);
             void applySlow(float duration);
             void attack();
             bool getIsAttacking() const;
             sf::FloatRect getAttackHitbox() const;
             void updateAnimation();
+            void collision(Entities::Entity* other, float ds, int collisionType);
+            void setStage(Stages::Stage* pStage);
+            void shoot();   
 
-            void shoot();
+            void addScore(int points);
+            int getScore() const;
+
+            void takeDamage(int damage) override;
             void move() override;
             void update() override;
             void execute() override;
-            void collision(Entities::Entity* other, float ds, int collisionType);
-            void setStage(Stages::Stage* pStage);
+
+            nlohmann::json save() override;
     };
 }
 

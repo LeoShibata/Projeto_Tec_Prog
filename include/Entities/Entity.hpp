@@ -2,6 +2,7 @@
 #define ENTITY_HPP
 
 #include "Being.hpp"
+#include "utils/json.hpp"
 
 namespace Entities {
     namespace IDs {
@@ -31,6 +32,7 @@ namespace Entities {
 
 
         protected:
+            nlohmann::json saveEntityState() const; // método auxiliar para salvar dados comuns de todas entidades(pos, vel, id)
             void setSpeedmod(float spd);
             
         public:
@@ -46,9 +48,12 @@ namespace Entities {
             bool getOnGround() const;
             virtual IDs::IDs getTypeId() const;
             virtual bool getIsAlive() const;
+
+            void loadEntityState(const nlohmann::json& j); // método para carregar estado básico
             
             virtual void update() = 0;
             virtual void collision(Entity* other, float over, int collisionType) = 0;
+            virtual nlohmann::json save() = 0;
     };
 }
 

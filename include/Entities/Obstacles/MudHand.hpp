@@ -8,11 +8,10 @@
 namespace Entities::Obstacles {
     class MudHand : public Obstacle {
         private:
-            Animation::Animator animation;
-            int damageAmount;
             float slowDuration;
+            Animation::Animator animation;
             sf::Texture texture;
-
+            
 
         private:
             void initialize();
@@ -27,6 +26,8 @@ namespace Entities::Obstacles {
             void handleCollision(Entities::Characters::Enemies* pEnemy, float ds, int collisionType) override;
 
             void execute() override;
+
+            nlohmann::json save() override;
     };
 }
 

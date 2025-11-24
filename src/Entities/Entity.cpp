@@ -31,6 +31,11 @@ void Entity::applyGravity() {
 void Entity::updateDt() {
     dt = clock.getElapsedTime().asSeconds();
     clock.restart();
+    
+    // limita dt para não quebrar a física
+    if(dt > 0.05f) { 
+        dt = 0.05f;
+    }
 }
 
 
@@ -72,6 +77,28 @@ IDs::IDs Entity::getTypeId() const {
 bool Entity::getIsAlive() const {
     return isAlive;
 }
+
+
+// ---------------- Métodos de Salvamento ----------------
+
+nlohmann::json Entity::saveEntityState() const {
+    nlohmann::json j;   
+    j["x"] = body.getPosition().x;
+    j["y"] = body.getPosition().y;
+    j["vel_x"] = velocity.x;
+    j["vel_y"] = velocity.y;
+    j["typeId"] = static_cast<int>(typeId);
+    return j;
+}
+
+void Entity::loadEntityState(const nlohmann::json& j) {
+    body.setPosition(j["x"], j["y"]);
+    velocity.x = j["vel_x"];
+    velocity.y = j["vel_y"];
+    // typeId definido no contrutor da classe filha
+}
+
+// -------------------------------------------------------
 
 
 }

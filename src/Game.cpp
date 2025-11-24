@@ -4,6 +4,7 @@
 
     
 using json = nlohmann::json;
+using namespace std;
 
 Game::Game() : 
     pGraphic(Managers::GraphicManager::getGraphicManager()),
@@ -18,7 +19,7 @@ Game::Game() :
     }
 
     cout <<" in game, created" << endl;
-    pState->addState(1);
+    pState->addState(0); // tela de menu
     
 
 }   
@@ -40,9 +41,12 @@ Game::~Game() {
 
 void Game::run() {
     while (pGraphic->isWindowOpen()) {
+        pGraphic->clearWindow(); 
+
         pEvent->run();
 
         pState->execute();
+
         /*if(castle) {
             castle->execute();
         }
@@ -57,6 +61,7 @@ void Game::run() {
         if(graveyard)
             graveyard->draw(pGraphic->getWindow());*/
         //pGraphic->clearWindow(); 
+
         pGraphic->showElements(); 
     }
 }   
