@@ -7,7 +7,11 @@ using namespace std;
 
 namespace States {
 
-StatePause::StatePause() {
+StatePause::StatePause() :
+    currentOption(0)
+{
+    pGraphic = Managers::GraphicManager::getGraphicManager();
+
     // fundo escuro semi-transparente
     std::cout << "[DEBUG] StatePause Criado" << std::endl;
 
