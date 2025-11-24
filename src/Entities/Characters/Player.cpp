@@ -184,6 +184,11 @@ int Player::getScore() const {
     return score;
 }
 
+
+void Player::operator++() {
+    this->addScore(100);
+}
+
 // --------------------------------------------------------
 
 

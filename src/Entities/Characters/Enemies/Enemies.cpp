@@ -90,10 +90,10 @@ void Enemies::update() {
     if(isDying) {
         if(!pointsGiven) { 
             if(pPlayer1) {
-                pPlayer1->addScore(100);
+                ++(*pPlayer1);
             }
             if(pPlayer2) {
-                pPlayer2->addScore(100);
+                ++(*pPlayer2);
             }
             pointsGiven = true;
         }

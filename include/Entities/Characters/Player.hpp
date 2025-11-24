@@ -48,6 +48,8 @@ namespace Entities::Characters {
             void addScore(int points);
             int getScore() const;
 
+            void operator++();
+
             void takeDamage(int damage) override;
             void move() override;
             void update() override;
