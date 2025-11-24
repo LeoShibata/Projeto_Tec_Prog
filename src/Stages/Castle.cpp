@@ -16,6 +16,7 @@ Castle::Castle() :
     max_skeletons(20),
     max_spikes(20)
 {
+    this->levelId = 2;
     try {
         srand(time(0));
         createMap();

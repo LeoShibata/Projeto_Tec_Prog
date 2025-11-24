@@ -12,6 +12,7 @@ Graveyard::Graveyard() :
     max_skeletons(20),
     max_mudhand(20)
 {
+    this->levelId = 1;
     try {
         srand(time(0));
         createMap();

@@ -87,13 +87,21 @@ void StateMenu::execute(){
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             if(currentOption == 0) { // NEW GAME
-                pStateManager->addState(4);   // vai para seleção de players (ID 4)
-            } else if(currentOption == 1) { // LOAD GAME
+                pStateManager->addState(4);   
+            } 
+            else if(currentOption == 1) { // LOAD GAME
+                // 1. Create StatePlaying (It defaults to Stage 1 internally)
                 pStateManager->addState(1); 
-                if(States::StatePlaying::pCurrentStage) {
-                    States::StatePlaying::pCurrentStage->loadGame();
-                }
-            } else if (currentOption == 2) { // LEADERBOARD
+                
+                // 2. Get the StatePlaying instance
+                // We cast the current state to StatePlaying to access 'loadStage'
+                States::StatePlaying* playingState = static_cast<States::StatePlaying*>(pStateManager->getAtualState());
+                
+                // 3. Tell it to check the file and swap maps if necessary
+                if(playingState) {
+                    playingState->loadStage(); 
+                }                
+            }else if (currentOption == 2) { // LEADERBOARD
                 pStateManager->addState(7); 
                 return;
             } else if (currentOption == 3) { // EXIT
@@ -101,15 +109,20 @@ void StateMenu::execute(){
                 return;
             }
             inputClock.restart();
-        }
+            
+    
+            
+            
+
 
         // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         //     pGraphic->closeWindow();
         // }
     }
+
+
+    }
 }
-
-
 void StateMenu::draw() { }
 
 }

@@ -214,7 +214,7 @@ void Stage::execute() {
 
 void Stage::saveGame() {
     nlohmann::json j;
-
+    j["levelId"] = this->levelId;
     if(pPlayer1) {
         j["entities"].push_back(pPlayer1->save());
     }

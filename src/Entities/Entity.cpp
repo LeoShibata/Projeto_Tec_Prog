@@ -18,12 +18,23 @@ Entity::~Entity() { }
 
 
 void Entity::applyGravity() {
-    if(!onGround) {
-        velocity.y += GRAVITY * dt;
-    } else {
-        if(velocity.y > 0) {
-            velocity.y = 0; // se está no chão, a vel zera (Peso x Normal)
+    if (!onGround) {
+        // CONSTANTS
+        const float DRAG_COEFFICIENT = 0.98f; 
+        const float TERMINAL_VELOCITY = 1000.0f;
+
+        velocity.y += GRAVITY * dt /1.35; //o 1.3 apenas aumenta o pulo
+
+        // 2. aproximação da EDO
+        
+        velocity.y *= std::pow(DRAG_COEFFICIENT, dt * 60.0f); 
+
+        // Limite da integral
+        if (velocity.y > TERMINAL_VELOCITY) {
+            velocity.y = TERMINAL_VELOCITY;
         }
+    } else {
+        if (velocity.y > 0) velocity.y = 0;
     }
 }
 

@@ -53,8 +53,45 @@ void StatePlaying::createStage() {
 }
 
 
-void StatePlaying::loadStage() { }
+void StatePlaying::loadStage() { 
+    std::ifstream file("savegame.json");
+    if (!file.is_open()) {
+        std::cout << "ERROR: Save file not found." << std::endl;
+        return;
+    }
 
+    nlohmann::json j;
+    file >> j;
+    file.close();
+
+    // 1. CHECK THE SAVED LEVEL ID
+    int savedLevel = 1; // Default
+    if(j.contains("levelId")) {
+        savedLevel = j["levelId"];
+    }
+
+    // 2. IF THE STAGE IS WRONG, SWITCH IT
+    // idStage is the variable in StatePlaying that determines the current stage
+    if (savedLevel != this->idStage) {
+        std::cout << "[DEBUG] Switching Stage from " << this->idStage << " to " << savedLevel << std::endl;
+        
+        // Remove the wrong stage (Graveyard) created by constructor
+        if (!stages.empty()) {
+            delete stages.front();
+            stages.pop();
+        }
+
+        // Update the ID and create the correct stage (Castle)
+        this->idStage = savedLevel;
+        createStage(); 
+    }
+
+    // 3. NOW LOAD THE ENTITIES (Enemies, Players)
+    // The map is now correct, so the entities will be placed on the correct floor.
+    if(pCurrentStage) {
+        pCurrentStage->loadGame();
+    }
+}
 
 void StatePlaying::execute() {
     if(stages.empty()) {

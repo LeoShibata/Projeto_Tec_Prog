@@ -90,7 +90,7 @@ namespace Stages {
 
             void saveGame();
             void loadGame();
-
+            int levelId;
             Entities::Characters::Player* getPlayer1();
             Entities::Characters::Player* getPlayer2();
 

@@ -104,7 +104,7 @@ void Player::shoot() {
         }
 
         int finalDamage = static_cast<int>(100 * currentDamageMultiplier);
-        pStage->createProjectile(sf::Vector2f(10, 10), finalDamage, speed, 400, body.getPosition(), getTypeId(), true);
+        pStage->createProjectile(sf::Vector2f(20, 20), finalDamage, speed, 400, body.getPosition(), getTypeId(), true);
 
         isShooting = true; //for animation
     }
