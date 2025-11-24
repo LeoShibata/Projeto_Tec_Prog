@@ -59,6 +59,7 @@ namespace Entities::Characters {
 
             virtual void move() = 0;
             virtual void execute() = 0;
+            virtual nlohmann::json save() = 0;
         };
 }
 
