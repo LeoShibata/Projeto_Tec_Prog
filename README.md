@@ -81,3 +81,16 @@ The project uses [nlohmann/json](https://github.com/nlohmann/json) for serializa
    cd build
    mingw32-make
    ./SFMLgame
+
+---
+
+## References
+
+### Academic & Concepts
+- **Course Material:** SIMÃO, J. M. *Site da Disciplina de Fundamentos de Programação 2*. Curitiba – PR, Brasil. Available at: [dainf.ct.utfpr.edu.br](http://www.dainf.ct.utfpr.edu.br/~jeansimao/Fundamentos2/Fundamentos2.htm).
+- **Design Patterns:** GAMMA, E.; HELM, R.; JOHNSON, R.; VLISSIDES, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Reading – MA, USA, 1994.
+- **Refactoring & Patterns:** SHVETS, A. *Refactoring.Guru*. Kyiv, Ukraine. Available at: [refactoring.guru](https://refactoring.guru/).
+
+### Assets & Tutorials
+- **Game Assets:** ITCH.IO. *Top game assets*. Available at: [itch.io/game-assets](https://itch.io/game-assets).
+- **Development Guide:** GEGE+. *Criando um jogo c++ do zero*. YouTube Playlist. Available at: [YouTube](https://www.youtube.com/playlist?list=PLR17O9xbTbIBBoL3lli44N8LdZVvg-_uZ).
