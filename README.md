@@ -11,11 +11,6 @@
 
 **Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be played in multiplayer, explore two stages (Graveyard and Castle), battle enemies, and overcome deadly obstacles.
 
-The project demonstrates advanced Object-Oriented Programming concepts, including:
-- **Design Patterns:** Singleton, State and Template Method.
-- **Data Structures:** Custom Template Linked List implementation.
-- **Persistence:** Save/Load system and Leaderboard using JSON.
-
 ---
 
 ## Features
@@ -30,7 +25,7 @@ The project demonstrates advanced Object-Oriented Programming concepts, includin
 - **Physics Engine:** Custom collision detection (AABB - Axis Aligned Bounding Box) and gravity simulation.
 - **Entities:**
   - **Enemies:** Skeletons (Patrol), Bats (Flying/Tracking), Death (Boss/Shooter).
-  - **Obstacles:** Mud Hands (Slow), Spikes (Damage), Platforms (increase bow damage).
+  - **Obstacles:** MudHands (Slow), Spikes (Damage), Platforms (increase bow damage).
 
 ---
 
