@@ -5,6 +5,8 @@
 ![Badge C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
 ![Badge SFML](https://img.shields.io/badge/SFML-2.6.2-green.svg?style=flat&logo=sfml)
 
+![Graveyard](assets/stages/Graveyard.png)
+
 ## About
 
 **Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be played in multiplayer, explore two stages (Graveyard and Castle), battle enemies, and overcome deadly obstacles.
