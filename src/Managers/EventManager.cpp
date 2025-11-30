@@ -3,7 +3,6 @@
 
 namespace Managers {
 
-
 EventManager* EventManager::pEvent = nullptr;
 
 
@@ -19,8 +18,9 @@ EventManager::~EventManager() { }
 
 
 EventManager* EventManager::getEventManager() {
-    if(pEvent == nullptr)
+    if(pEvent == nullptr) {
         pEvent = new EventManager();
+    }
     return pEvent;
 }
 
@@ -49,8 +49,10 @@ void EventManager::run() {
     sf::Event event;
     while(pGraphic->getWindow()->pollEvent(event))
     {
-        if(event.type == sf::Event::Closed)
+        if(event.type == sf::Event::Closed) {
             pGraphic->closeWindow();
+        }
+
         // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
         //     pGraphic->closeWindow();
 
@@ -73,10 +75,12 @@ void EventManager::run() {
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) { 
                 pPlayer2->attack();
             }            
+            
             // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) { 
             //     pPlayer2->shoot();
             // }
         }   
+    
         // if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) { 
         //         pState->addState(1);
         //     }
@@ -111,6 +115,5 @@ void EventManager::run() {
         }
     }
 }
-
 
 }

@@ -17,10 +17,12 @@
 namespace Managers {
     class CollisionManager {
         //inspired by ASCENT https://github.com/0x4D4453/ASCENT/blob/main/include/Manager/Collision/CollisionManager.h
+        
         enum class CollisionType {
             Vertical = 0, //basically boolean type variable, but with better names to code
             Horizontal
         };
+
         struct CollisionData {
             CollisionType type;
             float ds;

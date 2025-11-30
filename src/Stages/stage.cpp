@@ -211,10 +211,10 @@ void Stage::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 void Stage::saveGame() {
     nlohmann::json j;
     j["levelId"] = this->levelId;
+
     if(pPlayer1) {
         j["entities"].push_back(pPlayer1->save());
     }
@@ -225,9 +225,7 @@ void Stage::saveGame() {
     // salva inimigos e outros da characterList 
     for(int i = 0; i < characterList->getSize(); i++) {
         Entities::Entity* ent = (*characterList)[i];
-        
-        // evita salvar projéteis ou players novamente
-        if(ent->getTypeId() != Entities::IDs::player && ent->getTypeId() != Entities::IDs::projectile) {
+        if(ent->getTypeId() != Entities::IDs::player) {
             j["entities"].push_back(ent->save());
         }
     }
@@ -300,6 +298,16 @@ void Stage::loadGame() {
                         }
                     }
                 }
+            }
+            else if(type == "projectile") {
+                int dmg = element["damage"];
+                float spd = element["speed"];
+                float maxr = element["maxrange"];
+                int who = element["whoShot"];
+                bool grav = element["useGravity"];
+                float w = element["width"];
+                float h = element["height"];
+                createProjectile(sf::Vector2f(w, h), dmg, spd, maxr, sf::Vector2f(x, y), who, grav);    
             }
             else if(type == "skeleton") {
                 Entities::Characters::Skeleton* s = new Entities::Characters::Skeleton(sf::Vector2f(x, y), sf::Vector2f(tileSize, tileSize), 10);
@@ -380,7 +388,5 @@ void Stage::clearEntity() {
         }
     }
 }
-// -------------------------------------------------------
-
 
 }

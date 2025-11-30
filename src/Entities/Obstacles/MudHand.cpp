@@ -3,7 +3,6 @@
 
 namespace Entities::Obstacles {
 
-
 void MudHand::initialize() {
     animation.addAnimation("../assets/obstacles/mudhand/spr_enemy_mud_strip8.png", "IDLE", 8, 0.2f, sf::Vector2f(1, 1));
     body.setOrigin(sf::Vector2f(getSize().x/2.f, (getSize().y - 30)/2.f));
@@ -45,13 +44,10 @@ void MudHand::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json MudHand::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "mudhand";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

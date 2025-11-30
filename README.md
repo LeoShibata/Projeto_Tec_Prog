@@ -1,51 +1,82 @@
-# Programming Techniques Project
+# 🌑 Moonlight
 
-A 2D game project developed for the Programming Techniques course using C++ and SFML.
+> A Gothic 2D Platformer developed in C++ with SFML.
 
+![Badge C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
+![Badge SFML](https://img.shields.io/badge/SFML-2.6.2-green.svg?style=flat&logo=sfml)
+![Badge License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Requirements
+## About
+
+**Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be player in multiplayer, explore two stages (Graveyard an Castle), battle enemies, and overcome deadly obstacles.
+
+The project demonstrates advanced Object-Oriented Programming concepts, including:
+- **Design Patterns:** Singleton, State and Template Method.
+- **Data Structures:** Custom Template Linked List implementation.
+- **Persistence:** Save/Load system and Leaderboard using JSON.
+
+---
+
+## Features
+
+- **Two Game Modes:** Single-player or Local Co-op Multiplayer.
+- **Two Distinct Stages:**
+  - 🪦 **Graveyard:** Haunted by skeletons and floating bats.
+  - 🏰 **Castle:** Guarded by the boss "Death", deadly spikes and skeletons.
+- **Persistence System:**
+  - Save and Load your progress (Level, Health, Position, Score).
+  - Top 5 High Score Leaderboard.
+- **Physics Engine:** Custom collision detection (AABB - Axis Aligned Bounding Box) and gravity simulation.
+- **Entities:**
+  - **Enemies:** Skeletons (Patrol), Bats (Flying/Tracking), Death (Boss/Shooter).
+  - **Obstacles:** Mud Hands (Slow), Spikes (Damage), Platforms (increase bow damage).
+
+---
+
+## Controls
+
+| Action | Player 1 | Player 2 | General |
+| :--- | :---: | :---: | :---: |
+| **Move Left** | `A` | `Left Arrow` | - |
+| **Move Right** | `D` | `Right Arrow` | - |
+| **Jump** | `W` | `Up Arrow` | - |
+| **Attack** | `Space` | `L` | - |
+| **Shoot Projectile**| `F` | - | - |
+| **Pause Game** | - | - | `P` or `ESC` |
+| **Menu Select** | `W` / `S` | - | `Enter` |
+
+---
+
+## Installation & Build
 
 ### Prerequisites
-**Before building, make sure you have installed:**
 
-- [CMake](https://cmake.org/download/) (version 3.20 or higher)
-- [MinGW-w64](https://www.mingw-w64.org/) or another CMake-compatible compiler
+Ensure you have the following installed:
+- [CMake](https://cmake.org/download/) (3.20+)
+- [MinGW-w64](https://www.mingw-w64.org/) (or another C++ compiler)
 - [SFML 2.6.2](https://www.sfml-dev.org/download.php)
 
-### SFML Setup
-After building, make sure the following **.dll** files are in the same folder as the executable:
+### Dependencies
+The project uses [nlohmann/json](https://github.com/nlohmann/json) for serialization (included in `include/utils`).
 
-- `sfml-graphics-2.dll`
-- `sfml-window-2.dll`
-- `sfml-system-2.dll`
+---
 
+### Compiling on Linux
 
-## Linux Compilation
-
-Go to the build directory and digit:
-
-```bash
-cmake ..
-make
-```
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/LeoShibata/Projeto_Tec_Prog.git](https://github.com/LeoShibata/Projeto_Tec_Prog.git)
+   cd build
+   make
+   ./SFMLgame
 
 
-## Compile on Windows
+### Compiling on Windows
 
-In the root of the project:
-
-```bash
-cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
-cmake --build build
-cd build
-./SFMLgame
-```
-
-Or:
-
-```bash
-cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
-cd build
-mingw32-make
-./SFMLgame
-```
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/LeoShibata/Projeto_Tec_Prog.git](https://github.com/LeoShibata/Projeto_Tec_Prog.git)
+   cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
+   cd build
+   mingw32-make
+   ./SFMLgame

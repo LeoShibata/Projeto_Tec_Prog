@@ -117,13 +117,10 @@ void Spike::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Spike::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "spike";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

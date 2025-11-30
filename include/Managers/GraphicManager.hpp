@@ -1,10 +1,11 @@
 #ifndef GRAPHICMANAGER_HPP
 #define GRAPHICMANAGER_HPP
 
+//#include "../Managers/StateManager.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
-//#include "../Managers/StateManager.hpp"
 
 namespace Entities::Characters {
     class Player; // para evitar include circular
@@ -42,7 +43,6 @@ namespace Managers {
             void clearWindow();
             void resetClock();
             const float getTime() const;
-            
     };
 }
 

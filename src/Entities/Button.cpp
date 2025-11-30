@@ -2,7 +2,6 @@
 
 namespace Entities {
 
-
 Button::Button(sf::Vector2f position, std::string info, const float textSize) :
     Entity(position, sf::Vector2f(0, 0), 0),
     selected(false)
@@ -44,14 +43,10 @@ void Button::collision(Entity* other, float over, int collisionType) { }
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Button::save() {
     nlohmann::json j;
     j["type"] = "button";
     return j; // apenas para satisfazer o compilador
 }
-
-// -------------------------------------------------------
-
 
 }

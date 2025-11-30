@@ -22,9 +22,7 @@ void State::resetView() { // reseta camera para menus (camera acompanha o person
 }
 
 
-void State::draw() {
-    
-}
+void State::draw() { }
 
 
 void State::setRemove(bool remove) {

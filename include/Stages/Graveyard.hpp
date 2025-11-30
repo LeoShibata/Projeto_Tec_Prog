@@ -12,6 +12,7 @@ namespace Stages {
             const int max_skeletons;
             const int max_mudhand;
 
+            
         protected:
             void createMap() override;
             void createMudHand(sf::Vector2f pos);

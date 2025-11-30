@@ -8,6 +8,7 @@ namespace List {
             Element<TE>* next;
             TE* element;
         
+            
         public:
             Element();
             ~Element();

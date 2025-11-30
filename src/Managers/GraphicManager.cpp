@@ -68,7 +68,7 @@ void GraphicManager::setPlayer2(Entities::Characters::Player* player) {
 sf::Texture GraphicManager::loadFileTexture(const char* pathtexture) {
     sf::Texture texture;
     if(!texture.loadFromFile(pathtexture)){
-        std::cout << "ERROR, didnt found texture path, graphickManager - " << pathtexture << std::endl;
+        std::cout << "ERROR: didnt found texture path - " << pathtexture << std::endl;
         exit(1); 
     }
     return texture;
@@ -96,7 +96,7 @@ void GraphicManager::closeWindow() {
 
 
 void GraphicManager::clearWindow() {
-    bool p1Alive = (pPlayer1 &&pPlayer1->getIsAlive());
+    bool p1Alive = (pPlayer1 && pPlayer1->getIsAlive());
     bool p2Alive = (pPlayer2 && pPlayer2->getIsAlive());
 
     if(p1Alive && p2Alive) {
@@ -127,6 +127,5 @@ void GraphicManager::resetClock() {
 const float GraphicManager::getTime() const {
     return time;
 }
-
 
 }

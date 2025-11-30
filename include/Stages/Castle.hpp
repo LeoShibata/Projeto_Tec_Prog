@@ -13,6 +13,7 @@ namespace Stages {
             const int max_skeletons;
             const int max_spikes;
 
+            
         protected:
             void createMap() override;
             void createSpike(sf::Vector2f pos);

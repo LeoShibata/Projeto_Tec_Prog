@@ -15,6 +15,7 @@ namespace Managers {
             Entities::Characters::Player* pPlayer2;
             static EventManager* pEvent;
         
+            
         private:
             EventManager();
 
@@ -26,7 +27,7 @@ namespace Managers {
             void setPlayer2(Entities::Characters::Player* pPlayer);
             void handleKeyPressed(sf::Keyboard::Key key);
             void handleKeyReleased(sf::Keyboard::Key key);
-
+        
             void run();
     };
 }

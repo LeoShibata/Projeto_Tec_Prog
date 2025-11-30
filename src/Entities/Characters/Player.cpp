@@ -29,7 +29,7 @@ void Player::initialize() {
 
 
 Player::Player(const sf::Vector2f position, const sf::Vector2f size, int playerID) :
-    Character(position, size, 100.f), playerID(playerID), jumpSpeed(450.f),
+    Character(position, size, 100.f), playerID(playerID), jumpSpeed(500.f),
     pStage(nullptr), isShooting(false), shootingCooldown(0.45f),
     isSlowed(false), slowDuration(0.f) 
 {    

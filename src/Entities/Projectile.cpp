@@ -91,7 +91,6 @@ void Projectile::collision(Entity* other, float over, int collisionType) {
     //since it should be a boss thing, to damage player,
     //but we want to make the player shoot also, so, need more work
     
-    
     damageEntity(other);
     cout<<"collided projectil" <<endl;
 
@@ -130,13 +129,18 @@ void Projectile::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Projectile::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "projectile";
+    j["damage"] = damage;
+    j["speed"] = velocity.x;
+    j["maxrange"] = maxrange;
+    j["whoShot"] = whoShot;
+    j["useGravity"] = useGravity;
+    j["width"] = getSize().x;
+    j["height"] = getSize().y;
+    
     return j;
 }
-
-// -------------------------------------------------------
 
 } // namespace Entities 

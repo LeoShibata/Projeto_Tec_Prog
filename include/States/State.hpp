@@ -39,6 +39,7 @@ namespace States {
         public:
             State(); //ID system, 
             virtual ~State();
+            
             virtual void draw();
             void setRemove(const bool remove);
             const bool getRemove() const;

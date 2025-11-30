@@ -66,6 +66,7 @@ void PlayerSelectState::execute() {
             buttons[currentOption]->select(true);
             inputClock.restart();
         }
+        
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             buttons[currentOption]->select(false);
             currentOption++;
@@ -75,6 +76,7 @@ void PlayerSelectState::execute() {
             buttons[currentOption]->select(true);
             inputClock.restart();
         }
+
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             if(currentOption == 0) {
                 StatePlaying::playersCount = 1;
@@ -85,6 +87,7 @@ void PlayerSelectState::execute() {
             pStateManager->removeState(); // para botao voltar    
             pStateManager->addState(5); // vai para seleção de fase
         }
+
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             pStateManager->removeState();
             inputClock.restart();

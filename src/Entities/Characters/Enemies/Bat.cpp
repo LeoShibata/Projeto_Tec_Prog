@@ -18,7 +18,7 @@ void Bat::initialize() {
 
 Bat::Bat(const sf::Vector2f position, const sf::Vector2f size, int maldade) :    
     Enemies(position, size, maldade),
-    soul(0.25f)
+    soul(0.05f)
 {
     initialize();
     health = 200;

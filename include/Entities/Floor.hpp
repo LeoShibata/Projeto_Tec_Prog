@@ -13,6 +13,7 @@ namespace Entities {
         private:
             sf::Texture texture;
 
+            
         public:
             Floor(sf::Vector2f position, sf::Vector2f size);
             ~Floor();
