@@ -5,7 +5,7 @@
 ![Badge C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
 ![Badge SFML](https://img.shields.io/badge/SFML-2.6.2-green.svg?style=flat&logo=sfml)
 
-![Graveyard](assets/stages/Graveyard.png)
+![Graveyard](assets/Graveyard.png)
 
 ## About
 
