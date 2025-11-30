@@ -1,14 +1,13 @@
-# 🌑 Moonlight
+# Moonlight
 
 > A Gothic 2D Platformer developed in C++ with SFML.
 
 ![Badge C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
 ![Badge SFML](https://img.shields.io/badge/SFML-2.6.2-green.svg?style=flat&logo=sfml)
-![Badge License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## About
 
-**Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be player in multiplayer, explore two stages (Graveyard an Castle), battle enemies, and overcome deadly obstacles.
+**Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be played in multiplayer, explore two stages (Graveyard and Castle), battle enemies, and overcome deadly obstacles.
 
 The project demonstrates advanced Object-Oriented Programming concepts, including:
 - **Design Patterns:** Singleton, State and Template Method.
@@ -21,8 +20,8 @@ The project demonstrates advanced Object-Oriented Programming concepts, includin
 
 - **Two Game Modes:** Single-player or Local Co-op Multiplayer.
 - **Two Distinct Stages:**
-  - 🪦 **Graveyard:** Haunted by skeletons and floating bats.
-  - 🏰 **Castle:** Guarded by the boss "Death", deadly spikes and skeletons.
+  - **Graveyard:** Haunted by skeletons and floating bats.
+  - **Castle:** Guarded by the boss "Death", deadly spikes and skeletons.
 - **Persistence System:**
   - Save and Load your progress (Level, Health, Position, Score).
   - Top 5 High Score Leaderboard.
