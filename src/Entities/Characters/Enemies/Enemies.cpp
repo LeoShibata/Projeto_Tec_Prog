@@ -5,7 +5,6 @@
 
 namespace Entities::Characters {
 
-
 Player* Enemies::pPlayer1 = nullptr;
 Player* Enemies::pPlayer2 = nullptr;
 

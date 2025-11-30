@@ -7,7 +7,6 @@ using namespace std;
 
 namespace Managers {
 
-
 GraphicManager* GraphicManager::pGraphic = nullptr;
 
 
@@ -127,6 +126,5 @@ void GraphicManager::resetClock() {
 const float GraphicManager::getTime() const {
     return time;
 }
-
 
 }

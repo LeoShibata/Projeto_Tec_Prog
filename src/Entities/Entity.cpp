@@ -4,7 +4,6 @@ const float Entities::Entity::GRAVITY = 981.f;
 
 namespace Entities {
 
-
 Entity::Entity(sf::Vector2f position, sf::Vector2f size, float speed) :
     Being(size), speed_mod(speed), isAlive(true), 
     onGround(false), dt(0.f)
@@ -25,7 +24,7 @@ void Entity::applyGravity() {
 
         velocity.y += GRAVITY * dt /1.35; //o 1.3 apenas aumenta o pulo
 
-        // 2. aproximação da EDO
+        // aproximação da EDO
         
         velocity.y *= std::pow(DRAG_COEFFICIENT, dt * 60.0f); 
 
@@ -91,7 +90,6 @@ bool Entity::getIsAlive() const {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Entity::saveEntityState() const {
     nlohmann::json j;   
     j["x"] = body.getPosition().x;
@@ -108,8 +106,5 @@ void Entity::loadEntityState(const nlohmann::json& j) {
     velocity.y = j["vel_y"];
     // typeId definido no contrutor da classe filha
 }
-
-// -------------------------------------------------------
-
 
 }

@@ -19,6 +19,7 @@ class Game {
         Stages::Graveyard* graveyard;
         Stages::Castle* castle; 
 
+        
     public:
         Game();
         ~Game();

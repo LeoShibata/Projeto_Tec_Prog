@@ -74,7 +74,6 @@ void Platform::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Platform::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "platform";
@@ -82,8 +81,6 @@ nlohmann::json Platform::save() {
     j["height"] = getSize().y;
     return j;
 }
-
-// -------------------------------------------------------
 
 } // namespace Entities 
 

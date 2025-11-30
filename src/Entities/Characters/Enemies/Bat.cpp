@@ -5,7 +5,6 @@
 #include <cmath>
 
 namespace Entities::Characters {
-
     
 void Bat::initialize() {
     animation.addAnimation("../assets/enemies/Bat_without_VFX/Bat-IdleFly.png", "IDLEFLY", 9, 0.15f, sf::Vector2f(3, 2));
@@ -164,13 +163,10 @@ void Bat::collision(Entities::Entity* other, float ds, int collisionType) {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Bat::save() {
     nlohmann::json j = saveCharacterState();
     j["type"] = "bat";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

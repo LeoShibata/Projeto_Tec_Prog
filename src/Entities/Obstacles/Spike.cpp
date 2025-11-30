@@ -3,7 +3,6 @@
 
 namespace Entities::Obstacles {
 
-
 void Spike::initialize() {
     animation.addAnimation("../assets/obstacles/spikes/hidden.png", "HIDDEN", 1, 0.5f, sf::Vector2f(1, 1), 1, 4);
     animation.addAnimation("../assets/obstacles/spikes/active.png", "ACTIVE", 1, 0.5f, sf::Vector2f(1, 1), 1, 4);
@@ -117,13 +116,10 @@ void Spike::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Spike::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "spike";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

@@ -86,6 +86,7 @@ void StatePlaying::loadStage() {
     }
 }
 
+
 void StatePlaying::execute() {
     if(stages.empty()) {
         return;

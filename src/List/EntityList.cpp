@@ -8,27 +8,34 @@ EntityList::EntityList() :
 
 }
 
+
 EntityList::~EntityList() { }
+
 
 void EntityList::addEntity(Entities::Entity* entity) {
     objEntityList.addElement(entity);
 }
 
+
 void EntityList::removeEntity(Entities::Entity* entity) {
     objEntityList.removeElement(entity);
 }
+
 
 void EntityList::removeEntity(int pos) {
     objEntityList.removeElement(pos);
 }
 
+
 int EntityList::getSize() {
     return objEntityList.getSize();
 }
 
+
 Entities::Entity* EntityList::operator[](int pos) {
     return objEntityList.operator[](pos);
 }
+
 
 void EntityList::executeAll() {
     int size = objEntityList.getSize();
@@ -38,6 +45,7 @@ void EntityList::executeAll() {
         aux->execute();
     }
 }
+
 
 void EntityList::drawAll(sf::RenderWindow* window) {
     int size = objEntityList.getSize();

@@ -2,7 +2,6 @@
 #define CASTLE_HPP  
 
 #include "Stages/Stage.hpp"
-
 #include "utils/json.hpp"
 
 #include <fstream>
@@ -12,6 +11,7 @@ namespace Stages {
         protected:
             const int max_skeletons;
             const int max_spikes;
+
 
         protected:
             void createMap() override;

@@ -211,7 +211,6 @@ void Stage::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 void Stage::saveGame() {
     nlohmann::json j;
     j["levelId"] = this->levelId;
@@ -380,7 +379,5 @@ void Stage::clearEntity() {
         }
     }
 }
-// -------------------------------------------------------
-
 
 }

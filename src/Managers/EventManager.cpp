@@ -3,7 +3,6 @@
 
 namespace Managers {
 
-
 EventManager* EventManager::pEvent = nullptr;
 
 
@@ -111,6 +110,5 @@ void EventManager::run() {
         }
     }
 }
-
 
 }

@@ -6,7 +6,6 @@
 
 namespace Entities::Characters {
 
-
 void Death::initialize(){
     pStage = nullptr;
     animation.addAnimation("../assets/enemies/Death/idle2.png", "IDLE", 8, 0.15f, sf::Vector2f(5, 5), 2, 4);
@@ -220,13 +219,10 @@ void Death::collision(Entities::Entity* other, float ds, int collisionType) {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Death::save() {
     nlohmann::json j = saveCharacterState();
     j["type"] = "death";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

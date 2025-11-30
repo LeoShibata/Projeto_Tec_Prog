@@ -4,10 +4,6 @@
 #include "Entities/Characters/Character.hpp"
 #include "SFML/System/Clock.hpp"
 
-/**
- * USADO TEMPLATE METHOD    
- */
-
 namespace Entities::Characters {
     class Player;
     class Enemies : public Character {

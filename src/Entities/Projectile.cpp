@@ -130,13 +130,10 @@ void Projectile::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Projectile::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "projectile";
     return j;
 }
-
-// -------------------------------------------------------
 
 } // namespace Entities 

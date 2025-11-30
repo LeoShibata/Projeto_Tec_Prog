@@ -20,9 +20,8 @@ Game::Game() :
 
     cout <<" in game, created" << endl;
     pState->addState(0); // tela de menu
-    
-
 }   
+
 
 Game::~Game() {
     if(graveyard) {

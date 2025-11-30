@@ -49,6 +49,7 @@ StateMenu::~StateMenu() {
     buttons.clear();
 }
 
+
 void StateMenu::execute(){
     resetView();
 
@@ -103,20 +104,15 @@ void StateMenu::execute(){
                 return;
             }
             inputClock.restart();
-            
-    
-            
-            
-
 
         // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         //     pGraphic->closeWindow();
         // }
-    }
-
-
+        }
     }
 }
+
+
 void StateMenu::draw() { }
 
 }

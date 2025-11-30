@@ -3,7 +3,6 @@
 
 namespace Entities::Obstacles {
 
-
 Characters::Player* Obstacle::pPlayer1 = nullptr;
 Characters::Player* Obstacle::pPlayer2 = nullptr;
 
@@ -55,6 +54,5 @@ void Obstacle::collision(Entity* other, float ds, int collisionType) {
             break;
     }
 }
-
 
 }
