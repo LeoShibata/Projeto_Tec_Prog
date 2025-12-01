@@ -24,6 +24,7 @@ namespace States {
             bool nameEntered;
             int finalScore;
 
+            
         public:
             GameOverState();
             ~GameOverState();

@@ -25,7 +25,7 @@ namespace States {
             
             void draw() override;
             void execute();
-        };
+    };
 }
 
 #endif

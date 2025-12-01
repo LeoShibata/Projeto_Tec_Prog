@@ -55,5 +55,4 @@ void Obstacle::collision(Entity* other, float ds, int collisionType) {
     }
 }
 
-
 }

@@ -49,6 +49,7 @@ StateMenu::~StateMenu() {
     buttons.clear();
 }
 
+
 void StateMenu::execute(){
     resetView();
 

@@ -2,7 +2,6 @@
 #define CASTLE_HPP  
 
 #include "Stages/Stage.hpp"
-
 #include "utils/json.hpp"
 
 #include <fstream>

@@ -4,7 +4,6 @@
 
 namespace Entities {
 
-
 Floor::Floor(sf::Vector2f position, sf::Vector2f size) :
     Entity(position, size, 0.f)
 {
@@ -67,7 +66,6 @@ void Floor::execute() {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Floor::save() {
     nlohmann::json j = saveEntityState();
     j["type"] = "floor";

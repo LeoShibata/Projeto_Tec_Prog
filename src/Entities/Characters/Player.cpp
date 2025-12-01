@@ -173,7 +173,6 @@ void Player::updateAnimation() {
 
 
 // ---------------- Métodos para Pontuação ----------------
-
 void Player::addScore(int points) {
     score += points;
     cout << "Score atual: " << score << endl;
@@ -188,7 +187,6 @@ int Player::getScore() const {
 void Player::operator++() {
     this->addScore(100);
 }
-
 // --------------------------------------------------------
 
 
@@ -304,7 +302,6 @@ void Player::collision(Entities::Entity* other, float ds, int collisionType) {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Player::save() {
     nlohmann::json j = saveCharacterState();
     j["type"] = "player";
@@ -313,7 +310,5 @@ nlohmann::json Player::save() {
     j["score"] = score;
     return j;
 }
-
-// -------------------------------------------------------
 
 }

@@ -6,7 +6,6 @@ using namespace std;
 
 namespace Stages {
 
-
 Graveyard::Graveyard() : 
     Stage(), 
     max_skeletons(20),
@@ -175,6 +174,5 @@ void Graveyard::createMap() {
         }
     }
 }
-
 
 }

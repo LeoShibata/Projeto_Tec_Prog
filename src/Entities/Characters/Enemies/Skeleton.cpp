@@ -192,13 +192,10 @@ void Skeleton::collision(Entities::Entity* other, float ds, int collisionType) {
 
 
 // ---------------- Métodos de Salvamento ----------------
-
 nlohmann::json Skeleton::save() {
     nlohmann::json j = saveCharacterState();
     j["type"] = "skeleton";
     return j;
 }
-
-// -------------------------------------------------------
 
 }

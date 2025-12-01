@@ -14,6 +14,7 @@ class Being {
         const int id;
         static int cont;
 
+        
     public:
         Being(sf::Vector2f size);
         virtual ~Being();

@@ -7,7 +7,6 @@ using namespace std;
 
 namespace Managers {
 
-
 GraphicManager* GraphicManager::pGraphic = nullptr;
 
 
