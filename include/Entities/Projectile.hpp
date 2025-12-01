@@ -28,7 +28,7 @@ namespace Entities {
             virtual void update();
             virtual void execute();
 
-            void damageEntity(Entity* other);//use id system and maybe one more bool to make targets
+            void damageEntity(Entity* other); // use id system and maybe one more bool to make targets
             //for now, the projectile will damage everything;
             void updateAnimation();
             void initialize();

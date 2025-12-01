@@ -36,17 +36,30 @@ StateManager* StateManager::getStateManager() {
 }
 
 
-void StateManager::execute() {
-    if(!(stateStack.empty())){
-        stateStack.top()->execute();
-    }
-}
-
-
 States::State* StateManager::getAtualState() {
     if(!(stateStack.empty())) {
         return stateStack.top();
     }
+    return nullptr;
+}
+
+
+States::State* StateManager::getSpecificState(const int idRemove) {
+    // stack<States::State*> auxStateStack = stateStack; 
+    
+    // int i = 0;
+    // if(!(auxStateStack.empty())){
+    //     while(i < idRemove){
+    //         stateStack.pop();
+    //         i++;
+    //     }
+    //     if(!(auxStateStack.empty()))
+    //         return auxStateStack.top();
+    //     cout << "deleted too much states" << endl;
+    // }else{
+    //     cout << "stateStack is empty. GET SPECIFIC STATE" << endl;
+    // }
+
     return nullptr;
 }
 
@@ -121,23 +134,10 @@ void StateManager::removeState() {
 }
 
 
-States::State* StateManager::getSpecificState(const int idRemove) {
-    // stack<States::State*> auxStateStack = stateStack; 
-    
-    // int i = 0;
-    // if(!(auxStateStack.empty())){
-    //     while(i < idRemove){
-    //         stateStack.pop();
-    //         i++;
-    //     }
-    //     if(!(auxStateStack.empty()))
-    //         return auxStateStack.top();
-    //     cout << "deleted too much states" << endl;
-    // }else{
-    //     cout << "stateStack is empty. GET SPECIFIC STATE" << endl;
-    // }
-
-    return nullptr;
+void StateManager::execute() {
+    if(!(stateStack.empty())) {
+        stateStack.top()->execute();
+    }
 }
 
 }

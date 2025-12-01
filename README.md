@@ -1,51 +1,91 @@
-# Programming Techniques Project
+# Moonlight
 
-A 2D game project developed for the Programming Techniques course using C++ and SFML.
+> A Gothic 2D Platformer developed in C++ with SFML.
 
+![Badge C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
+![Badge SFML](https://img.shields.io/badge/SFML-2.6.2-green.svg?style=flat&logo=sfml)
 
-## Requirements
+![Graveyard](assets/Graveyard.png)
+
+## About
+
+**Moonlight** is a project for the Programming Techniques course for the purpose of learning software engineering techniques, particularly object-oriented programming in C++. It features a 2D platformer adventure where can be played in multiplayer, explore two stages (Graveyard and Castle), battle enemies, and overcome deadly obstacles.
+
+---
+
+## Features
+
+- **Two Game Modes:** Single-player or Local Co-op Multiplayer.
+- **Two Distinct Stages:**
+  - **Graveyard:** Haunted by skeletons and floating bats.
+  - **Castle:** Guarded by the boss "Death", deadly spikes and skeletons.
+- **Persistence System:**
+  - Save and Load your progress (Level, Health, Position, Score).
+  - Top 5 High Score Leaderboard.
+- **Physics Engine:** Custom collision detection (AABB - Axis Aligned Bounding Box) and gravity simulation.
+- **Entities:**
+  - **Enemies:** Skeletons (Patrol), Bats (Flying/Tracking), Death (Boss/Shooter).
+  - **Obstacles:** MudHands (Slow), Spikes (Damage), Platforms (increase bow damage).
+
+---
+
+## Controls
+
+| Action | Player 1 | Player 2 | General |
+| :--- | :---: | :---: | :---: |
+| **Move Left** | `A` | `Left Arrow` | - |
+| **Move Right** | `D` | `Right Arrow` | - |
+| **Jump** | `W` | `Up Arrow` | - |
+| **Attack** | `Space` | `L` | - |
+| **Shoot Projectile**| `F` | - | - |
+| **Pause Game** | - | - | `P` or `ESC` |
+| **Menu Select** | `W` / `S` | - | `Enter` |
+
+---
+
+## Installation & Build
 
 ### Prerequisites
-**Before building, make sure you have installed:**
 
-- [CMake](https://cmake.org/download/) (version 3.20 or higher)
-- [MinGW-w64](https://www.mingw-w64.org/) or another CMake-compatible compiler
+Ensure you have the following installed:
+- [CMake](https://cmake.org/download/) (3.20+)
+- [MinGW-w64](https://www.mingw-w64.org/) (or another C++ compiler)
 - [SFML 2.6.2](https://www.sfml-dev.org/download.php)
 
-### SFML Setup
-After building, make sure the following **.dll** files are in the same folder as the executable:
+### Dependencies
+The project uses [nlohmann/json](https://github.com/nlohmann/json) for serialization (included in `include/utils`).
 
-- `sfml-graphics-2.dll`
-- `sfml-window-2.dll`
-- `sfml-system-2.dll`
+---
 
+### Compiling on Linux
 
-## Linux Compilation
-
-Go to the build directory and digit:
-
-```bash
-cmake ..
-make
-```
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/LeoShibata/Projeto_Tec_Prog.git](https://github.com/LeoShibata/Projeto_Tec_Prog.git)
+   cd build
+   make
+   ./SFMLgame
 
 
-## Compile on Windows
+### Compiling on Windows
 
-In the root of the project:
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/LeoShibata/Projeto_Tec_Prog.git](https://github.com/LeoShibata/Projeto_Tec_Prog.git)
+   cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
+   cd build
+   mingw32-make
+   ./SFMLgame
 
-```bash
-cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
-cmake --build build
-cd build
-./SFMLgame
-```
+---
 
-Or:
+## References
 
-```bash
-cmake -G "MinGW Makefiles" -S . -B build -DSFML_DIR="C:/SFML-2.6.2/lib/cmake/SFML"
-cd build
-mingw32-make
-./SFMLgame
-```
+### Academic & Concepts
+- **Course Material:** SIMÃO, J. M. *Site da Disciplina de Fundamentos de Programação 2*. Curitiba – PR, Brasil. Available at: [dainf.ct.utfpr.edu.br](http://www.dainf.ct.utfpr.edu.br/~jeansimao/Fundamentos2/Fundamentos2.htm).
+- **Design Patterns:** GAMMA, E.; HELM, R.; JOHNSON, R.; VLISSIDES, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Reading – MA, USA, 1994.
+- **Refactoring & Patterns:** SHVETS, A. *Refactoring.Guru*. Kyiv, Ukraine. Available at: [refactoring.guru](https://refactoring.guru/).
+
+### Assets & Tutorials
+- **Game Assets:** ITCH.IO. *Top game assets*. Available at: [itch.io/game-assets](https://itch.io/game-assets).
+- **Development Guide:** GEGE+. *Criando um jogo c++ do zero*. YouTube Playlist. Available at: [YouTube](https://www.youtube.com/playlist?list=PLR17O9xbTbIBBoL3lli44N8LdZVvg-_uZ).

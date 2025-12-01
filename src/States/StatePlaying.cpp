@@ -79,6 +79,10 @@ void StatePlaying::loadStage() {
 
         this->idStage = savedLevel;
         createStage(); 
+
+        if (!stages.empty()) {
+            pCurrentStage = stages.front();
+        }
     }
 
     if(pCurrentStage) {

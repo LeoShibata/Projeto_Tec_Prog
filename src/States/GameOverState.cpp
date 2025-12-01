@@ -61,8 +61,7 @@ GameOverState::GameOverState() :
         }
         if(p2) {
             finalScore += p2->getScore();
-        }
-        
+        }  
         // std::cout << "Final Score retrieved: " << finalScore << std::endl;
     }
 }

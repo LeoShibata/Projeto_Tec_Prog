@@ -99,7 +99,7 @@ const CollisionManager::CollisionData CollisionManager::collisionDetection(Entit
     sf::Vector2f size2 = ent2->getSize();
 
     CollisionData cData;
-    sf::Vector2f distanceBetweenCenters(
+    sf::Vector2f distanceBetweenCenters (
         fabs((pos1.x + size1.x/2.f) - (pos2.x + size2.x/2.f)),
         fabs((pos1.y + size1.y/2.f) - (pos2.y + size2.y/2.f))
     );
@@ -108,22 +108,24 @@ const CollisionManager::CollisionData CollisionManager::collisionDetection(Entit
     float overX = distanceBetweenCenters.x - sumHalfRectangle.x;
     float overY = distanceBetweenCenters.y - sumHalfRectangle.y;
     
-    if( overX <0 && overY <0){
+    if(overX < 0 && overY < 0){
         cData.collided = true;
 
-    if(overX > overY){
-        if((pos2.x - pos1.x) > 0)
-            overX *= -1;
-        cData.ds = overX;
-        cData.type = CollisionType::Horizontal;
-    }else{
-        if((pos2.y - pos1.y) > 0)
-            overY *= -1;
-        cData.ds = overY;
-        cData.type = CollisionType::Vertical;
+        if(overX > overY){
+            if((pos2.x - pos1.x) > 0) {
+                overX *= -1;
+            }
+            cData.ds = overX;
+            cData.type = CollisionType::Horizontal;
+        } else {
+            if((pos2.y - pos1.y) > 0) {
+                overY *= -1;
+            }
+            cData.ds = overY;
+            cData.type = CollisionType::Vertical;
         }
-        
     }
+    
     return cData;   
 }
 

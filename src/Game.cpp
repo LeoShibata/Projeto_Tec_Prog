@@ -2,7 +2,6 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Obstacles/Platform.hpp"
 
-    
 using json = nlohmann::json;
 using namespace std;
 
@@ -37,6 +36,7 @@ Game::~Game() {
         pState = nullptr;
     }
 }
+
 
 void Game::run() {
     while (pGraphic->isWindowOpen()) {
